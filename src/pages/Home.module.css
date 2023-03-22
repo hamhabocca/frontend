@@ -1,0 +1,14 @@
+header {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.Logo {
+    width: 350px;
+    height: 110px;
+    position: absolute;
+    top: 80px;
+}
