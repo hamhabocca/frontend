@@ -33,22 +33,23 @@ function HomeSearchFilter() {
                         <option value={'경기'}>경기</option>
                         <option value={'서울'}>서울</option>
                     </select>
-                    <input type={'date'}/>
+                    <input type={'date'} />
                 </fieldset>
                 <fieldset className={style.DistanceAndPeople}>
-                <fieldset className={style.RallyDistance}>
-                    <label>최대 거리</label>
-                    <button className={style.MinusButton}>-</button>
-                    <label>{distance}km</label>
-                    <button className={style.PlusButton}>+</button>
+                    <fieldset className={style.RallyDistance}>
+                        <label>최대 거리</label>
+                        <button className={style.MinusButton}>-</button>
+                        <label>{distance}km</label>
+                        <button className={style.PlusButton}>+</button>
+                    </fieldset>
+                    <fieldset className={style.RallyPeople}>
+                        <label>최대 인원</label>
+                        <button className={style.MinusButton}>-</button>
+                        <label>{people}</label>
+                        <button className={style.PlusButton}>+</button>
+                    </fieldset>
                 </fieldset>
-                <fieldset className={style.RallyPeople}>
-                    <label>최대 인원</label>
-                    <button className={style.MinusButton}>-</button>
-                    <label>{people}</label>
-                    <button className={style.PlusButton}>+</button>
-                </fieldset>
-                </fieldset>
+                <input type={'submit'} value='랠리 검색' className={style.Submit}/>
             </form>
         </div>
     )

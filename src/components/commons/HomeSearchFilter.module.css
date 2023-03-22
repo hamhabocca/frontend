@@ -1,5 +1,7 @@
 .HomeSearchFilter {
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    background-color: white;
+    border-radius: 5px;
     width: 660px;
     height: 250px;
     position: absolute;
@@ -10,15 +12,21 @@
     align-items: center;
 }
 
-.RallyType {
-    border: 1px solid red;
-}
-
 form {
     width: 470px;
-    height: 140px;
+    /* height: 200px; */
+    height: fit-content;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px 0px;
+}
+
+.RallyType {
+    border: 1px solid red;
+    height: 40px;
+    width: 100%;
 }
 
 .QuestionButton {
@@ -32,7 +40,7 @@ form {
 }
 
 .RallyLocation {
-    width: 470px;
+    width: 100%;
     height: 35px;
     display: flex;
     justify-content: space-between;
@@ -42,6 +50,7 @@ form {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .RallyDistance, .RallyPeople {
@@ -54,12 +63,20 @@ form {
     font-size: 14px;
     width: 150px;
     height: 35px;
+    border: none;
+    background-color: #F5F5F5;
+    border-radius: 5px;
+    padding-left: 5px;
 }
 
 .RallyLocation input{
     padding: none;
     width: 150px;
-    height: 31px;
+    height: 35px;
+    border: none;
+    background-color: #F5F5F5;
+    border-radius: 5px;
+    padding-left: 5px;
 }
 
 .MinusButton, .PlusButton {
@@ -70,4 +87,15 @@ form {
     height: 35px;
     border: none;
     border-radius: 50%;
+}
+
+.Submit {
+    width: 225px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    background-color: white;
+    border: 1.5px solid black;
+    border-radius: 5px;
 }
