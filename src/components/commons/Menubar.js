@@ -10,19 +10,19 @@ function Menubar() {
                     <img src = "./img/Logo.png"></img>
                 </div>
                 <div className={MenuStyle.subcontent}>
-                    <li style={{fontSize: 'x-large', fontWeight:"bold", width : '150px',  height: '100px', backgroundColor : '#056DFA', color : 'white', border : "none"}}>랠리모집</li>
+                    <li>랠리모집</li>
                 </div>
                 <div className={MenuStyle.subcontent}>
-                <li style={{fontSize: 'x-large', fontWeight:"bold", width : '150px', height: '100px', backgroundColor : '#056DFA', color : 'white', border : "none"}}>랠리후기</li>
+                <li>랠리후기</li>
                 </div>
                 <div className={MenuStyle.subcontent}>
-                <li style={{fontSize: 'x-large', fontWeight:"bold",  height: '100px', width : '150px', backgroundColor : '#056DFA', color : 'white', border : "none"}}>공지</li>
+                <li>공지</li>
                 </div>
                 <div className={MenuStyle.subcontent}> 
-                <li style={{fontSize: 'x-large', fontWeight:"bold",  height: '100px',width : '150px', backgroundColor : '#056DFA', color : 'white', border : "none"}}>건의</li>
+                <li>건의</li>
                 </div>
                 <div className={MenuStyle.subcontent}> 
-                <li style={{fontSize: 'x-large', fontWeight:"bold",  height: '100px', width : '150px', backgroundColor : '#056DFA', color : 'white', border : "none"}}>마이페이지</li>
+                <li>마이페이지</li>
                 </div>
             </div>
         </div>
