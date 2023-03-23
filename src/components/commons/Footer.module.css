@@ -5,12 +5,7 @@
     height : 140px;
     bottom: 0px;
     position: absolute;
-    background-color: rgb(159, 224, 115)
-}
-
-.container div {
-    border: 1px dotted red;
-    
+    background-color: #056DFA
 }
 
 .contents {
@@ -24,6 +19,9 @@
 }
 
 .href ul{
+    font-size: 15px;
+    margin-top: 15px;
+    margin-right: 60px;
     display: flex;
     flex-flow: row;
     justify-content: end;
@@ -42,6 +40,7 @@
 }
 
 .info {
+    margin-top: 15px;
     font-size: 13px;
     display: flex;
     justify-content: space-around;
@@ -49,6 +48,7 @@
 }
 
 .date {
+    font-size: 15px;
     margin-top: 20px;
     text-align: center;
     color: white;
