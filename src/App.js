@@ -9,7 +9,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route index element ={ <Footer/> }/>
+        <Route path='/' element={ <BoardLayout/> }>
+          <Route index element={ <RallyBoard/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );
