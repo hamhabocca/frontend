@@ -1,44 +1,53 @@
 .wrap{
-    width : 100%;
-    height : 100px;
     background-color: #056DFA;
-    display : flex;
-    justify-content: center;
-    text-align: center;
-}
-
-.container{
-    display : flex;
-    justify-content: #056DFA;
-    text-align: center;
-    
-}
-
-.subcontent{
-    width : 200px;
-    height : 100px;
-    display : flex;
-    justify-content: center;
-    background-color : #056DFA;
-    text-align: center;
-    
-}
-
-.subcontent li {
-    list-style : none;
-    font-size: x-large;
-    font-Weight:bold;
-    width : 150px;
+    width: 100vw;
     height: 100px;
-    background-Color : #056DFA;
-    color : white;
-    border : none;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 1000px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Rally {
+    display: flex;
+    height: 100%;
+}
+
+.container li a{
+    width: 150px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.Other {
+    display: flex;
+    height: 100%;
+}
+
+.Other li:nth-child(3) a{
+    width: 150px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #056DFA;
+    background-color: white;
+    text-decoration: none;
+    font-weight: 700;
 }
 
 .logo{
-    margin-top: 23px;
     width : 150px;
     height : 48px;
-    /* background-size: cover; */
-
 }

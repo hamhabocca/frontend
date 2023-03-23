@@ -1,0 +1,21 @@
+.Header {
+    width: 100vw;
+    height: 540px;
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(white, #b9d4fa);
+}
+
+.Logo {
+    width: 350px;
+    height: 110px;
+    position: absolute;
+    top: 80px;
+}
+
+.ThatText {
+    font-size: 12px;
+    position: absolute;
+    top: 240px;
+    left: 60%;
+}

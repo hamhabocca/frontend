@@ -11,9 +11,9 @@ function Footer() {
                     <div className={ style.contents }>
                         <div className={ style.href }>
                             <ul>
-                                <li><a href='https://www.google.com' target='_black'>약관</a></li>
-                                <li><a href='https://www.google.com' target='_black'>개인정보</a></li>
-                                <li><a href='https://www.google.com' target='_black'>사이트맵</a></li>
+                                <li><a href='#' target='_black'>약관</a></li>
+                                <li><a href='#' target='_black'>개인정보</a></li>
+                                <li><a href='#' target='_black'>사이트맵</a></li>
                             </ul>
                         </div>
                         <div className={ style.info }>

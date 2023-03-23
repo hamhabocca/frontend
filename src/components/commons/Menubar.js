@@ -1,31 +1,23 @@
-import MenuStyle from './Menubar.module.css';
-
+import { NavLink } from 'react-router-dom';
+import style from './Menubar.module.css';
 
 function Menubar() {
 
-    return(
-        <div className={MenuStyle.wrap}>
-            <div className = {MenuStyle.container}>
-                <div className={MenuStyle.logo}>
-                    <img src = "./img/Logo.png"></img>
-                </div>
-                <div className={MenuStyle.subcontent}>
-                    <li>랠리모집</li>
-                </div>
-                <div className={MenuStyle.subcontent}>
-                <li>랠리후기</li>
-                </div>
-                <div className={MenuStyle.subcontent}>
-                <li>공지</li>
-                </div>
-                <div className={MenuStyle.subcontent}> 
-                <li>건의</li>
-                </div>
-                <div className={MenuStyle.subcontent}> 
-                <li>마이페이지</li>
-                </div>
+    return (
+        <nav className={style.wrap}>
+            <div className={style.container}>
+                <ul className={style.Rally}>
+                    <li><NavLink to='/'><img src='./img/logo.png'/></NavLink></li>
+                    <li><NavLink to='/rally'>랠리모집</NavLink></li>
+                    <li><NavLink to='/review'>랠리후기</NavLink></li>
+                </ul>
+                <ul className={style.Other}>
+                    <li><NavLink to='/notice'>공지</NavLink></li>
+                    <li><NavLink to='/qna'>건의</NavLink></li>
+                    <li><NavLink to='/mypage'>마이페이지</NavLink></li>
+                </ul>
             </div>
-        </div>
+        </nav>
 
     );
 }
