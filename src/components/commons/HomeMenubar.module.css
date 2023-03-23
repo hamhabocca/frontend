@@ -18,7 +18,7 @@
     height: 100%;
 }
 
-li a{
+.Container li a{
     width: 150px;
     height: 100%;
     display: flex;
