@@ -26,7 +26,8 @@ li a{
     align-items: center;
     color: white;
     text-decoration: none;
-    font-weight: 700
+    font-weight: 700;
+    font-size: 16px;
 }
 
 .Other {
@@ -43,5 +44,5 @@ li a{
     color: #056DFA;
     background-color: white;
     text-decoration: none;
-    font-weight: 700
+    font-weight: 700;
 }
