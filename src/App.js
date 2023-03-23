@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import BoardLayout from './layouts/BoardLayout';
-import RallyBoard from './pages/RallyBoard';
+import Footer from './components/commons/Footer';
 import './App.css';
 
 // 브라우저별 기본 CSS 스타일 초기화
