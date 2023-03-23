@@ -10,7 +10,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-
+        <Route path='/' element={ <BoardLayout/> }>
+          <Route index element={ <RallyBoard/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );
