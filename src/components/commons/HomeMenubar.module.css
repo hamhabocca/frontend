@@ -1,0 +1,48 @@
+.Body {
+    background-color: #056DFA;
+    width: 100vw;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.Container {
+    width: 1000px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Rally {
+    display: flex;
+    height: 100%;
+}
+
+.Container li a{
+    width: 150px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.Other {
+    display: flex;
+    height: 100%;
+}
+
+.Other li:nth-child(3) a{
+    width: 150px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #056DFA;
+    background-color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
