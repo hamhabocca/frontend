@@ -1,0 +1,29 @@
+.wrap{
+    width : 100%;
+    height : 100px;
+    background-color: #056DFA;
+    display : flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.container{
+    display : flex;
+    justify-content: #056DFA;
+}
+
+.subcontent{
+    width : 200px;
+    height : 100px;
+    background-color : #056DFA;
+    text-align: center;
+    
+}
+
+.logo{
+    margin-top: 23px;
+    width : 150px;
+    height : 48px;
+    /* background-size: cover; */
+
+}
