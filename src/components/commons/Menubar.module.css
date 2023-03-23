@@ -1,0 +1,44 @@
+.wrap{
+    width : 100%;
+    height : 100px;
+    background-color: #056DFA;
+    display : flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.container{
+    display : flex;
+    justify-content: #056DFA;
+    text-align: center;
+    
+}
+
+.subcontent{
+    width : 200px;
+    height : 100px;
+    display : flex;
+    justify-content: center;
+    background-color : #056DFA;
+    text-align: center;
+    
+}
+
+.subcontent li {
+    list-style : none;
+    font-size: x-large;
+    font-Weight:bold;
+    width : 150px;
+    height: 100px;
+    background-Color : #056DFA;
+    color : white;
+    border : none;
+}
+
+.logo{
+    margin-top: 23px;
+    width : 150px;
+    height : 48px;
+    /* background-size: cover; */
+
+}
