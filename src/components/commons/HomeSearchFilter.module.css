@@ -29,6 +29,22 @@
     width: 100%;
 }
 
+.RallyType [type='checkbox'] {
+    opacity: 0;
+}
+
+/* .RallyType label {
+    width: 86px;
+    height: 40px;
+    background-color: gray;
+} */
+
+.RallyType [for='ipmun'] {
+    width: 86px;
+    height: 40px;
+    background-color: #056DFA;
+}
+
 .QuestionButton {
     background-color: #056DFA;
     color: white;

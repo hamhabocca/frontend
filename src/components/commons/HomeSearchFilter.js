@@ -11,15 +11,16 @@ function HomeSearchFilter() {
             <form>
                 <fieldset className={style.RallyType}>
                     <input type={'checkbox'} id="ipmun" name='rallytype' value={'ipmun'} />
-                    <label htmlFor='newb'>입문</label>
+                    {/* <label htmlFor='ipmun'>입문</label> */}
+                    <button htmlFor='ipmun'>입문</button>
                     <input type={'checkbox'} id="chobo" name='rallytype' value={'chobo'} />
-                    <label htmlFor='newb'>초보</label>
+                    <label htmlFor='chobo'>초보</label>
                     <input type={'checkbox'} id="jungsu" name='rallytype' value={'jungsu'} />
-                    <label htmlFor='newb'>중수</label>
+                    <label htmlFor='jungsu'>중수</label>
                     <input type={'checkbox'} id="gosu" name='rallytype' value={'gosu'} />
-                    <label htmlFor='newb'>고수</label>
+                    <label htmlFor='gosu'>고수</label>
                     <input type={'checkbox'} id="legend" name='rallytype' value={'legend'} />
-                    <label htmlFor='newb'>전설</label>
+                    <label htmlFor='legend'>전설</label>
                     <button className={style.QuestionButton}>?</button>
                 </fieldset>
                 <fieldset className={style.RallyLocation}>
