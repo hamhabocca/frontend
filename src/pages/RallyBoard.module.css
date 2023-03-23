@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  margin-top: 20px;
+}
+
+.filter {
+  width: 170px;
+  height: 760px;
+  margin-right: 30px;
+}
+
+.board {
+  border-left: 2px solid #202020;
+  width: 745px;
+  height: 800px;
+  display: block;
+  padding-left: 55px;
+}
+
+.title {
+  height: 60px;
+  border-bottom: 1.5px solid #202020;
+  font-weight: 700;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.list {
+  height: 740px;
+}
