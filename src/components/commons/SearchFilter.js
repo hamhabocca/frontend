@@ -1,7 +1,16 @@
 import style from './SearchFilter.module.css';
+import sigungu from '../../data/sigungu.json';
 import { BiPlus, BiMinus } from "react-icons/bi";
 
 function SearchFilter() {
+
+    const test = (e) => {
+        getSigungu(e.target.value);
+    }
+
+    function getSigungu(sido) {
+        let html = "<option>선택</option>";
+    }
 
     return (
         <div className={style.filter}>
@@ -37,7 +46,7 @@ function SearchFilter() {
 
                     <article className={style.rallylocal}>
                         <h2>랠리 장소</h2>
-                        <select id="sido_code">
+                        <select id="sido_code" onChange={ test }>
                             <option>시도 선택</option>
                             <option value="11">서울특별시</option>
                             <option value="26">부산광역시</option>

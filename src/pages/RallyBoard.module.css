@@ -10,7 +10,7 @@
 }
 
 .board {
-  border-left: 2px solid #202020;
+  border-left: 1.5px solid #202020;
   width: 745px;
   height: 800px;
   display: block;
