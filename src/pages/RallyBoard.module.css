@@ -1,6 +1,7 @@
 .container {
   display: flex;
   margin-top: 20px;
+  font-weight: 400;
 }
 
 .filter {
@@ -24,6 +25,34 @@
   font-size: 20px;
   display: flex;
   align-items: center;
+}
+
+.category {
+  font-size: 14px;
+  width: 745px;
+  margin-top: 5px;
+  height: 30px;
+  display: inline-flex;
+  text-align: center;
+  align-items: center;
+}
+
+.select {
+  width: 80px;
+  height: 30px;
+  border: none;
+  margin-right: 10px;
+  
+}
+
+.category div {
+  flex-basis: 50px;
+  flex-grow: 1;
+  border-left: 1.5px solid #202020;
+}
+
+.category div:nth-child(3) {
+  flex-grow: 5;
 }
 
 .list {
