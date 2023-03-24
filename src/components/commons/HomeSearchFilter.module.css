@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+/* font-family: 'Noto Sans KR', sans-serif; */
+
 .HomeSearchFilter {
     /* border: 1px solid red; */
     background-color: white;
@@ -23,26 +26,83 @@
     gap: 15px 0px;
 }
 
+.HomeSearchFilter button {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
 .RallyType {
     border: 1px solid red;
     height: 40px;
     width: 100%;
 }
 
-.RallyType [type='checkbox'] {
-    opacity: 0;
-}
-
-/* .RallyType label {
+.RallyType [value='ipmun'] {
+    display: inline-block;
     width: 86px;
     height: 40px;
-    background-color: gray;
-} */
+    background-color: white;
+    color: #056DFA;
+    font-weight: 500;
+    font-size: 14px;
+    border: 2px solid;
+    border-color: #056DFA;
+    border-radius: 5px 0px 0px 5px;
+}
 
-.RallyType [for='ipmun'] {
+.RallyType [value='chobo'] {
+    width: 86px;
+    height: 40px;
+    background-color: #60A3FF;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    border: 2px solid;
+    border-color: #60A3FF;
+}
+
+.RallyType [value='jungsu'] {
     width: 86px;
     height: 40px;
     background-color: #056DFA;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    border: 2px solid;
+    border-color: #056DFA;
+}
+
+.RallyType [value='gosu'] {
+    width: 86px;
+    height: 40px;
+    background-color: #003ACE;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    border: 2px solid;
+    border-color: #003ACE;
+}
+
+.RallyType [value='legend'] {
+    width: 86px;
+    height: 40px;
+    background-color: #303030;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    border: 2px solid;
+    border-color: #303030;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.selected {
+    background-color: orange;
+    color: #003ACE;
+    font-weight: 900;
+}
+
+.RallyType [type='checkbox'] {
+    /* opacity: 0; */
+    display: none;
 }
 
 .QuestionButton {
