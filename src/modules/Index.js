@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import rallyReducer from "./RallyModule";
+import countReducer from "./CountModule";
 
 const rootReducer = combineReducers({
-    rallyReducer
+    countReducer
 });
 
 export default rootReducer;
