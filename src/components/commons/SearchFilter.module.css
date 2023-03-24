@@ -65,19 +65,8 @@
     background: #F5F5F5;
 }
 
-/* 랠리 팀명 입력 */
-.rallyteam input{
-    width: 100%;
-    height: 30px;
-    border: none;
-    border-radius: 2px;
-    background: #F5F5F5;
-}
-
-
 /* 플러스마이너스 동글버튼 */
-.rallydistance button,
-.rallypeople button {
+.rallydistance button, .rallypeople button {
     width: 35px;
     height: 35px;
     border-radius: 50px;
@@ -91,8 +80,7 @@
 }
 
 /* 버튼 사이 글자 정렬 */
-.rallydistance div,
-.rallypeople div {
+.rallydistance div, .rallypeople div {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -110,8 +98,6 @@
     color: white;
     font-size: 16px;
 }
-
-
 
 /* 랠리 모집 버튼*/
 .recruit {
