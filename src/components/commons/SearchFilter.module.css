@@ -52,6 +52,7 @@
     background: #F5F5F5;
 }
 
+/* 시군구 위 간격 */
 .rallylocal select:last-child {
     margin-top: 5px;
 }
@@ -74,17 +75,24 @@
     background: #7d7d7d;
     color: white;
     font-size: 20pt;
-
     display: flex;
     align-items: center;
 }
 
-/* 버튼 사이 글자 정렬 */
+/* 버튼 사이 글자들 정렬 */
 .rallydistance div, .rallypeople div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 12pt;
+}
+
+/* 플마버튼 사이 count 값*/
+.rallydistance input, .rallypeople input {
+    width: 20px;
+    height: 20px;
+    text-align: right;
+    font-size: 16px;
+    border: none;
 }
 
 /* 랠리 검색 버튼*/
