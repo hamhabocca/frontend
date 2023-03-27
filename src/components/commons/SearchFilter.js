@@ -4,6 +4,7 @@ import sigunguList from '../../data/sigungu.json';
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } from '../../modules/CountModule';
+import { Link } from 'react-router-dom';
 
 function searchSig(sidoCode) {
 
@@ -53,7 +54,7 @@ function SearchFilter() {
                 <h1>Filter</h1>
             </article>
 
-            <form className={style.form}>
+            <form className={style.form} action={"/rally/search"}>
                 <section>
                     <article className={style.rallytype}>
                         <h2>랠리 타입</h2>
@@ -130,12 +131,12 @@ function SearchFilter() {
                         </div>
                     </article>
                 </section>
-                <input type='submit' value='랠리 검색' className={style.search} />
+                <input type='submit' value='랠리 검색' className={style.search}/>
             </form>
 
             <article className={style.recruit}>
                 <p>랠리장이 되어보세요!</p>
-                <button /*글쓰기화면 넘어가야함*/>모집 작성</button>
+                <Link to='/rally/write' style={{color:'white', textDecoration:'none'}}><button>모집 작성</button></Link>
             </article>
         </div>
     );
