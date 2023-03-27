@@ -4,6 +4,10 @@
     margin-right: 30px;
 }
 
+.filter button, .filter input, .filter select {
+    cursor: pointer;
+}
+
 .title {
     height: 60px;
     display: flex;
@@ -11,6 +15,11 @@
     font-size: 16pt;
     font-weight: 700;
     border-bottom: 1.5px solid #202020;
+}
+
+.title h1 {
+    font-weight: 700;
+    font-size: 20px;
 }
 
 .form {
@@ -85,7 +94,7 @@
 .rallydistance div, .rallypeople div {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 /* 플마버튼 사이 count 값*/
