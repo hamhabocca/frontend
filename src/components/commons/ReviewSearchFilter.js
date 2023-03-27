@@ -47,6 +47,8 @@ function ReviewSearchFilter() {
         setSigList(searchSig(e.target.value));
     }
 
+function ReviewSearchFilter() {
+
     return (
         <div className={style.filter}>
             <article className={style.title}>
@@ -112,39 +114,19 @@ function ReviewSearchFilter() {
                         <input type="date" min="2023-01" max="2023-12" name='rallydate' />
                     </article>
 
-                    {/* <article className={style.rallydistance}>
-                        <h2>랠리 거리</h2>
-                        <div>
-                            <button type='button' onClick={distanceCountDecrease}><BiMinus /></button>
-                            <input name='distance' value={distanceCount} onChange={() => { }} />km
-                            <button type='button' onClick={distanceCountIncrease}><BiPlus /></button>
-                        </div>
-                    </article>
-
-                    <article className={style.rallypeople}>
-                        <h2>랠리 인원</h2>
-                        <div>
-                            <button type='button' onClick={peopleCountDecrease}><BiMinus /></button>
-                            <input name='people' value={peopleCount} onChange={() => { }} />명
-                            <button type='button' onClick={peopleCountIncrease}><BiPlus /></button>
-                        </div>
-                    </article> */}
-
-                    <article>
+                    <article className={style.rallyteam}>
                         <h2>랠리 팀명</h2>
-                        <div>
-                        <input type="text" className={style.rallyteam}/>
-                        </div>
+                        <input type = "text"></input>
                     </article>
-
+                    
                 </section>
-                <input type='submit' value='랠리 검색' className={style.search} />
+                <button className={style.search}>후기 검색</button>
             </form>
 
             <article className={style.recruit}>
-                <p>랠리 후기를 검색해보세요!</p>
+                <p>랠리 후기를 검색하세요!</p>
                 <br/>
-                <button /*글쓰기화면 넘어가야함*/>모집 작성</button>
+                <button>후기 검색</button>
             </article>
         </div>
     );

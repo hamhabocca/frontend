@@ -1,0 +1,56 @@
+[
+    {
+        "membercode": 1,
+        "membernickname": "정혜왕",
+        "membergender": "f",
+        "membersocial": "k",
+        "memberisdeactivated": "n",
+        "membersignupdate": "2023-02-28T14:15:31.061Z",
+        "memberdeactivatedate": "null"
+    },
+    {
+        "membercode": 2,
+        "membernickname": "자전거마스터",
+        "membergender": "m",
+        "membersocial": "g",
+        "memberisdeactivated": "n",
+        "membersignupdate": "2023-04-04T14:15:31.062Z",
+        "memberdeactivatedate": "null"
+    },
+    {
+        "membercode": 3,
+        "membernickname": "유현아빠",
+        "membergender": "m",
+        "membersocial": "g",
+        "memberisdeactivated": "n",
+        "membersignupdate": "2023-03-26T11:13:22.062Z",
+        "memberdeactivatedate": "null"
+    },
+    {
+        "membercode": 4,
+        "membernickname": "냥아치",
+        "membergender": "f",
+        "membersocial": "n",
+        "memberisdeactivated": "n",
+        "membersignupdate": "2023-03-22T14:15:31.062Z",
+        "memberdeactivatedate": "null"
+    },
+    {
+        "membercode": 5,
+        "membernickname": "최멍멍",
+        "membergender": "m",
+        "membersocial": "k",
+        "memberisdeactivated": "n",
+        "membersignupdate": "2023-03-17T14:15:31.062Z",
+        "memberdeactivatedate": "null"
+    },
+    {
+        "membercode": 6,
+        "membernickname": "김뇽냥",
+        "membergender": "f",
+        "membersocial": "n",
+        "memberisdeactivated": "y",
+        "membersignupdate": "2023-03-07T14:15:31.062Z",
+        "memberdeactivatedate": "2023-03-26T14:15:31.062Z"
+    }
+]

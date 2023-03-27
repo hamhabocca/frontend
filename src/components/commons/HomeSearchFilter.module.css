@@ -24,9 +24,25 @@
 }
 
 .RallyType {
-    border: 1px solid red;
-    height: 40px;
     width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.RallyType div {
+    display: flex;
+    width: 86px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 14px;
+    gap: 3px;
+    background-color: #7D7D7D;
+    border-radius: 5px;
 }
 
 .QuestionButton {
@@ -37,6 +53,7 @@
     height: 25px;
     border: none;
     border-radius: 50%;
+    margin-left: 10px;
 }
 
 .RallyLocation {
@@ -51,6 +68,14 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+
+.DistanceAndPeople input {
+    width: 20px;
+    height: 20px;
+    text-align: right;
+    font-size: 16px;
+    border: none;
 }
 
 .RallyDistance, .RallyPeople {
@@ -79,7 +104,7 @@
     padding-left: 5px;
 }
 
-.MinusButton, .PlusButton {
+.RallyDistance button, .RallyPeople button {
     background-color: #7D7D7D;
     color: white;
     font-size: 14px;
@@ -87,6 +112,9 @@
     height: 35px;
     border: none;
     border-radius: 50%;
+    font-size: 20pt;
+    display: flex;
+    align-items: center;
 }
 
 .Submit {

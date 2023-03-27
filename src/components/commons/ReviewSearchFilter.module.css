@@ -25,8 +25,8 @@
 
 .form h2 {
     font-size: 12pt;
-    font-weight: 500;
-    margin: 20px 0 12px;
+    font-weight: 600;
+    margin: 20px 0 10px;
 }
 
 /* 랠리타입 */
@@ -66,7 +66,7 @@
     background: #F5F5F5;
 }
 
-.rallyteam {
+.rallyteam input{
     width: 100%;
     height: 30px;
     border: none;
@@ -75,18 +75,6 @@
     padding: 5px;
 }
 
-/* 플러스마이너스 동글버튼 */
-.rallydistance button, .rallypeople button {
-    width: 35px;
-    height: 35px;
-    border-radius: 50px;
-    border: none;
-    background: #7d7d7d;
-    color: white;
-    font-size: 20pt;
-    display: flex;
-    align-items: center;
-}
 
 /* 버튼 사이 글자들 정렬 */
 .rallydistance div, .rallypeople div {
@@ -95,13 +83,13 @@
     justify-content: space-between;
 }
 
-/* 플마버튼 사이 count 값*/
-.rallydistance input, .rallypeople input {
-    width: 20px;
-    height: 20px;
-    text-align: right;
-    font-size: 16px;
-    border: none;
+/* 버튼 사이 글자 정렬 */
+.rallydistance div,
+.rallypeople div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12pt;
 }
 
 /* 랠리 검색 버튼*/
