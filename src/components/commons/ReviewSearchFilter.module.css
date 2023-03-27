@@ -8,9 +8,12 @@
     height: 60px;
     display: flex;
     align-items: center;
-    font-size: 16pt;
-    font-weight: 700;
     border-bottom: 1.5px solid #202020;
+}
+
+.title h1 {
+    font-weight: 700;
+    font-size: 20px;
 }
 
 .form {
