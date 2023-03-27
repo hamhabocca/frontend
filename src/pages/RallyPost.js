@@ -63,14 +63,20 @@ function RallyPost() {
 
     const postSet = () => {
 
-        if (rally.rallycode === 29) {
+        if (rally.rallycode === 28) {
             return <button className={style.edit}>신고</button>;
 
-        } else {
+        } else if (rally.rallycode === 29 && rally.rallystatus === 'in_process') {
 
             return (
                 <div className={style.postStatus}>
                     <button className={style.report}>모집취소</button>
+                    <button className={style.edit}>수정</button>
+                </div>
+            );
+        } else {
+            return (
+                <div className={style.postStatus}>
                     <button className={style.edit}>수정</button>
                 </div>
             );
@@ -79,23 +85,43 @@ function RallyPost() {
 
     const rallybutton = () => {
 
-        if (rally.rallycode === 29 && rally.rallyStatus != 'cancel') {
-            return (
-                <>
-                    <button>신청 현황</button>
-                    <button style={{background: '#056DFA'}}>랠리 신청</button>
-                </>
-            );
+        if (rally.rallycode === 29) { /* 작성자일때 */
+            if (rally.rallystatus === 'ready') {
 
-        } else {
+                return (
+                    <>
+                        <button>신청 현황</button>
+                        <button style={{ background: '#056DFA' }}>모집 마감</button>
+                    </>
+                );
 
-            return (
-                <>
-                    <button>신청 현황</button>
-                    <button style={{background: '#056DFA'}}>모집 마감</button>
-                </>
-            );
+            } else if (rally.rallystatus === 'in_process') {
+
+                return (
+                    <>
+                        <button className={style.done}>랠리 완주!</button>
+                    </>
+                );
+            }
+        } else { /* 다른회원일때 */
+            if (rally.rallystatus === 'in_process') {
+                return (
+                    <>
+                        <button>신청 현황</button>
+                        <button style={{ background: '#056DFA' }}>랠리 신청</button>
+                    </>
+                );
+            } else if (rally.rallystatus){
+
+                return (
+                    <>
+                        <button>신청 현황</button>
+                        <button style={{ background: '#056DFA' }}>신청 취소</button>
+                    </>
+                );
+            }
         }
+
     }
 
     const writedate = new Date(rally.rallywritedate);
