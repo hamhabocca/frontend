@@ -153,10 +153,7 @@
     border-radius: 10px;
     margin-left: 10px;
     /* margin: 10px; */
-    
-
 }
-
 
 .Comment {
     width: 90%;
@@ -175,7 +172,6 @@
     color : #056DFA;
     font-weight: bold;
 }
-
 
 .labellabel {
     display: flex;
@@ -198,7 +194,6 @@
     background-color: #FF7A00;
 
 }
-
 
 .mini2{
     background-color: #303030;

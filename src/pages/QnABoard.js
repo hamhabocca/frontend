@@ -44,11 +44,8 @@ function QnABoard() {
             <article className={style.btn}>
                 <button>작성</button>
             </article>
-
             <div className={style.pageNumber}>
-
                 <h3> 페이지 넘버</h3>
-
             </div>
             <br />
             <hr />

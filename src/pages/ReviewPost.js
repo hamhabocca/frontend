@@ -77,21 +77,9 @@ function ReviewPost() {
                             <div>
                                 <button className={style.GoReview} >작성</button>
                             </div>
-
-
                         </div>
-
-
-
-
                     </div>
-
                 </div>
-
-
-
-
-
             </main>
         </>
     );

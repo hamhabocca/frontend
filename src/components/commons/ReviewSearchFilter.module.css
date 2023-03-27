@@ -1,0 +1,137 @@
+.filter {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+}
+
+.title {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-size: 16pt;
+    font-weight: 700;
+    border-bottom: 1.5px solid #202020;
+}
+
+.form {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.form section {
+    width: 130px;
+}
+
+.form h2 {
+    font-size: 12pt;
+    font-weight: 500;
+    margin: 20px 0 12px;
+}
+
+/* 랠리타입 */
+.rallytype div {
+    font-size: 10pt;
+    margin-top: 5px;
+}
+
+.rallytype input {
+    width: 17px;
+    height: 17px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+/* 랠리지역 */
+.rallylocal select {
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+    border: none;
+    border-radius: 2px;
+    background: #F5F5F5;
+}
+
+/* 시군구 위 간격 */
+.rallylocal select:last-child {
+    margin-top: 5px;
+}
+
+/* 랠리일정 */
+.rallydate input {
+    width: 100%;
+    height: 30px;
+    border: none;
+    border-radius: 2px;
+    background: #F5F5F5;
+}
+
+.rallyteam {
+    width: 100%;
+    height: 30px;
+    border: none;
+    border-radius: 2px;
+    background: #F5F5F5;
+    padding: 5px;
+}
+
+/* 플러스마이너스 동글버튼 */
+.rallydistance button, .rallypeople button {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    border: none;
+    background: #7d7d7d;
+    color: white;
+    font-size: 20pt;
+    display: flex;
+    align-items: center;
+}
+
+/* 버튼 사이 글자들 정렬 */
+.rallydistance div, .rallypeople div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 플마버튼 사이 count 값*/
+.rallydistance input, .rallypeople input {
+    width: 20px;
+    height: 20px;
+    text-align: right;
+    font-size: 16px;
+    border: none;
+}
+
+/* 랠리 검색 버튼*/
+.search {
+    margin: 20px 0;
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 2px;
+    background: #FF7A00;
+    color: white;
+    font-size: 16px;
+}
+
+/* 랠리 모집 버튼*/
+.recruit {
+    padding: 20px 0;
+    border-top: 1.5px solid #202020;
+}
+
+.recruit p {
+    font-size: 10pt;
+}
+
+.recruit button {
+    width: 150px;
+    height: 40px;
+    background: #056DFA;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+}
