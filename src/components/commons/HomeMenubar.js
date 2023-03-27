@@ -7,7 +7,7 @@ function HomeMenubar() {
         <div className={style.Body}>
             <div className={style.Container}>
                 <ul className={style.Rally}>
-                <li><NavLink to='/rally'>랠리모집</NavLink></li>
+                    <li><NavLink to='/rally'>랠리모집</NavLink></li>
                     <li><NavLink to='/review'>랠리후기</NavLink></li>
                 </ul>
                 <ul className={style.Other}>

@@ -30,12 +30,17 @@
     font-size: 20px;
 }
 
+.Container li *{
+    text-decoration: none;
+    color: white;
+}
+
 .Other {
     display: flex;
     height: 100%;
 }
 
-.Other li:nth-child(3) a{
+.Other li:nth-child(3) *{
     width: 150px;
     height: 100%;
     display: flex;
