@@ -1,16 +1,31 @@
 import style from './MyPage.module.css';
 import { IoIosFemale } from 'react-icons/io';
+import { IoIosMale } from 'react-icons/io';
+import { getOneMember } from '../apis/UserAPICalls';
+import RallyCardMyPage from '../components/items/RallyCardMyPage';
+import MyPageList from '../components/lists/MyPageList';
 
-function MyPage() {
 
+function MyPage(/* member */) {
+    
+    /* 임시로 불러오는 테스트 목적 변수 */
+    const member = getOneMember(2);
+    
+    function GenderIcon() {
+    
+        if(member.membergender == 'f') {
+            return <IoIosFemale/>
+        } else {
+            return <IoIosMale/>
+        }
+    }
+
+    /* 원형 프로그레스 바 용도 */
     const RADIUS = 54;
     const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
-
     const per = 60;
-
     var progress = per / 100;
     const dashoffset = CIRCUMFERENCE * (1 - progress);
-
     const circleStyle = { strokeDasharray: CIRCUMFERENCE, strokeDashoffset: dashoffset }
 
     return (
@@ -23,13 +38,13 @@ function MyPage() {
                         </div>
                         <div className={style.Name}>
                             <div className={style.Social}></div>
-                            <label>김냥냥</label>
-                            <label className={style.Gender}><IoIosFemale /></label>
+                            <label>본명임</label>
+                            <label className={style.Gender}>{GenderIcon()}</label>
                         </div>
-                        <label className={style.Nickname}>닉네임</label>
+                        <label className={style.Nickname}>{member.membernickname}</label>
                     </div>
                     <div className={style.RiderProfile}>
-                        <h4>나의 라이더 프로필</h4>
+                        <h4>라이더 프로필</h4>
                         <div className={style.circle_progress_wrap}>
                             <svg className={style.circle_progress} width="120" height="120" viewBox="0 0 120 120">
                                 <circle className={style.frame} cx="60" cy="60" r="54" strokeWidth="12" />

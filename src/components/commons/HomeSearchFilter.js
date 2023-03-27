@@ -1,6 +1,6 @@
 import { BiPlus, BiMinus } from "react-icons/bi";
 import sigunguList from '../../data/sigungu.json';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import style from './HomeSearchFilter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } from '../../modules/CountModule';
@@ -49,10 +49,10 @@ function HomeSearchFilter() {
 
     return (
         <div className={style.HomeSearchFilter}>
-            <form>
+            <form action="/rally/search">
                 <fieldset className={style.RallyType}>
                     <div>
-                        <input type={'checkbox'} id="ipmun" name='rallytype' value={'ipmun'} />
+                        <input type={'checkbox'} id="ipmun" name='rallytype' value={'ipmun'}/>
                         <label htmlFor='ipmun'>입문</label>
                     </div>
                     <div>
@@ -98,7 +98,7 @@ function HomeSearchFilter() {
                         <option defaultValue=''>시/군/구</option>
                         {sigList.map(sig => <Sigoon key={sig.id} sig={sig} />)}
                     </select>
-                    <input type={'date'} />
+                    <input type="month" min="2023-01" max="2023-12" name='rallydate'/>
                 </fieldset>
                 <fieldset className={style.DistanceAndPeople}>
                     <fieldset className={style.RallyDistance}>
