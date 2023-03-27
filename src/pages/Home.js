@@ -1,24 +1,16 @@
 import style from './Home.module.css';
 import RallCardMain from '../components/items/RallyCardMain';
 import { useEffect, useState } from 'react';
-import { getRallyForMain } from '../apis/RallyCalls';
+import { getRallyList } from '../apis/RallyAPICalls';
 import { NavLink } from 'react-router-dom';
 
 function Home() {
 
     const [rallyList, setRallyList] = useState([]);
-
+    
     useEffect(
         () => {
-            let rallyList = [];
-            rallyList = getRallyForMain();
-            var sortingField = "rallycode";
-            rallyList.sort(function (a, b) { // 내림차순
-                return b[sortingField] - a[sortingField];
-            });
-            rallyList.splice(6);
-            console.log(rallyList);
-            setRallyList(rallyList);
+            setRallyList(getRallyList().slice(0, 6));
         },
         []
     );

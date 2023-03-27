@@ -1,9 +1,6 @@
 import style from './ReviewSearchFilter.module.css';
-import { BiPlus, BiMinus } from "react-icons/bi";
 import sigunguList from '../../data/sigungu.json';
 import { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } from '../../modules/CountModule';
 
 function searchSig(sidoCode) {
 
@@ -20,34 +17,11 @@ function ReviewSearchFilter() {
     /* 시군구 담을 리스트 */
     const [sigList, setSigList] = useState([]);
 
-    const dispatch = useDispatch();
-
-    /* state값 가져오기 */
-    const distanceCount = useSelector(state => state.countReducer.distanceState);
-    const peopleCount = useSelector(state => state.countReducer.peopleState);
-
-    /* 버튼 클릭이벤트핸들러 */
-    const distanceCountIncrease = () => {
-        dispatch(distanceIncrease());
-    };
-    const distanceCountDecrease = () => {
-        if (distanceCount > 0) {
-            dispatch(distanceDecrease());
-        }
-    };
-    const peopleCountIncrease = () => dispatch(peopleIncrease());
-    const peopleCountDecrease = () => {
-        if (peopleCount > 0) {
-            dispatch(peopleDecrease())
-        }
-    };
 
     /* 시도 선택시 시군구 리스트 담음 */
     const onChangeHandler = (e) => {
         setSigList(searchSig(e.target.value));
     }
-
-function ReviewSearchFilter() {
 
     return (
         <div className={style.filter}>
@@ -116,18 +90,13 @@ function ReviewSearchFilter() {
 
                     <article className={style.rallyteam}>
                         <h2>랠리 팀명</h2>
-                        <input type = "text"></input>
+                        <input type="text" name='rallyteam'></input>
                     </article>
-                    
+
                 </section>
                 <button className={style.search}>후기 검색</button>
             </form>
 
-            <article className={style.recruit}>
-                <p>랠리 후기를 검색하세요!</p>
-                <br/>
-                <button>후기 검색</button>
-            </article>
         </div>
     );
 }

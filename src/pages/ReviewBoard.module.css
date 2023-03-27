@@ -1,19 +1,11 @@
 .container {
     display: flex;
-    margin-top: 20px;
-}
-
-.filter {
-    width: 170px;
-    height: 760px;
-    margin-right: 30px;
+    font-weight: 400;
 }
 
 .board {
     border-left: 1.5px solid #202020;
     width: 745px;
-    height: 800px;
-    display: block;
     padding-left: 55px;
 }
 
@@ -31,13 +23,12 @@
 }
 
 .category {
-    font-size: 14px;
-    width: 745px;
-    margin-top: 5px;
-    height: 30px;
-    display: inline-flex;
+    display: flex;
     text-align: center;
     align-items: center;
+    font-size: 14px;
+    margin-top: 5px;
+    height: 30px;
 }
 
 .select {

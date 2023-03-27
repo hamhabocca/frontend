@@ -6,9 +6,8 @@ function ReviewBoard() {
 
     return (
         <main className={style.container}>
-            <section className={style.filter}>
-                <ReviewSearchFilter />
-            </section>
+
+            <ReviewSearchFilter />
 
             <section className={style.board}>
                 <article className={style.title}>
@@ -33,7 +32,7 @@ function ReviewBoard() {
                 <article className={style.list}>
                     <RallyList />
                 </article>
-                
+
             </section>
         </main>
     );
