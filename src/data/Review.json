@@ -6,7 +6,8 @@
         "reviewwriter": "정혜왕",
         "reviewwritertype": "master",
         "reviewwritedate": "2023-03-06T13:03:05.456Z",
-        "reviewdetail": "text"
+        "reviewdetail": "text",
+        "reviewname" : "리뷰1"
     },
     {
         "reviewcode": 2,
@@ -15,7 +16,8 @@
         "reviewwriter": "자전거마스터",
         "reviewwritertype": "mate",
         "reviewwritedate": "2023-03-07T13:03:05.456Z",
-        "reviewdetail": "text"
+        "reviewdetail": "text",
+        "reviewname" : "리뷰2"
     },
     {
         "reviewcode": 3,
@@ -24,7 +26,8 @@
         "reviewwriter": "유현아빠",
         "reviewwritertype": "mate",
         "reviewwritedate": "2023-03-08T13:03:05.456Z",
-        "reviewdetail": "text"
+        "reviewdetail": "text",
+        "reviewname" : "리뷰3"
     },
     {
         "reviewcode": 4,
@@ -33,7 +36,8 @@
         "reviewwriter": "냥아치",
         "reviewwritertype": "mate",
         "reviewwritedate": "2023-03-09T13:03:05.456Z",
-        "reviewdetail": "text"
+        "reviewdetail": "text",
+        "reviewname" : "리뷰4"
     },
     {
         "reviewcode": 5,
@@ -42,7 +46,8 @@
         "reviewwriter": "최멍멍",
         "reviewwritertype": "mate",
         "reviewwritedate": "2023-03-10T13:03:05.456Z",
-        "reviewdetail": "text"
+        "reviewdetail": "text",
+        "reviewname" : "리뷰5"
     },
     {
         "reviewcode": 6,
@@ -51,7 +56,8 @@
         "reviewwriter": "정혜왕",
         "reviewwritertype": "mate",
         "reviewwritedate": "2023-03-11T13:03:05.456Z",
-        "reviewdetail": "text"
+        "reviewdetail": "text",
+        "reviewname" : "리뷰6"
     },
     {
         "reviewcode": 7,
@@ -60,7 +66,8 @@
         "reviewwriter": "자전거마스터",
         "reviewwritertype": "master",
         "reviewwritedate": "2023-03-12T13:03:05.456Z",
-        "reviewdetail": "text"
+        "reviewdetail": "text",
+        "reviewname" : "리뷰7"
     },
     {
         "reviewcode": 8,
@@ -69,6 +76,7 @@
         "reviewwriter": "유현아빠",
         "reviewwritertype": "master",
         "reviewwritedate": "2023-03-13T13:03:05.456Z",
-        "reviewdetail": "text"
+        "reviewdetail": "text",
+        "reviewname" : "리뷰8"
     }
 ]

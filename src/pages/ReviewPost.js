@@ -1,9 +1,28 @@
+import { getReviewDetail } from '../apis/ReviewAPICalls';
+import { getRallyDetail } from '../apis/RallyAPICalls';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
+
 import style from './ReviewPost.module.css';
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
 import RallyList from "../components/lists/ReviewList";
 
 
 function ReviewPost() {
+
+    const {rallyCode} = useParams();
+    const { reviewCode} = useParams();
+
+    const [review, setReview] = useState({});
+
+    const [rally, setRally] = useState({});
+
+    useEffect(
+        () => {
+            setReview(getReviewDetail(reviewCode));
+            setRally(getRallyDetail(rallyCode));
+        }, []
+    );
 
     return (
         <>
@@ -17,9 +36,9 @@ function ReviewPost() {
                 <div className={style.Main}>
                     <div className={style.title} >
                         <div className={style.labellabel}>
-                            <div className={style.mini1}>랠리장</div>
-                            <div className={style.mini2}>전설</div>
-                            <h2>랠리팀명글자수제한</h2>
+                            <div className={style.mini1}>{review.reviewwritertype}</div>
+                            <div className={style.mini2}>{review.rallytype}</div>
+                            {/* <h2>{rally.rallyname}</h2> */}
                         </div>
                         <div className={style.report}>
                             <button>신고</button>
@@ -30,10 +49,10 @@ function ReviewPost() {
                         <article className={style.containerTime}>
                             <div className={style.containerTime}>
                                 <div className={style.picture}>사진</div>
-                                <h2 style={{ marginLeft: '10px' }}>작성자</h2>
+                                <h2 style={{ marginLeft: '10px' }}>{review.reviewwriter}</h2>
                             </div>
                             <div className={style.container2}>
-                                <h4>2023.03.22</h4>
+                                <h4>{review.reviewwritedate}</h4>
                             </div>
 
                         </article>
@@ -54,12 +73,8 @@ function ReviewPost() {
                         </div>
                         <div className={style.Review}>
                             <div className={style.mainPic}> 후기사진</div>
-                            <h4 style={{ margin: '10px' }}>오늘 랠리를 함 달려보았어여^^<br /><br />
-                                김밥도 먹었네요 허허<br /><br />
-                                @)))))))))))))))<br /><br />
-                                총총,,, @/-------<br /><br />
-                                사진은... 우리 랠리팀원들과 함께~~~~~~~~~~~~~<br /><br /><br />
-                                <br />
+                            <h4 style={{ margin: '10px' }}>{review.reviewdetail}<br /><br />
+
                             </h4>
                         </div>
                         <br />
