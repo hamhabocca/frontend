@@ -1,6 +1,23 @@
+import QnAList from "../components/lists/QnAList";
 import style from "./QnABoard.module.css"
+import { getQnAList } from "../apis/QnAAPICalls";
+
+import { useEffect, useState } from "react";
+import Pagination from "react-js-pagination";
+import styled from 'styled-components';
+import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
 
 function QnABoard() {
+
+    const [page, setPage] = useState(1);
+
+    const handlePageChange = (page) => { setPage(page) };
+
+    const [qnaPostList, setQnAPostList] = useState([]);
+
+    useEffect(() => {
+        setQnAPostList(getQnAList().slice(10 * (page - 1), 10 * (page - 1) + 10));
+    }, [page]);
 
     return (
 
@@ -36,16 +53,31 @@ function QnABoard() {
                     </div>
                 </div>
 
-                <div className={style.list}>
+                <article className={style.list}>
+                    <QnAList qnaPosts={qnaPostList} />
+                </article>
 
-                </div>
             </div>
 
             <article className={style.btn}>
                 <button>작성</button>
             </article>
+
             <div className={style.pageNumber}>
-                <h3> 페이지 넘버</h3>
+                <PaginationBox>
+                    <Pagination
+                        activePage={page}
+                        itemsCountPerPage={10}
+                        totalItemsCount={getQnAList().length}
+                        pageRangeDisplayed={5}
+                        firstPageText={<HiChevronDoubleLeft />}
+                        prevPageText={<HiChevronLeft />}
+                        nextPageText={<HiChevronRight />}
+                        lastPageText={<HiChevronDoubleRight />}
+                        onChange={handlePageChange}
+                    />
+                </PaginationBox>
+
             </div>
             <br />
             <hr />
@@ -54,6 +86,25 @@ function QnABoard() {
 
     );
 }
+
+const PaginationBox = styled.div`
+  .pagination { display: flex; justify-content: center; margin-top: 15px;}
+  ul { list-style: none; padding: 0; }
+  ul.pagination li {
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem; 
+  }
+  ul.pagination li a { text-decoration: none; color: #A5A5A5; font-size: 12pt; }
+  ul.pagination li.active a { color: #202020; }
+  ul.pagination li a:hover,
+  ul.pagination li a.active { color: #202020; }
+  `
 
 export default QnABoard;
 
