@@ -79,7 +79,8 @@ function MyPage(/* member */) {
                     <button className={style.Deactivate}>사이트 탈퇴하기</button>
                 </section>
                 <section className={style.Right}>
-
+                    <MyPageList typeOfList={'모집'} membercode={member.membercode}/>
+                    {/* <MyPageList typeOfList={'신청'} membercode={member.membercode}/> */}
                 </section>
             </main>
         </>
