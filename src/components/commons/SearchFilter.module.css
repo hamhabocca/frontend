@@ -40,14 +40,15 @@
 
 /* 랠리타입 */
 .rallytype div {
+    display: flex;
+    align-items: center;
     font-size: 10pt;
-    margin-top: 5px;
+    margin-top: 7px;
 }
 
 .rallytype input {
-    width: 17px;
-    height: 17px;
-    vertical-align: middle;
+    width: 15px;
+    height: 15px;
     margin-right: 10px;
 }
 
