@@ -2,24 +2,40 @@ import rallys from '../data/Rally.json';
 
 export function getRallySearchResult(searchParams) {
 
-    console.log(searchParams.split('&'));
+    // console.log(searchParams.split('&'));
 
     let paramList = searchParams.split('&');
 
+    console.log(paramList)
+
     paramList = paramList.map(param => param.split('='));
 
-    // const resultList = paramList.forEach(param => {
+    console.log(paramList)
 
-    //     switch(param[0]) {
-    //         case 'rallytype':
-    //             let temp = rallys.filter(rally => rally.rallytype == param[1]);
-                
-    //             break;
-    //         case 'sido' : 
-    //     }
-    // })
+    let rallytype = '';
 
-    // return rallys.filter(rally => rally.);
+    switch(paramList.length) {
+        /* 타입까지 옴 */
+        case 6: 
+            if(paramList[0][1] == 'ipmun') {
+                rallytype = '입문';
+            } else {
+                console.log('입문이 아니당~');
+                rallytype = 'chobo';
+            }
+            // const rallytype = paramList[0][1];
+            const sido = paramList[1][1];
+            const sigungu = paramList[2][1];
+            const rallydate = paramList[3][1];
+            const distance = paramList[4][1];
+            const people = paramList[5][1];
+
+
+            return rallys.filter(rally => rally.rallytype == rallytype);
+        /* 타입은 안 옴 */
+        case 5: 
+
+    }
 }
 
 // console.log(uriNew.split('&'));
