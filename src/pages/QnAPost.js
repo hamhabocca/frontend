@@ -1,6 +1,21 @@
+import { getQnADetail } from "../apis/QnAAPICalls";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import style from './QnAPost.module.css';
 
 function QnAPost() {
+
+    const { qnaCode } = useParams();
+
+    const [qna, setQna] = useState({});
+
+    useEffect(
+        () => {
+            setQna(getQnADetail(qnaCode));
+        }, [] 
+    );   
+                 
+    const writedate = new Date(qna.qnawritedate);        
 
     return (
         <main className={style.all}>
@@ -11,13 +26,13 @@ function QnAPost() {
                     <div className={style.d1}>
                         <h6 className={style.member}>회원</h6>
 
-                        <h6 className={style.postname}>제목</h6>
+                        <h6 className={style.postname}>{qna.qnatitle}</h6>
                     </div>
 
                     <div className={style.d2}>
-                        <h6 className={style.writer}>멤버이름</h6>
+                        <h6 className={style.writer}>{qna.qnawriter}</h6>
 
-                        <h6 className={style.date}>작성일</h6>
+                        <h6 className={style.date}>{writedate.toLocaleString()}</h6>
                     </div>
                 </div>
                 <hr/>
@@ -25,7 +40,7 @@ function QnAPost() {
                     <div>
                         <div className={style.img}>이미지</div>
                         <br />
-                        <h4>입력한 내용</h4>
+                        <h4>{qna.qnadetail}</h4>
                     </div>
                 </div>
             </div>
