@@ -1,8 +1,13 @@
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
 import RallyList from "../components/lists/RallyList";
 import style from "./WriteReviewPost.module.css";
+import React, { useRef } from "react";
 
 function WriteReviewPost() {
+    const imageInput = useRef();
+    const onCickImageUpload = () => {
+        imageInput.current.click();
+      };
 
     return (
         <main className={style.container}>
@@ -28,12 +33,11 @@ function WriteReviewPost() {
                     </article>
                     <br />
                     <div className={style.textBoard}>
-                        <div className={style.imageGo}>
-                            <button>이미지 등록</button>
+                        <div className={style.imageBoard}>
+                        <input style={{display : 'none'}} type = "file" ref={imageInput}/>
+                        <button className={style.imageGo} onClick={onCickImageUpload}>이미지업로드</button>
                         </div>
-                        <br />
-                        <br />
-                        <hr />
+                        <h4>내용을 입력하세요.</h4>
                     </div>
                 </div>
             </section>
