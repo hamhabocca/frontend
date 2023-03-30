@@ -1,58 +1,33 @@
 import { getRallyDetail } from "../apis/RallyAPICalls";
+import SearchFilter from "../components/commons/SearchFilter";
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import style from "./RallyPost.module.css";
-import SearchFilter from "../components/commons/SearchFilter";
-import RallyPartcipate from "../components/modals/RallyPartcipate";
-import RallyCancle from "../components/modals/RallyCancle";
-import RallyRecruitmentCancle from "../components/modals/RallyRecruitmentCancle";
-import Report from "../components/modals/Report";
+import { open_RecruitmentListModal } from "../modules/ModalsModule";
+import CurrentRecruitListModal from "../components/modals/CurrentRecruitListModal";
 
+import style from "./RallyPost.module.css";
 
 function RallyPost() {
+
+    const dispatch = useDispatch();
+
+    const recruitmentListState = useSelector(state => state.modalsReducer.recruitmentListState);
 
     // :rallyCode
     const { rallyCode } = useParams();
 
     const [rally, setRally] = useState({});
 
-    // 모달창 노출 여부 state
-    const [RallyPartcipateModalOpen, setRallyPartcipateModalOpen] = useState(false);
-
-    // 모달창 노출
-    const showModal1 = () => {
-        setRallyPartcipateModalOpen(true);
-    };
-
-    // 모달창 노출 여부 state
-    const [RallyCancleModalOpen, setRallyCancleModalOpen] = useState(false);
-
-    // 모달창 노출
-    const showModal2 = () => {
-        setRallyCancleModalOpen(true);
-    };
-
-    // 모달창 노출 여부 state
-    const [RallyRecruitmentCancleModalOpen, setRallyRecruitmentCancleModalOpen] = useState(false);
-
-    // 모달창 노출
-    const showModal3 = () => {
-        setRallyRecruitmentCancleModalOpen(true);
-    };
-
-     // 모달창 노출 여부 state
-     const [ReportModalOpen, setReportModalOpen] = useState(false);
-
-     // 모달창 노출
-     const showModal4 = () => {
-         setReportModalOpen(true);
-     };
- 
     useEffect(
         () => {
             setRally(getRallyDetail(rallyCode));
         }, []
     );
+
+    const writedate = new Date(rally.rallywritedate);
+    const rallystarttime = new Date(rally.rallystarttime);
+    const rallyendtime = new Date(rally.rallyendtime);
 
     /* 랠리 상태 */
     const rallystatus = () => {
@@ -98,22 +73,17 @@ function RallyPost() {
         }
     };
 
+    /* 게시글 상단 버튼 */
     const postSet = () => {
 
         if (rally.rallycode === 28) {
-            return (
-                <div>
-                    <button onClick={showModal4} className={style.edit}>신고</button>
-                    {ReportModalOpen && <Report setReportModalOpen={setReportModalOpen} />}
-                </div>
-            );
-                 
+            return <button className={style.edit}>신고</button>;
+
         } else if (rally.rallycode === 29 && rally.rallystatus === 'in_process') {
 
             return (
                 <div className={style.postStatus}>
-                    <button onClick={showModal3} className={style.report}>모집취소</button>
-                    {RallyRecruitmentCancleModalOpen && <RallyRecruitmentCancle setRallyRecruitmentCancleModalOpen={setRallyRecruitmentCancleModalOpen} />}
+                    <button className={style.report}>모집취소</button>
                     <button className={style.edit}>수정</button>
                 </div>
             );
@@ -124,7 +94,7 @@ function RallyPost() {
                 </div>
             );
         }
-    }
+    };
 
     const rallybutton = () => {
 
@@ -150,30 +120,22 @@ function RallyPost() {
             if (rally.rallystatus === 'in_process') {
                 return (
                     <>
-                        <button>신청 현황</button>
-                        <div>
-                        <button onClick={showModal1} style={{ background: '#056DFA' }}>랠리 신청</button>
-                        {RallyPartcipateModalOpen && <RallyPartcipate setRallyPartcipateModalOpen={setRallyPartcipateModalOpen} />}
-                        </div>
+                        <button onClick={() => { dispatch(open_RecruitmentListModal()) }}>신청 현황</button>
+                        { recruitmentListState && <CurrentRecruitListModal/> }
+                        <button style={{ background: '#056DFA' }}>랠리 신청</button>
                     </>
                 );
-            } else if (rally.rallystatus){
+            } else if (rally.rallystatus) {
 
                 return (
                     <>
                         <button>신청 현황</button>
-                        <button onClick={showModal2} style={{ background: '#056DFA' }}>신청 취소</button>
-                        {RallyCancleModalOpen && <RallyCancle setRallyCancleModalOpen={setRallyCancleModalOpen} />}
+                        <button style={{ background: '#056DFA' }}>신청 취소</button>
                     </>
                 );
             }
         }
-
     }
-
-    const writedate = new Date(rally.rallywritedate);
-    const rallystarttime = new Date(rally.rallystarttime);
-    const rallyendtime = new Date(rally.rallyendtime);
 
     return (
         <main className={style.container}>
