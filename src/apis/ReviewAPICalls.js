@@ -11,6 +11,6 @@ export function getReviewDetail(reviewCode){
     return reviews.filter(review => review.reviewcode === parseInt(reviewCode))[0];
 }
 
-export function searchReview({form}){
-    return null;
+export function searchReview(reviewname){
+    return reviews.filter(review => review.reviewname.match(reviewname));
 }

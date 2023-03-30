@@ -1,6 +1,8 @@
 import style from './ReviewSearchFilter.module.css';
 import sigunguList from '../../data/sigungu.json';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router';
+import { searchReview } from '../../apis/ReviewAPICalls';
 
 function searchSig(sidoCode) {
 
@@ -14,6 +16,11 @@ function Sigoon({ sig }) {
 
 function ReviewSearchFilter() {
 
+    const [searchValue, setSearchValue] = useState('');
+
+    const navigate = useNavigate();
+
+
     /* 시군구 담을 리스트 */
     const [sigList, setSigList] = useState([]);
 
@@ -21,6 +28,11 @@ function ReviewSearchFilter() {
     /* 시도 선택시 시군구 리스트 담음 */
     const onChangeHandler = (e) => {
         setSigList(searchSig(e.target.value));
+    }
+
+    const onClickHandler = () => {
+        navigate(`/review/search?reviewname=${searchValue}`);
+        console.log({searchReview})
     }
 
     return (
@@ -90,11 +102,14 @@ function ReviewSearchFilter() {
 
                     <article className={style.rallyteam}>
                         <h2>랠리 팀명</h2>
-                        <input type="text" name='rallyteam'></input>
+                        <input type="text"
+                        name='rallyteam' 
+                        value={searchValue}
+                        onChange= {e => setSearchValue(e.target.value)}/>
                     </article>
 
                 </section>
-                <button className={style.search}>후기 검색</button>
+                <button className={style.search} onClick={onClickHandler}>후기 검색</button>
             </form>
 
         </div>

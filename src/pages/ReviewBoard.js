@@ -33,10 +33,8 @@ function ReviewBoard() {
                 <article className={style.category}>
                     <select className={style.select}>
                         <option>전체</option>
-                        <option>모집중</option>
-                        <option>모집마감</option>
-                        <option>취소됨</option>
-                        <option>완주!</option>
+                        <option>랠리장</option>
+                        <option>랠리원</option>
                     </select>
                     <div>타입</div>
                     <div>랠리명</div>
@@ -45,7 +43,7 @@ function ReviewBoard() {
                 </article>
 
                 <article className={style.list}>
-                    <RallyList  reviewPosts = {reviewPostList}/>
+                    <RallyList reviewPosts = {reviewPostList}/>
 
                 </article>
 

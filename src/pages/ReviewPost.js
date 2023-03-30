@@ -6,12 +6,14 @@ import { useParams } from 'react-router';
 import style from './ReviewPost.module.css';
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
 import RallyList from "../components/lists/ReviewList";
+import { async } from 'q';
 
 
 function ReviewPost() {
 
-    const {rallyCode} = useParams();
     const { reviewCode} = useParams();
+
+    console.log(reviewCode);
 
     const [review, setReview] = useState({});
 
@@ -19,10 +21,43 @@ function ReviewPost() {
 
     useEffect(
         () => {
-            setReview(getReviewDetail(reviewCode));
-            setRally(getRallyDetail(rallyCode));
+            const temp = getReviewDetail(reviewCode);
+            setReview(temp);
+            
+            setRally(getRallyDetail(temp.rallycode));
+
         }, []
     );
+
+
+    const writedate = new Date(review.reviewwritedate);
+    const rallystarttime = new Date(rally.rallystarttime);
+    const rallyendtime = new Date(rally.rallyendtime);
+
+
+
+    const postSet = () => {
+
+        if (review.reviewcode === 8) {
+            return <button className={style.edit}>신고</button>;
+
+        } else if (review.reivewcode === 7 && rally.rallystatus === 'in_process') {
+
+            return (
+                <div className={style.postStatus}>
+                    <button className={style.edit}>수정</button>
+                </div>
+            );
+        } else {
+            return (
+                <div className={style.postStatus}>
+                    <button className={style.edit}>수정</button>
+                </div>
+            );
+        }
+    }
+
+
 
     return (
         <>
@@ -38,10 +73,12 @@ function ReviewPost() {
                         <div className={style.labellabel}>
                             <div className={style.mini1}>{review.reviewwritertype}</div>
                             <div className={style.mini2}>{review.rallytype}</div>
-                            {/* <h2>{rally.rallyname}</h2> */}
+                            <h2>{rally.rallyname}</h2>
                         </div>
+                        <div className={style.postStatus}>
                         <div className={style.report}>
-                            <button>신고</button>
+                            {postSet()}
+                        </div>
                         </div>
                     </div>
 
@@ -52,22 +89,22 @@ function ReviewPost() {
                                 <h2 style={{ marginLeft: '10px' }}>{review.reviewwriter}</h2>
                             </div>
                             <div className={style.container2}>
-                                <h4>{review.reviewwritedate}</h4>
+                                <h4>{writedate.toLocaleString()}</h4>
                             </div>
 
                         </article>
                         <div className={style.container3}>
                             <div className={style.mainPic}> 본 랠리 게시글 사진</div>
                             <div className={style.mainContext}>
-                                <h1 className={style.Kmlabel}>23Km</h1>
-                                <h1 className={style.Placelabel}>광진구 우리집</h1>
+                                <h1 className={style.Kmlabel}>{rally.rallydistance}Km</h1>
+                                <h3 className={style.Placelabel}>{rally.rallystartlocation}</h3>
                                 <div className={style.container}>
                                     <div className={style.startlabel}>출발 시각</div>
-                                    <h3 style={{ marginTop: '160px', marginLeft: '10px' }}>2023.03.02 AM 10:00</h3>
+                                    <h3 style={{ marginTop: '160px', marginLeft: '10px' }}>{rallystarttime.toLocaleString()}</h3>
                                 </div>
                                 <div className={style.container}>
                                     <div className={style.endlabel}>예상 완주</div>
-                                    <h3 style={{ marginTop: '10px', marginLeft: '10px' }}>2023.03.02 PM 14:00</h3>
+                                    <h3 style={{ marginTop: '10px', marginLeft: '10px' }}>{rallyendtime.toLocaleString()}</h3>
                                 </div>
                             </div>
                         </div>

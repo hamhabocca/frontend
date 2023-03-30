@@ -10,6 +10,18 @@
     font-weight: 400;
 }
 
+.label2 {
+    width: 80px;
+    height: 20px;
+    border: 1.5px solid #003ACE;
+    border-radius: 2px;
+    color: #003ACE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
 .flex_center {
     display: flex;
     justify-content: center;
