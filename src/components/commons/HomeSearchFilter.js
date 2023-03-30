@@ -1,6 +1,6 @@
 import { BiPlus, BiMinus } from "react-icons/bi";
 import sigunguList from '../../data/sigungu.json';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import style from './HomeSearchFilter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } from '../../modules/CountModule';
@@ -49,26 +49,26 @@ function HomeSearchFilter() {
 
     return (
         <div className={style.HomeSearchFilter}>
-            <form>
+            <form action="/rally/search">
                 <fieldset className={style.RallyType}>
                     <div>
-                        <input type={'checkbox'} id="ipmun" name='rallytype' value={'ipmun'} />
+                        <input type={'radio'} id="ipmun" name='rallytype' value={'ipmun'}/>
                         <label htmlFor='ipmun'>입문</label>
                     </div>
                     <div>
-                        <input type={'checkbox'} id="chobo" name='rallytype' value={'chobo'} />
+                        <input type={'radio'} id="chobo" name='rallytype' value={'chobo'} />
                         <label htmlFor='chobo'>초보</label>
                     </div>
                     <div>
-                        <input type={'checkbox'} id="jungsu" name='rallytype' value={'jungsu'} />
+                        <input type={'radio'} id="jungsu" name='rallytype' value={'jungsu'} />
                         <label htmlFor='jungsu'>중수</label>
                     </div>
                     <div>
-                        <input type={'checkbox'} id="gosu" name='rallytype' value={'gosu'} />
+                        <input type={'radio'} id="gosu" name='rallytype' value={'gosu'} />
                         <label htmlFor='gosu'>고수</label>
                     </div>
                     <div>
-                        <input type={'checkbox'} id="legend" name='rallytype' value={'legend'} />
+                        <input type={'radio'} id="legend" name='rallytype' value={'legend'} />
                         <label htmlFor='legend'>전설</label>
                     </div>
                     <button className={style.QuestionButton}>?</button>
@@ -98,7 +98,7 @@ function HomeSearchFilter() {
                         <option defaultValue=''>시/군/구</option>
                         {sigList.map(sig => <Sigoon key={sig.id} sig={sig} />)}
                     </select>
-                    <input type={'date'} />
+                    <input type="month" min="2023-01" max="2023-12" name='rallydate'/>
                 </fieldset>
                 <fieldset className={style.DistanceAndPeople}>
                     <fieldset className={style.RallyDistance}>

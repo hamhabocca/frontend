@@ -51,7 +51,7 @@ function App() {
 						<Route path='write' element={<WriteQnA />} />
 					</Route>
 					<Route path='mypage' element={<MyPage />} />
-					<Route path='Login' element={<Login />} />
+					<Route path='login' element={<Login />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
