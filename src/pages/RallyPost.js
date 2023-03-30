@@ -1,10 +1,18 @@
 import { getRallyDetail } from "../apis/RallyAPICalls";
+import SearchFilter from "../components/commons/SearchFilter";
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { open_RecruitmentListModal } from "../modules/ModalsModule";
+import CurrentRecruitListModal from "../components/modals/CurrentRecruitListModal";
+
 import style from "./RallyPost.module.css";
-import SearchFilter from "../components/commons/SearchFilter";
 
 function RallyPost() {
+
+    const dispatch = useDispatch();
+
+    const recruitmentListState = useSelector(state => state.modalsReducer.recruitmentListState);
 
     // :rallyCode
     const { rallyCode } = useParams();
@@ -16,6 +24,10 @@ function RallyPost() {
             setRally(getRallyDetail(rallyCode));
         }, []
     );
+
+    const writedate = new Date(rally.rallywritedate);
+    const rallystarttime = new Date(rally.rallystarttime);
+    const rallyendtime = new Date(rally.rallyendtime);
 
     /* 랠리 상태 */
     const rallystatus = () => {
@@ -61,6 +73,7 @@ function RallyPost() {
         }
     };
 
+    /* 게시글 상단 버튼 */
     const postSet = () => {
 
         if (rally.rallycode === 28) {
@@ -81,7 +94,7 @@ function RallyPost() {
                 </div>
             );
         }
-    }
+    };
 
     const rallybutton = () => {
 
@@ -107,11 +120,12 @@ function RallyPost() {
             if (rally.rallystatus === 'in_process') {
                 return (
                     <>
-                        <button>신청 현황</button>
+                        <button onClick={() => { dispatch(open_RecruitmentListModal()) }}>신청 현황</button>
+                        { recruitmentListState && <CurrentRecruitListModal/> }
                         <button style={{ background: '#056DFA' }}>랠리 신청</button>
                     </>
                 );
-            } else if (rally.rallystatus){
+            } else if (rally.rallystatus) {
 
                 return (
                     <>
@@ -121,12 +135,7 @@ function RallyPost() {
                 );
             }
         }
-
     }
-
-    const writedate = new Date(rally.rallywritedate);
-    const rallystarttime = new Date(rally.rallystarttime);
-    const rallyendtime = new Date(rally.rallyendtime);
 
     return (
         <main className={style.container}>
