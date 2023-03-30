@@ -1,23 +1,61 @@
 import QnAList from "../components/lists/QnAList";
 import style from "./QnABoard.module.css"
-import { getQnAList } from "../apis/QnAAPICalls";
+import { getQnAList, searchQnA } from "../apis/QnAAPICalls";
 
-import { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import styled from 'styled-components';
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
+import { Link } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 
 function QnASearchBoard() {
 
     const [page, setPage] = useState(1);
+    const [qnaPostList, setQnAPostList] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
 
+    const [searchParams] = useSearchParams();
+
+    const [qnaList, setQnAList] = useState([]);
+
+    
+    const navigate = useNavigate();
+    
+    const url = useLocation();
+    
+    console.log(url);
+    
+    console.log(decodeURI(url.search));
+    
+    const newurl = decodeURI(url.search)
+    
+    console.log(newurl.split('=')[1]);
+
+    // const qnatitle = searchParams.get('qnatitle');
+    const qnatitle = newurl.split('=')[1];
+
+    decodeURI(url);
+
+    // useEffect(
+    //     () => {
+    //         setQnAList(searchQnA(qnatitle));
+    //     },
+    //     [qnatitle]
+    // );
+
+    console.log(qnatitle);
+    
+     useEffect(() => {
+        setQnAPostList(searchQnA(qnatitle).slice(10 * (page - 1), 10 * (page - 1) + 10));
+    }, [qnatitle]);
+    
     const handlePageChange = (page) => { setPage(page) };
 
-    const [qnaPostList, setQnAPostList] = useState([]);
-
-    useEffect(() => {
-        setQnAPostList(getQnAList().slice(10 * (page - 1), 10 * (page - 1) + 10));
-    }, [page]);
+    const onClickhandler = () => {
+        navigate(`/qna/search?qnaName=${searchValue}`);
+    }
 
     return (
 
@@ -28,8 +66,15 @@ function QnASearchBoard() {
                     <option>카테고리</option>
                 </select>
                 <form className={style.input}>
-                    <input className={style.searchfield} type="text" size="50" name="search" />
-                    <input className={style.searchbtn} type="submit" value="검색" />
+                    <input 
+                        className={style.searchfield} 
+                        type="text" 
+                        size="50" 
+                        name="search"
+                        value={searchValue}
+                        onChange={ e => setSearchValue(e.target.value) } 
+                    />
+                    <input onClick={ onClickhandler } className={style.searchbtn} type="submit" value="검색" />
                 </form>
             </div>
 
@@ -60,7 +105,7 @@ function QnASearchBoard() {
             </div>
 
             <article className={style.btn}>
-                <button>작성</button>
+                <Link to='/qna/write'><button>작성</button></Link>
             </article>
 
             <div className={style.pageNumber}>
@@ -107,3 +152,4 @@ const PaginationBox = styled.div`
   `
 
 export default QnASearchBoard;
+

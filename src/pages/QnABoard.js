@@ -6,18 +6,37 @@ import { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import styled from 'styled-components';
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
+import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router";
+
 
 function QnABoard() {
 
     const [page, setPage] = useState(1);
-
-    const handlePageChange = (page) => { setPage(page) };
-
     const [qnaPostList, setQnAPostList] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
 
+    const navigate = useNavigate();
+
+    
     useEffect(() => {
         setQnAPostList(getQnAList().slice(10 * (page - 1), 10 * (page - 1) + 10));
     }, [page]);
+    
+    const handlePageChange = (page) => { setPage(page) };
+
+    // const handleSearchInputChange = (event) => {
+    //     setSearchValue(event.target.value);
+    //   };
+    
+    //   const handleSearchSubmit = (event) => {
+    //     event.preventDefault();
+    //     navigate(`/qna/search?qnaName=${searchValue}`);
+    //   };
+
+    const onClickhandler = () => {
+        navigate(`/qna/search?qnaName=${searchValue}`);
+    }
 
     return (
 
@@ -28,8 +47,15 @@ function QnABoard() {
                     <option>카테고리</option>
                 </select>
                 <form className={style.input}>
-                    <input className={style.searchfield} type="text" size="50" name="search" />
-                    <input className={style.searchbtn} type="submit" value="검색" />
+                    <input 
+                        className={style.searchfield} 
+                        type="text" 
+                        size="50" 
+                        name="search" 
+                        value={searchValue}
+                        onChange={ e => setSearchValue(e.target.value) }    
+                    />
+                    <input onClick={ onClickhandler } className={style.searchbtn} type="submit" value="검색" />
                 </form>
             </div>
 
@@ -60,7 +86,7 @@ function QnABoard() {
             </div>
 
             <article className={style.btn}>
-                <button>작성</button>
+                <Link to='/qna/write'><button>작성</button></Link>
             </article>
 
             <div className={style.pageNumber}>

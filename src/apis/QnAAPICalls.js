@@ -12,7 +12,7 @@ export function getQnADetail(qnaCode) {
     return qnas.filter(qna => qna.qnacode === parseInt(qnaCode))[0];
 }
 
-export function searchQnA({ form }) {
+export function searchQnA(qnatitle) {
 
-    return null;
+    return qnas.filter(qna => qna.qnatitle.match(qnatitle));
 }
