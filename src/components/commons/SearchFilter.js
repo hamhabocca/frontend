@@ -48,6 +48,17 @@ function SearchFilter() {
         setSigList(searchSig(e.target.value));
     }
 
+
+    /* 체크박스 */
+    const checkOnlyOne = (checkThis) => {
+        const checkboxes = document.getElementsByName('rallytype')
+        for (let i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i] !== checkThis) {
+            checkboxes[i].checked = false
+          }
+        }
+      }
+
     return (
         <div className={style.filter}>
             <article className={style.title}>
@@ -59,23 +70,23 @@ function SearchFilter() {
                     <article className={style.rallytype}>
                         <h2>랠리 타입</h2>
                         <div>
-                            <input type="checkbox" id="ipmun" name='rallytype' value={'ipmun'} />
+                            <input type="checkbox" id="ipmun" name='rallytype' value={'ipmun'} onChange={(e) => checkOnlyOne(e.target)}/>
                             <label htmlFor='ipmun'>입문</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="chobo" name='rallytype' value={'chobo'} />
+                            <input type="checkbox" id="chobo" name='rallytype' value={'chobo'} onChange={(e) => checkOnlyOne(e.target)}/>
                             <label htmlFor='chobo'>초보</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="jungsu" name='rallytype' value={'jungsu'} />
+                            <input type="checkbox" id="jungsu" name='rallytype' value={'jungsu'} onChange={(e) => checkOnlyOne(e.target)}/>
                             <label htmlFor='jungsu'>중수</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="gosu" name='rallytype' value={'gosu'} />
+                            <input type="checkbox" id="gosu" name='rallytype' value={'gosu'} onChange={(e) => checkOnlyOne(e.target)}/>
                             <label htmlFor='gosu'>고수</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="legend" name='rallytype' value={'legend'} />
+                            <input type="checkbox" id="legend" name='rallytype' value={'legend'} onChange={(e) => checkOnlyOne(e.target)}/>
                             <label htmlFor='legend'>전설</label>
                         </div>
                     </article>
@@ -110,7 +121,7 @@ function SearchFilter() {
 
                     <article className={style.rallydate}>
                         <h2>랠리 일정</h2>
-                        <input type="month" min="2023-01" max="2023-12" name='rallydate'/>
+                        <input type="month" min="2023-01" max="2023-12" name='rallydate' />
                     </article>
 
                     <article className={style.rallydistance}>
@@ -131,12 +142,12 @@ function SearchFilter() {
                         </div>
                     </article>
                 </section>
-                <input type='submit' value='랠리 검색' className={style.search}/>
+                <input type='submit' value='랠리 검색' className={style.search} />
             </form>
 
             <article className={style.recruit}>
                 <p>랠리장이 되어보세요!</p>
-                <Link to='/rally/write' style={{color:'white', textDecoration:'none'}}><button>모집 작성</button></Link>
+                <Link to='/rally/write' style={{ color: 'white', textDecoration: 'none' }}><button>모집 작성</button></Link>
             </article>
         </div>
     );

@@ -1,4 +1,4 @@
-import { createActions, handleActions } from "redux-actions";
+import { handleActions } from "redux-actions";
 
 
 /* 초기 state값 */
