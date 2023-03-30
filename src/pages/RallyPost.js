@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import style from "./RallyPost.module.css";
 import SearchFilter from "../components/commons/SearchFilter";
+import CurrentRecruitList from '../components/modals/CurrentRecruitList';
 
 function RallyPost() {
 
@@ -10,6 +11,8 @@ function RallyPost() {
     const { rallyCode } = useParams();
 
     const [rally, setRally] = useState({});
+
+    const [listIsOpen, setListIsOpen] = useState(false);
 
     useEffect(
         () => {
@@ -107,15 +110,17 @@ function RallyPost() {
             if (rally.rallystatus === 'in_process') {
                 return (
                     <>
-                        <button>신청 현황</button>
+                        <button onClick={ () => { setListIsOpen(true) } }>신청 현황</button>
+                        {listIsOpen && <CurrentRecruitList/>}
+                        
                         <button style={{ background: '#056DFA' }}>랠리 신청</button>
                     </>
                 );
-            } else if (rally.rallystatus){
+            } else if (rally.rallystatus) {
 
                 return (
                     <>
-                        <button>신청 현황</button>
+                        <button onClick={ () => { setListIsOpen(true) } }>신청 현황</button>
                         <button style={{ background: '#056DFA' }}>신청 취소</button>
                     </>
                 );

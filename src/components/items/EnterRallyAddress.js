@@ -33,73 +33,25 @@ function EnterRallyAddress() {
 
     const onClickHandler1 = () => {
         dispatch(toggle_departure(true));
-        showModal()
+        showModal();
     }
 
     const onClickHandler2 = () => {
         dispatch(toggle_arrival(true));
-        showModal()
+        showModal();
     }
 
-    if(isOpenModal1 === false || isOpenModal2 === false) {
+    if(isOpenModal1 === false && isOpenModal2 === false) {
         hideModal();
     }
 
     return (
         <div className={style.address}>
-            <Modal isOpen={isOpenModal1} onRequestClose={() => dispatch(toggle_departure(false))} ariaHideApp={false} className={style.address}
-                style={{
-                    overlay: {
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                    },
-                    content: {
-                        position: 'relative',
-                        top: 'calc( (100% - 750px) / 2 )',
-                        width: '500px',
-                        height: '700px',
-                        margin: 'auto',
-                        border: '1px solid #ccc',
-                        background: '#fff',
-                        overflow: 'auto',
-                        WebkitOverflowScrolling: 'touch',
-                        borderRadius: '4px',
-                        outline: 'none',
-                        padding: '20px'
-                    }
-                }}>
+            <Modal isOpen={isOpenModal1} onRequestClose={() => dispatch(toggle_departure(false))} ariaHideApp={false} className={style.modal} style={{overlay: {backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98'}}}>
                     <DaumPost1/>
             </Modal>
 
-            <Modal isOpen={isOpenModal2} onRequestClose={() => dispatch(toggle_arrival(false))} ariaHideApp={false} className={style.address}
-                style={{
-                    overlay: {
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                    },
-                    content: {
-                        position: 'relative',
-                        top: 'calc( (100% - 750px) / 2 )',
-                        width: '500px',
-                        height: '700px',
-                        margin: 'auto',
-                        border: '1px solid #ccc',
-                        background: '#fff',
-                        overflow: 'auto',
-                        WebkitOverflowScrolling: 'touch',
-                        borderRadius: '4px',
-                        outline: 'none',
-                        padding: '20px'
-                    }
-                }}>
+            <Modal isOpen={isOpenModal2} onRequestClose={() => dispatch(toggle_arrival(false))} ariaHideApp={false} className={style.modal} style={{overlay: {backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98'}}}>
                     <DaumPost2/>
             </Modal>
 
