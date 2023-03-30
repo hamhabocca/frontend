@@ -4,9 +4,16 @@ import { IoIosMale } from 'react-icons/io';
 import { getOneMember } from '../apis/UserAPICalls';
 import RallyCardMyPage from '../components/items/RallyCardMyPage';
 import MyPageList from '../components/lists/MyPageList';
-
+import { useState } from 'react';
+import ModalSecession from '../components/modals/ModalSecession';
 
 function MyPage(/* member */) {
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const showModal = () => {
+        setModalOpen(true);
+    };
     
     /* 임시로 불러오는 테스트 목적 변수 */
     const member = getOneMember(2);
@@ -76,7 +83,10 @@ function MyPage(/* member */) {
                         </div>
                         <button className={style.EditProfile}>프로필 수정</button>
                     </div>
-                    <button className={style.Deactivate}>사이트 탈퇴하기</button>
+                    <div>
+                    <button className={style.Deactivate} onClick = {showModal}>사이트 탈퇴하기</button>
+                    {modalOpen && <ModalSecession setModalOpen = {setModalOpen}/>}
+                    </div>
                 </section>
                 <section className={style.Right}>
                     <MyPageList typeOfList={'모집'} membercode={member.membercode}/>
