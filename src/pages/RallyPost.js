@@ -3,6 +3,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import style from "./RallyPost.module.css";
 import SearchFilter from "../components/commons/SearchFilter";
+import RallyPartcipate from "../components/modals/RallyPartcipate";
+import RallyCancle from "../components/modals/RallyCancle";
+import RallyRecruitmentCancle from "../components/modals/RallyRecruitmentCancle";
+import Report from "../components/modals/Report";
+
 
 function RallyPost() {
 
@@ -11,6 +16,38 @@ function RallyPost() {
 
     const [rally, setRally] = useState({});
 
+    // 모달창 노출 여부 state
+    const [RallyPartcipateModalOpen, setRallyPartcipateModalOpen] = useState(false);
+
+    // 모달창 노출
+    const showModal1 = () => {
+        setRallyPartcipateModalOpen(true);
+    };
+
+    // 모달창 노출 여부 state
+    const [RallyCancleModalOpen, setRallyCancleModalOpen] = useState(false);
+
+    // 모달창 노출
+    const showModal2 = () => {
+        setRallyCancleModalOpen(true);
+    };
+
+    // 모달창 노출 여부 state
+    const [RallyRecruitmentCancleModalOpen, setRallyRecruitmentCancleModalOpen] = useState(false);
+
+    // 모달창 노출
+    const showModal3 = () => {
+        setRallyRecruitmentCancleModalOpen(true);
+    };
+
+     // 모달창 노출 여부 state
+     const [ReportModalOpen, setReportModalOpen] = useState(false);
+
+     // 모달창 노출
+     const showModal4 = () => {
+         setReportModalOpen(true);
+     };
+ 
     useEffect(
         () => {
             setRally(getRallyDetail(rallyCode));
@@ -64,13 +101,19 @@ function RallyPost() {
     const postSet = () => {
 
         if (rally.rallycode === 28) {
-            return <button className={style.edit}>신고</button>;
-
+            return (
+                <div>
+                    <button onClick={showModal4} className={style.edit}>신고</button>
+                    {ReportModalOpen && <Report setReportModalOpen={setReportModalOpen} />}
+                </div>
+            );
+                 
         } else if (rally.rallycode === 29 && rally.rallystatus === 'in_process') {
 
             return (
                 <div className={style.postStatus}>
-                    <button className={style.report}>모집취소</button>
+                    <button onClick={showModal3} className={style.report}>모집취소</button>
+                    {RallyRecruitmentCancleModalOpen && <RallyRecruitmentCancle setRallyRecruitmentCancleModalOpen={setRallyRecruitmentCancleModalOpen} />}
                     <button className={style.edit}>수정</button>
                 </div>
             );
@@ -108,7 +151,10 @@ function RallyPost() {
                 return (
                     <>
                         <button>신청 현황</button>
-                        <button style={{ background: '#056DFA' }}>랠리 신청</button>
+                        <div>
+                        <button onClick={showModal1} style={{ background: '#056DFA' }}>랠리 신청</button>
+                        {RallyPartcipateModalOpen && <RallyPartcipate setRallyPartcipateModalOpen={setRallyPartcipateModalOpen} />}
+                        </div>
                     </>
                 );
             } else if (rally.rallystatus){
@@ -116,7 +162,8 @@ function RallyPost() {
                 return (
                     <>
                         <button>신청 현황</button>
-                        <button style={{ background: '#056DFA' }}>신청 취소</button>
+                        <button onClick={showModal2} style={{ background: '#056DFA' }}>신청 취소</button>
+                        {RallyCancleModalOpen && <RallyCancle setRallyCancleModalOpen={setRallyCancleModalOpen} />}
                     </>
                 );
             }

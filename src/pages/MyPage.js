@@ -4,10 +4,20 @@ import { IoIosMale } from 'react-icons/io';
 import { getOneMember } from '../apis/UserAPICalls';
 import RallyCardMyPage from '../components/items/RallyCardMyPage';
 import MyPageList from '../components/lists/MyPageList';
+import Profile from "../components/modals/Profile";
+import { useState } from "react";
 
 
 function MyPage(/* member */) {
     
+    // 모달창 노출 여부 state
+    const [ProfileModalOpen, setProfileModalOpen] = useState(false);
+
+    // 모달창 노출
+    const showModal1 = () => {
+        setProfileModalOpen(true);
+    };
+
     /* 임시로 불러오는 테스트 목적 변수 */
     const member = getOneMember(2);
     
@@ -74,7 +84,8 @@ function MyPage(/* member */) {
                                 <label>10</label>
                             </div>
                         </div>
-                        <button className={style.EditProfile}>프로필 수정</button>
+                        <button onClick={showModal1} className={style.EditProfile}>프로필 수정</button>
+                        {ProfileModalOpen && <Profile setProfileModalOpen={setProfileModalOpen} />}
                     </div>
                     <button className={style.Deactivate}>사이트 탈퇴하기</button>
                 </section>
