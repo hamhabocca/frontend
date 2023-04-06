@@ -1,14 +1,17 @@
+import { useDispatch, useSelector } from 'react-redux';
+import Modal from 'react-modal';
 import styles from './RallyRecruitmentCancle.module.css';
+import { closeModal } from "../../modules/ModalsModule";
 
-function RallyRecruitmentCancle({ setRallyRecruitmentCancleModalOpen }) {
-    // 모달 끄기 
-    const closeModal = () => {
-        setRallyRecruitmentCancleModalOpen(false);
-    };
+function RallyRecruitmentCancle() {
+    
+    const dispatch = useDispatch();
+    const isOpen = useSelector(state => state.modalsReducer.cancelRecruitState2);
 
     return (
-        <div className={styles.all}>
-            <div className={styles.container}>
+        <Modal isOpen={isOpen} ariaHideApp={false} className={styles.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>
+    
+            <div>
                 <div className={styles.header}>
                     <h3>랠리 모집 취소</h3>
                 </div>
@@ -18,10 +21,10 @@ function RallyRecruitmentCancle({ setRallyRecruitmentCancleModalOpen }) {
                     <h6 className={styles.text}> * 취소 한 후에는 되돌릴 수 없습니다! <br/> * 잦은 취소는 이용자의 서비스 활동이 제한될 수 있습니다. </h6> 
                     
                     <input type='button' className={styles.ok} value='확인'/>
-                    <input type='button' className={styles.close} onClick={closeModal} value='취소'/>
+                    <input type='button' className={styles.close} onClick={() => dispatch(closeModal())} value='취소'/>
                 </div>
             </div>
-        </div>
+       </Modal>
     );
 }
 export default RallyRecruitmentCancle;

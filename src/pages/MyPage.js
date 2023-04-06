@@ -6,17 +6,17 @@ import RallyCardMyPage from '../components/items/RallyCardMyPage';
 import MyPageList from '../components/lists/MyPageList';
 import Profile from "../components/modals/Profile";
 import { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { open_ProfileModal } from '../modules/ModalsModule';
 
 
 function MyPage(/* member */) {
     
-    // 모달창 노출 여부 state
-    const [ProfileModalOpen, setProfileModalOpen] = useState(false);
+    const dispatch = useDispatch();
 
-    // 모달창 노출
-    const showModal1 = () => {
-        setProfileModalOpen(true);
-    };
+    const profileState = useSelector(state => state.modalsReducer.profileState);
+
+  
 
     /* 임시로 불러오는 테스트 목적 변수 */
     const member = getOneMember(2);
@@ -84,8 +84,8 @@ function MyPage(/* member */) {
                                 <label>10</label>
                             </div>
                         </div>
-                        <button onClick={showModal1} className={style.EditProfile}>프로필 수정</button>
-                        {ProfileModalOpen && <Profile setProfileModalOpen={setProfileModalOpen} />}
+                        <button onClick={() => { dispatch(open_ProfileModal()) }} className={style.EditProfile}>프로필 수정</button>
+                        {profileState && <Profile/>}
                     </div>
                     <button className={style.Deactivate}>사이트 탈퇴하기</button>
                 </section>
