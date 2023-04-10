@@ -3,14 +3,21 @@ import SearchFilter from '../components/commons/SearchFilter';
 import EnterRallyAddress from '../components/items/EnterRallyAddress';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset_state } from '../modules/AddressModule';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Kakaomap from '../components/items/Kakaomap';
 
 function WriteRallyPost() {
 
+    // 입력한 주소 가져오기
+    const departureAddress = useSelector(state => state.addressReducer.departureState);
+    const arrivalAddress = useSelector(state => state.addressReducer.arrivalState);
+    
+    let hasAddress = 
+    departureAddress != '' && arrivalAddress != '' ? <Kakaomap departureAddress={departureAddress} arrivalAddress={arrivalAddress} /> : null; 
+    
     const dispatch = useDispatch();
 
     const onClickHandler = () => {
-        console.log('리셋ㅅㅅㅅ');
         dispatch(reset_state());
     };
 
@@ -42,7 +49,9 @@ function WriteRallyPost() {
                         <div className={style.rallyMap}>
                             <div className={style.mapImg}>
                                 <h3>랠리 모집 정보</h3>
-                                <div></div>
+                                <div>
+                                {hasAddress}
+                                </div>
                             </div>
                             <div className={style.mapInfo}>
                                 <div className={style.people}>

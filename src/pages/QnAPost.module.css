@@ -117,7 +117,8 @@
 }
 
 .container {
-    margin-top: 5pxpx;
+    margin-top: 5px;
+    display: flex;
 }
 
 .btn {
@@ -130,4 +131,31 @@
     font-weight: bold;
     align-items : stretch;
     
+}
+
+.button {
+    display: flex;
+    justify-content: right;
+}
+
+.editbtn {
+    width: 100px;
+    height: 31px;
+    border: 2px solid #056DFA;
+    background-color: #056DFA;
+    color: white;
+    font-weight: bold;
+    margin-right: 5px;
+
+}
+
+.deletebtn {
+    width: 100px;
+    height: 31px;
+    border: 2px solid #FF342B;
+    background-color: #FF342B;
+    color: white;
+    font-weight: bold;
+    margin-right: 5px;
+
 }

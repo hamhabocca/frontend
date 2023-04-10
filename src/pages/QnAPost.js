@@ -2,8 +2,15 @@ import { getQnADetail } from "../apis/QnAAPICalls";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import style from './QnAPost.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { open_deleteModal } from "../modules/ModalsModule";
+import Delete from "../components/modals/Delete";
 
 function QnAPost() {
+
+    const dispatch = useDispatch();
+
+    const deletePostState = useSelector(state => state.modalsReducer.deletePostState);
 
     const { qnaCode } = useParams();
 
@@ -36,6 +43,11 @@ function QnAPost() {
                     </div>
                 </div>
                 <hr/>
+                <div className={style.button}>
+                    <button className={style.editbtn}>수정</button>
+                    <button onClick={() => { dispatch(open_deleteModal())}} className={style.deletebtn}>삭제</button>
+                    {deletePostState && <Delete/>}
+                </div>
                 <div className={style.contants}>
                     <div>
                         <div className={style.img}>이미지</div>
