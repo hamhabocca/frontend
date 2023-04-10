@@ -1,11 +1,27 @@
 import { getRallyDetail } from "../apis/RallyAPICalls";
+import SearchFilter from "../components/commons/SearchFilter";
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { open_CancelRecruitModal, open_CancelRecruitModal2, open_RecruitmentListModal, open_RecruitModal, open_ReportModal } from "../modules/ModalsModule";
+import CurrentRecruitListModal from "../components/modals/CurrentRecruitListModal";
+
 import style from "./RallyPost.module.css";
-import SearchFilter from "../components/commons/SearchFilter";
+import RallyPartcipate from "../components/modals/RallyPartcipate";
+import RallyCancle from "../components/modals/RallyCancle";
+import RallyRecruitmentCancle from "../components/modals/RallyRecruitmentCancle";
+import Report from "../components/modals/Report";
 
 function RallyPost() {
 
+    const dispatch = useDispatch();
+
+    const recruitmentListState = useSelector(state => state.modalsReducer.recruitmentListState);
+    const recruitState = useSelector(state => state.modalsReducer.recruitState);
+    const cancelRecruitState = useSelector(state => state.modalsReducer.cancelRecruitState);
+    const cancelRecruitState2 = useSelector(state => state.modalsReducer.cancelRecruitState2);
+    const reportState = useSelector(state => state.modalsReducer.reportState);
+    
     // :rallyCode
     const { rallyCode } = useParams();
 
@@ -16,6 +32,10 @@ function RallyPost() {
             setRally(getRallyDetail(rallyCode));
         }, []
     );
+
+    const writedate = new Date(rally.rallywritedate);
+    const rallystarttime = new Date(rally.rallystarttime);
+    const rallyendtime = new Date(rally.rallyendtime);
 
     /* 랠리 상태 */
     const rallystatus = () => {
@@ -61,18 +81,29 @@ function RallyPost() {
         }
     };
 
+    /* 게시글 상단 버튼 */
     const postSet = () => {
 
         if (rally.rallycode === 28) {
-            return <button className={style.edit}>신고</button>;
+            return (
+                <>
+                <button onClick={() => { dispatch(open_ReportModal())}} className={style.edit}>신고</button>
+                { reportState && <Report/> }
+                </>
+            );
+                    
 
         } else if (rally.rallycode === 29 && rally.rallystatus === 'in_process') {
 
             return (
+                <>
                 <div className={style.postStatus}>
-                    <button className={style.report}>모집취소</button>
+                    <button onClick={() => { dispatch(open_CancelRecruitModal2())}} className={style.report}>모집취소</button>
+                    { cancelRecruitState2 && <RallyRecruitmentCancle/> }
                     <button className={style.edit}>수정</button>
                 </div>
+                </>
+
             );
         } else {
             return (
@@ -81,7 +112,7 @@ function RallyPost() {
                 </div>
             );
         }
-    }
+    };
 
     const rallybutton = () => {
 
@@ -107,26 +138,24 @@ function RallyPost() {
             if (rally.rallystatus === 'in_process') {
                 return (
                     <>
-                        <button>신청 현황</button>
-                        <button style={{ background: '#056DFA' }}>랠리 신청</button>
+                        <button onClick={() => { dispatch(open_RecruitmentListModal()) }}>신청 현황</button>
+                        { recruitmentListState && <CurrentRecruitListModal/> }
+                        <button onClick={() => { dispatch(open_RecruitModal())}} style={{ background: '#056DFA' }}>랠리 신청</button>
+                        { recruitState && <RallyPartcipate/> }
                     </>
                 );
-            } else if (rally.rallystatus){
+            } else if (rally.rallystatus) {
 
                 return (
                     <>
                         <button>신청 현황</button>
-                        <button style={{ background: '#056DFA' }}>신청 취소</button>
+                        <button onClick={() => { dispatch(open_CancelRecruitModal())}} style={{ background: '#056DFA' }}>신청 취소</button>
+                        { cancelRecruitState && <RallyCancle/> }
                     </>
                 );
             }
         }
-
     }
-
-    const writedate = new Date(rally.rallywritedate);
-    const rallystarttime = new Date(rally.rallystarttime);
-    const rallyendtime = new Date(rally.rallyendtime);
 
     return (
         <main className={style.container}>
