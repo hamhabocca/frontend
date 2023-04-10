@@ -1,15 +1,15 @@
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './SecessionOkModal.module.css';
+import Modal from 'react-modal';
+import { closeModal } from '../../modules/ModalsModule';
 
-function SecessionOkModal({ setModalOpen }) {
+function SecessionOkModal() {
 
-    const [modalOpen, setModalOpen] = useState(false);
-
-    // 모달 끄기 
-    const closeModal = () => {
-        setModalOpen(false);
-    };
+    const dispatch = useDispatch();
+    const isOpen = useSelector(state => state.modalsReducer.deleteOkAccountState);
 
     return (
+        <Modal isOpen = {isOpen} onRequestClose = {() => dispatch(closeModal())} ariaHideApp={false} className ={styles.modal} style = {{overlay : {backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98'}}}>
         <div className={styles.all}>
             <div className={styles.container}>
                 <div className={styles.header}>
@@ -21,11 +21,12 @@ function SecessionOkModal({ setModalOpen }) {
                     <br/>
                     <h5 className={styles.text}>회원님의 정보는 30일간 저장되며, 그 이후 삭제됩니다. </h5>
                     <div>
-                    <input type='button' className={styles.ok} onClick = {closeModal} value='닫기'/>
+                    <input type='button' className={styles.ok} onClick = {() => dispatch(closeModal())} value='닫기'/>
                 </div>
             </div>
         </div>
         </div>
+        </Modal>
     );
 }
 export default SecessionOkModal;

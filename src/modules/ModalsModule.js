@@ -7,7 +7,9 @@ const initialState = {
     reportState: false,             //신고하기
     profileState: false,            //프로필수정
     registerState:false,            //회원가입(닉네임)
-    deleteAccountState:false        //회원탈퇴
+    deleteAccountState:false,        //회원탈퇴
+    deleteOkAccountState:false      //회원탈퇴확인
+
 };
 
 const RECRUITMENT_LIST = 'rally/RECRUITMENT_LIST';
@@ -17,6 +19,7 @@ const REPORT = 'member/REPORT';
 const PROFILE = 'member/PROFILE';
 const REGISTER = 'member/REGISTER';
 const DELETE_ACCOUNT = 'member/DELETE_ACCOUNT';
+const DELETE_OK_ACCOUNT = 'member/DELETE_OK_ACCOUNT';
 
 export const open_RecruitmentListModal = () => ({
     type: RECRUITMENT_LIST,
@@ -51,6 +54,11 @@ export const open_RegisterModal = () => ({
 export const open_deleteAccountModal = () => ({
     type: DELETE_ACCOUNT,
     payload: { result: true }
+});
+
+export const open_deleteOkAccountModal = () =>({
+    type : DELETE_OK_ACCOUNT,
+    payload : { result : true }
 });
 
 export const closeModal = () => ({
@@ -101,6 +109,15 @@ const modalsReducer = handleActions({
             deleteAccountState: result
         };
     },
+
+    [DELETE_OK_ACCOUNT] : (state, {payload : {result}}) => {
+        return {
+            ...state,
+            deleteOkAccountState : result
+        };
+
+    },
+
     'CLOSE_MODAL': (state, payload) => {
         return payload;
     }
