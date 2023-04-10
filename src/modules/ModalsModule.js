@@ -3,8 +3,8 @@ import { createActions, handleActions } from "redux-actions";
 const initialState = {
     recruitmentListState: false,    //신청현황
     recruitState: false,            //랠리신청
-    cancelRecruitState: false,      //참가취소 및 모집취소
-    cancelRecruitState2: false, 
+    cancelRecruitState: false,      //참가취소
+    cancelRecruitState2: false,     //모집취소
     reportState: false,             //신고하기
     profileState: false,            //프로필수정
     registerState:false,            //회원가입(닉네임)

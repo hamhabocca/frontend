@@ -6,11 +6,7 @@ export function getRallySearchResult(searchParams) {
 
     let paramList = searchParams.split('&');
 
-    console.log(paramList)
-
     paramList = paramList.map(param => param.split('='));
-
-    console.log(paramList)
 
     let rallytype = '';
 
@@ -20,7 +16,6 @@ export function getRallySearchResult(searchParams) {
             if(paramList[0][1] == 'ipmun') {
                 rallytype = '입문';
             } else {
-                console.log('입문이 아니당~');
                 rallytype = 'chobo';
             }
             // const rallytype = paramList[0][1];

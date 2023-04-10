@@ -20,21 +20,14 @@ function RallySearchBoard() {
     const [searchResult, setSearchResult] = useState([]);
 
     const searchParams = useLocation();
-    // console.log(searchParams)
 
     const uri = decodeURI(searchParams.search);
 
     const uriNew = uri.replace('?', '');
 
-    // console.log(uriNew.split('&'));
-    // console.log(uriNew.split('&')[0].slice((uriNew.split('&')[0].indexOf('=')+1)));
-
     useEffect(
         () => {
-            // setSearchResult(getRallyList().slice(15 * (page - 1), 15 * (page - 1) + 15));
-            // setSearchResult()
             setSearchResult(getRallySearchResult(uriNew));
-            console.log(getRallySearchResult(uriNew));
         }, 
     [page]
     );

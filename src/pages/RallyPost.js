@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { open_CancelRecruitModal, open_CancelRecruitModal2, open_RecruitmentListModal, open_RecruitModal, open_ReportModal } from "../modules/ModalsModule";
 import CurrentRecruitListModal from "../components/modals/CurrentRecruitListModal";
-
 import style from "./RallyPost.module.css";
 import RallyPartcipate from "../components/modals/RallyPartcipate";
 import RallyCancle from "../components/modals/RallyCancle";
@@ -21,7 +20,7 @@ function RallyPost() {
     const cancelRecruitState = useSelector(state => state.modalsReducer.cancelRecruitState);
     const cancelRecruitState2 = useSelector(state => state.modalsReducer.cancelRecruitState2);
     const reportState = useSelector(state => state.modalsReducer.reportState);
-    
+
     // :rallyCode
     const { rallyCode } = useParams();
 
