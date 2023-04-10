@@ -4,19 +4,18 @@ import { IoIosMale } from 'react-icons/io';
 import { getOneMember } from '../apis/UserAPICalls';
 import RallyCardMyPage from '../components/items/RallyCardMyPage';
 import MyPageList from '../components/lists/MyPageList';
+import ModalSecession from '../components/modals/ModalSecession';
 import Profile from "../components/modals/Profile";
-import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { open_ProfileModal } from '../modules/ModalsModule';
-
+import { open_deleteAccountModal, open_ProfileModal } from '../modules/ModalsModule';
 
 function MyPage(/* member */) {
-    
+
     const dispatch = useDispatch();
 
+    const deleteAccountState = useSelector(state => state.modalsReducer.deleteAccountState);
     const profileState = useSelector(state => state.modalsReducer.profileState);
 
-  
 
     /* 임시로 불러오는 테스트 목적 변수 */
     const member = getOneMember(2);
@@ -85,9 +84,12 @@ function MyPage(/* member */) {
                             </div>
                         </div>
                         <button onClick={() => { dispatch(open_ProfileModal()) }} className={style.EditProfile}>프로필 수정</button>
-                        {profileState && <Profile/>}
+                        { profileState && <Profile/> }
                     </div>
-                    <button className={style.Deactivate}>사이트 탈퇴하기</button>
+                    <div>
+                    <button className={style.Deactivate} onClick = {() => { dispatch(open_deleteAccountModal())}}>사이트 탈퇴하기</button>
+                    { deleteAccountState && <ModalSecession/> }
+                    </div>
                 </section>
                 <section className={style.Right}>
                     <MyPageList typeOfList={'모집'} membercode={member.membercode}/>

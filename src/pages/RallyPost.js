@@ -141,6 +141,7 @@ function RallyPost() {
                         { recruitmentListState && <CurrentRecruitListModal/> }
                         <button onClick={() => { dispatch(open_RecruitModal())}} style={{ background: '#056DFA' }}>랠리 신청</button>
                         { recruitState && <RallyPartcipate/> }
+
                     </>
                 );
             } else if (rally.rallystatus) {

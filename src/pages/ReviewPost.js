@@ -39,19 +39,19 @@ function ReviewPost() {
     const postSet = () => {
 
         if (review.reviewcode === 8) {
-            return <button className={style.edit}>신고</button>;
+            return <button className={style.edit}>수정</button>;
 
         } else if (review.reivewcode === 7 && rally.rallystatus === 'in_process') {
 
             return (
                 <div className={style.postStatus}>
-                    <button className={style.edit}>수정</button>
+                    <button className={style.edit}>신고</button>
                 </div>
             );
         } else {
             return (
                 <div className={style.postStatus}>
-                    <button className={style.edit}>수정</button>
+                    <button className={style.edit}>신고</button>
                 </div>
             );
         }

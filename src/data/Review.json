@@ -72,11 +72,96 @@
     {
         "reviewcode": 8,
         "rallycode": 11,
-        "rallytype": "전설",
-        "reviewwriter": "유현아빠",
+        "rallytype": "중수",
+        "reviewwriter": "동주짱",
         "reviewwritertype": "master",
         "reviewwritedate": "2023-03-13T13:03:05.456Z",
         "reviewdetail": "text",
         "reviewname" : "리뷰8"
+    },
+    {
+        "reviewcode": 9,
+        "rallycode": 12,
+        "rallytype": "전설",
+        "reviewwriter": "이주동",
+        "reviewwritertype": "master",
+        "reviewwritedate": "2023-03-13T13:03:05.456Z",
+        "reviewdetail": "text",
+        "reviewname" : "리뷰9이다 어때 내 이름 엄청 길지 하지만 이래도 다 될거야 나는 그렇게 믿어"
+    },
+    {
+        "reviewcode": 10,
+        "rallycode": 13,
+        "rallytype": "전설",
+        "reviewwriter": "언니들 오늘 뭐 드세요",
+        "reviewwritertype": "master",
+        "reviewwritedate": "2023-03-13T13:03:05.456Z",
+        "reviewdetail": "text",
+        "reviewname" : "리뷰10"
+    },
+    {
+        "reviewcode": 11,
+        "rallycode": 11,
+        "rallytype": "전설",
+        "reviewwriter": "정혜따랑해",
+        "reviewwritertype": "master",
+        "reviewwritedate": "2023-03-13T13:03:05.456Z",
+        "reviewdetail": "text",
+        "reviewname" : "리뷰11"
+    },
+    {
+        "reviewcode": 12,
+        "rallycode": 11,
+        "rallytype": "초보",
+        "reviewwriter": "유현엄마",
+        "reviewwritertype": "master",
+        "reviewwritedate": "2023-03-13T13:03:05.456Z",
+        "reviewdetail": "text",
+        "reviewname" : "리뷰12"
+    },
+    {
+        "reviewcode": 13,
+        "rallycode": 11,
+        "rallytype": "전설",
+        "reviewwriter": "주동이",
+        "reviewwritertype": "master",
+        "reviewwritedate": "2023-03-13T13:03:05.456Z",
+        "reviewdetail": "text",
+        "reviewname" : "리뷰13"
+    },
+
+    {
+        "reviewcode": 14,
+        "rallycode": 11,
+        "rallytype": "중수",
+        "reviewwriter": "이금주",
+        "reviewwritertype": "master",
+        "reviewwritedate": "2023-03-13T13:03:05.456Z",
+        "reviewdetail": "text",
+        "reviewname" : "리뷰14"
+    },
+
+    {
+        "reviewcode": 15,
+        "rallycode": 11,
+        "rallytype": "입문",
+        "reviewwriter": "공주",
+        "reviewwritertype": "master",
+        "reviewwritedate": "2023-03-13T13:03:05.456Z",
+        "reviewdetail": "text",
+        "reviewname" : "리뷰15"
+    },
+
+    {
+        "reviewcode": 16,
+        "rallycode": 11,
+        "rallytype": "초보",
+        "reviewwriter": "동필짱",
+        "reviewwritertype": "master",
+        "reviewwritedate": "2023-03-13T13:03:05.456Z",
+        "reviewdetail": "text",
+        "reviewname" : "리뷰16"
     }
+
+    
 ]
