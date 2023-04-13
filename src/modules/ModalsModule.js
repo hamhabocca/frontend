@@ -9,7 +9,7 @@ const initialState = {
     profileState: false,            //프로필수정
     registerState:false,            //회원가입(닉네임)
     deleteAccountState:false,        //회원탈퇴
-    deleteOkAccountState:false      //회원탈퇴확인
+    deleteOkAccountState:false,      //회원탈퇴확인
     deletePostState:false           //게시글 삭제
 };
 
