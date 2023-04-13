@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import styles from './SecessionOkModal.module.css';
+import styles from './ModalSecession.module.css';
 import Modal from 'react-modal';
 import { closeModal } from '../../modules/ModalsModule';
 
@@ -16,15 +16,15 @@ function SecessionOkModal() {
                     <h3>회원 탈퇴</h3>
                 </div>
                 <div className={styles.info}>
-                    <h2 style={{fontSize : '20px'}}>탈퇴다 이자식아
+                    <h2 style={{fontSize : '20px'}}>회원 탈퇴 되었습니다.
                     </h2>
-                    <br/>
+                    <br/><br/>
                     <h5 className={styles.text}>회원님의 정보는 30일간 저장되며, 그 이후 삭제됩니다. </h5>
                     <div>
-                    <input type='button' className={styles.ok} onClick = {() => dispatch(closeModal())} value='닫기'/>
+                    <input type='button' className={styles.close} onClick = {() => dispatch(closeModal())} value='닫기'/>
                 </div>
             </div>
-        </div>
+        </div>                          
         </div>
         </Modal>
     );

@@ -10,9 +10,7 @@ function ModalSecession() {
 
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.modalsReducer.deleteAccountState);
-    // const isOpen1 = useSelector(state => state.modalsReducer.deleteOkAccountState);
-    
-    
+   
     const deleteOkAccountState = useSelector(state => state.modalsReducer.deleteOkAccountState);
 
     return (
@@ -29,12 +27,10 @@ function ModalSecession() {
                     
             
                     <div>
-                    <button className={styles.ok} onClick = {() => { dispatch(open_deleteOkAccountModal())}}>사이트 탈퇴하기</button>
+                    <button className={styles.ok} onClick = {() => { dispatch(open_deleteOkAccountModal())}}>탈퇴하기</button>
                     { deleteOkAccountState && <SecessionOkModal/>}
+                    <button className={styles.close} onClick={() => dispatch(closeModal())} >취소</button>
                     </div>
-                    {/* <input type='button' className={styles.ok} value='확인' onClick={() => {dispatch(open_deleteOkAccountModal())} } />
-                    {deleteOkAccountState && <SecessionOkModal/>} */}
-                    <input type='button' className={styles.close} onClick={() => dispatch(closeModal())} value='취소' />
 
                 </div>
             </div>
