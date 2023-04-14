@@ -2,16 +2,13 @@ import { getReviewDetail } from '../apis/ReviewAPICalls';
 import { getRallyDetail } from '../apis/RallyAPICalls';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-
-import style from './ReviewPost.module.css';
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
-import RallyList from "../components/lists/ReviewList";
-import { async } from 'q';
+import style from './ReviewPost.module.css';
 
 
 function ReviewPost() {
 
-    const { reviewCode} = useParams();
+    const { reviewCode } = useParams();
 
     console.log(reviewCode);
 
@@ -23,18 +20,15 @@ function ReviewPost() {
         () => {
             const temp = getReviewDetail(reviewCode);
             setReview(temp);
-            
+
             setRally(getRallyDetail(temp.rallycode));
 
         }, []
     );
 
-
     const writedate = new Date(review.reviewwritedate);
     const rallystarttime = new Date(rally.rallystarttime);
     const rallyendtime = new Date(rally.rallyendtime);
-
-
 
     const postSet = () => {
 
@@ -76,9 +70,9 @@ function ReviewPost() {
                             <h2>{rally.rallyname}</h2>
                         </div>
                         <div className={style.postStatus}>
-                        <div className={style.report}>
-                            {postSet()}
-                        </div>
+                            <div className={style.report}>
+                                {postSet()}
+                            </div>
                         </div>
                     </div>
 
@@ -125,7 +119,7 @@ function ReviewPost() {
                         <h3>내 닉네임</h3>
                         <div className={style.container}>
 
-                            <textarea className={style.Comment} cols = '30' rows='5' />
+                            <textarea className={style.Comment} cols='30' rows='5' />
                             <div>
                                 <button className={style.GoReview} >작성</button>
                             </div>

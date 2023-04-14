@@ -1,16 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
-import styles from './Profile.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from "../../modules/ModalsModule";
+import styles from './ModalProfile.module.css';
 
-function Profile() {
+function ModalProfile() {
 
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.modalsReducer.profileState);
-
-    // const onChangeHandler = (e) => {
-    //     setSigList(searchSig(e.target.value));
-    // }
 
     return (
         <Modal isOpen={isOpen} ariaHideApp={false} className={styles.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>
@@ -33,7 +29,7 @@ function Profile() {
                             </div>
                             <div className={styles.button1}>
                                 <input type='button' className={styles.change1} value='변경' />
-                                <input type='button' className={styles.delete} onClick={closeModal} value='삭제' />
+                                <input type='button' className={styles.delete}  value='삭제' />
                             </div>
                         </div>
                         <div className={styles.nickname}> 
@@ -73,4 +69,4 @@ function Profile() {
 
     );
 }
-export default Profile;
+export default ModalProfile;

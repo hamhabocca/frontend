@@ -1,5 +1,4 @@
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
-import RallyList from "../components/lists/RallyList";
 import style from "./WriteReviewPost.module.css";
 import React, { useRef } from "react";
 

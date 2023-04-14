@@ -1,12 +1,11 @@
 import QnAList from "../components/lists/QnAList";
 import style from "./QnABoard.module.css"
 import { getQnAList, searchQnA } from "../apis/QnAAPICalls";
-
 import Pagination from "react-js-pagination";
 import styled from 'styled-components';
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
 import { Link } from 'react-router-dom';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router";
 
@@ -20,17 +19,17 @@ function QnASearchBoard() {
 
     const [qnaList, setQnAList] = useState([]);
 
-    
+
     const navigate = useNavigate();
-    
+
     const url = useLocation();
-    
+
     console.log(url);
-    
+
     console.log(decodeURI(url.search));
-    
+
     const newurl = decodeURI(url.search)
-    
+
     console.log(newurl.split('=')[1]);
 
     // const qnatitle = searchParams.get('qnatitle');
@@ -46,11 +45,11 @@ function QnASearchBoard() {
     // );
 
     console.log(qnatitle);
-    
-     useEffect(() => {
+
+    useEffect(() => {
         setQnAPostList(searchQnA(qnatitle).slice(10 * (page - 1), 10 * (page - 1) + 10));
     }, [qnatitle]);
-    
+
     const handlePageChange = (page) => { setPage(page) };
 
     const onClickhandler = () => {
@@ -66,15 +65,15 @@ function QnASearchBoard() {
                     <option>카테고리</option>
                 </select>
                 <form className={style.input}>
-                    <input 
-                        className={style.searchfield} 
-                        type="text" 
-                        size="50" 
+                    <input
+                        className={style.searchfield}
+                        type="text"
+                        size="50"
                         name="search"
                         value={searchValue}
-                        onChange={ e => setSearchValue(e.target.value) } 
+                        onChange={e => setSearchValue(e.target.value)}
                     />
-                    <input onClick={ onClickhandler } className={style.searchbtn} type="submit" value="검색" />
+                    <input onClick={onClickhandler} className={style.searchbtn} type="submit" value="검색" />
                 </form>
             </div>
 

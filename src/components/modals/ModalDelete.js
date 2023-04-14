@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
-import styles from './Delete.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from "../../modules/ModalsModule";
+import styles from './Modal.module.css';
 
-function Delete() {
-    
+function DeleteModal() {
+
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.modalsReducer.deletePostState);
 
@@ -17,9 +17,9 @@ function Delete() {
                 </div>
                 <div className={styles.info}>
                     <h4> 정말로 삭제하시겠습니까?</h4>
-                    <br/>
-                    <h6 className={styles.text}> * 삭제된 후에는 되돌릴 수 없습니다. </h6> 
-                    
+                    <br />
+                    <h6 className={styles.text}> * 삭제된 후에는 되돌릴 수 없습니다. </h6>
+
                     <input type='button' className={styles.ok} value='확인' />
                     <input type='button' className={styles.close} onClick={() => dispatch(closeModal())} value='취소' />
                 </div>
@@ -28,4 +28,4 @@ function Delete() {
         </Modal>
     );
 }
-export default Delete;
+export default DeleteModal;
