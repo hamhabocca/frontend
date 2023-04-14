@@ -11,10 +11,10 @@ function WriteRallyPost() {
     // 입력한 주소 가져오기
     const departureAddress = useSelector(state => state.addressReducer.departureState);
     const arrivalAddress = useSelector(state => state.addressReducer.arrivalState);
-    
-    let hasAddress = 
-    departureAddress != '' && arrivalAddress != '' ? <Kakaomap departureAddress={departureAddress} arrivalAddress={arrivalAddress} /> : null; 
-    
+
+    let hasAddress =
+        departureAddress !== '' && arrivalAddress !== '' ? <Kakaomap departureAddress={departureAddress} arrivalAddress={arrivalAddress} /> : null;
+
     const dispatch = useDispatch();
 
     const onClickHandler = () => {
@@ -50,7 +50,7 @@ function WriteRallyPost() {
                             <div className={style.mapImg}>
                                 <h3>랠리 모집 정보</h3>
                                 <div>
-                                {hasAddress}
+                                    {hasAddress}
                                 </div>
                             </div>
                             <div className={style.mapInfo}>

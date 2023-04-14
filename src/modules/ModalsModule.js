@@ -3,20 +3,25 @@ import { createActions, handleActions } from "redux-actions";
 const initialState = {
     recruitmentListState: false,    //신청현황
     recruitState: false,            //랠리신청
+    recruitStateOk: false,          //랠리신청완료
     cancelRecruitState: false,      //참가취소
+    cancelRecruitStateOk: false,    //참가취소완료
     cancelRecruitState2: false,     //모집취소
+    cancelRecruitState2Ok:false,    //모집취소완료
     reportState: false,             //신고하기
     profileState: false,            //프로필수정
     registerState:false,            //회원가입(닉네임)
     deleteAccountState:false,        //회원탈퇴
-    deleteOkAccountState:false      //회원탈퇴확인
     deletePostState:false           //게시글 삭제
 };
 
 const RECRUITMENT_LIST = 'rally/RECRUITMENT_LIST';
 const RECRUIT = 'rally/RECRUIT';
+const RECRUIT_OK = 'rally/RECRUIT_OK'
 const CANCEL_RECRUIT = 'rally/CANCEL_RECRUIT';
 const CANCEL_RECRUIT2 = 'rally/CANCEL_RECRUIT2';
+const CANCEL_RECRUIT_OK='rally/CANCEL_RECRUIT_OK';
+const CANCEL_RECRUIT2_OK='rally/CANCEL_RECRUIT2_OK';
 const REPORT = 'member/REPORT';
 const PROFILE = 'member/PROFILE';
 const REGISTER = 'member/REGISTER';
@@ -34,14 +39,29 @@ export const open_RecruitModal = () => ({
     payload: { result: true }
 });
 
+export const open_RecruitOkModal = () => ({
+    type : RECRUIT_OK,
+    payload : { result:true}
+});
+
 export const open_CancelRecruitModal = () => ({
     type: CANCEL_RECRUIT,
     payload: { result: true }
 });
 
+export const open_CancelRecruitModalOk = () => ({
+    type: CANCEL_RECRUIT_OK,
+    payload: {result: true}
+});
+
 export const open_CancelRecruitModal2 = () => ({
     type: CANCEL_RECRUIT2,
     payload: { result: true }
+});
+
+export const open_CancelRecruitModal2Ok = () => ({
+    type: CANCEL_RECRUIT2_OK,
+    payload: {result: true}
 });
 
 export const open_ReportModal = () => ({
@@ -92,16 +112,34 @@ const modalsReducer = handleActions({
             recruitState: result
         };
     },
+    [RECRUIT_OK] : (state, {payload: {result}}) => {
+        return {
+            ...state,
+            recruitStateOk: result
+        };
+    },
     [CANCEL_RECRUIT] : (state, { payload: {result} }) => {
         return {
             ...state,
             cancelRecruitState: result
         };
     },
+    [CANCEL_RECRUIT_OK] : (state, {payload: {result}}) => {
+        return {
+            ...state,
+            cancelRecruitStateOk: result
+        };
+    },
     [CANCEL_RECRUIT2] : (state, { payload: {result} }) => {
         return {
             ...state,
             cancelRecruitState2: result
+        };
+    },
+    [CANCEL_RECRUIT2_OK] : (state, {payload: {result}}) => {
+        return {
+            ...state,
+            cancelRecruitState2Ok: result
         };
     },
     [REPORT] : (state, { payload: {result} }) => {
