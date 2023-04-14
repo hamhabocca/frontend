@@ -24,9 +24,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-<<<<<<< HEAD
-src/modules/ModalSecession.js
-=======
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode
@@ -51,4 +48,3 @@ src/modules/ModalSecession.js
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
->>>>>>> 1eb769b ([fix] gitignore 수정)
