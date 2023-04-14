@@ -2,14 +2,15 @@ import style from './Home.module.css';
 import RallCardMain from '../components/items/RallyCardMain';
 import { useEffect, useState } from 'react';
 import { getRallyList } from '../apis/RallyAPICalls';
-import { NavLink } from 'react-router-dom';
+import { NavLink, json } from 'react-router-dom';
+import axios from 'axios';
 
 function Home() {
 
     const [rallyList, setRallyList] = useState([]);
     
     useEffect(
-        () => {
+        async () => {
             setRallyList(getRallyList().slice(0, 6));
         },
         []
