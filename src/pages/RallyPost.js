@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { open_CancelRecruitModal, open_CancelRecruitModal2, open_RecruitmentListModal, open_RecruitModal, open_ReportModal } from "../modules/ModalsModule";
-import CurrentRecruitListModal from "../components/modals/CurrentRecruitListModal";
 import style from "./RallyPost.module.css";
-import RallyPartcipate from "../components/modals/RallyPartcipate";
-import RallyCancle from "../components/modals/RallyCancle";
-import RallyRecruitmentCancle from "../components/modals/RallyRecruitmentCancle";
-import Report from "../components/modals/Report";
+import ModalCurrentRecruitList from "../components/modals/ModalCurrentRecruitList";
+import ModalRallyPartcipate from "../components/modals/ModalRallyPartcipate";
+import ModalRallyCancel from "../components/modals/ModalRallyCancel";
+import ModalRallyRecruitmentCancel from "../components/modals/ModalRallyRecruitmentCancel";
+import ModalReport from "../components/modals/ModalReport";
 
 function RallyPost() {
 
@@ -86,21 +86,21 @@ function RallyPost() {
         if (rally.rallycode === 28) {
             return (
                 <>
-                <button onClick={() => { dispatch(open_ReportModal())}} className={style.edit}>신고</button>
-                { reportState && <Report/> }
+                    <button onClick={() => { dispatch(open_ReportModal()) }} className={style.edit}>신고</button>
+                    {reportState && <ModalReport />}
                 </>
             );
-                    
+
 
         } else if (rally.rallycode === 29 && rally.rallystatus === 'in_process') {
 
             return (
                 <>
-                <div className={style.postStatus}>
-                    <button onClick={() => { dispatch(open_CancelRecruitModal2())}} className={style.report}>모집취소</button>
-                    { cancelRecruitState2 && <RallyRecruitmentCancle/> }
-                    <button className={style.edit}>수정</button>
-                </div>
+                    <div className={style.postStatus}>
+                        <button onClick={() => { dispatch(open_CancelRecruitModal2()) }} className={style.report}>모집취소</button>
+                        {cancelRecruitState2 && <ModalRallyRecruitmentCancel />}
+                        <button className={style.edit}>수정</button>
+                    </div>
                 </>
 
             );
@@ -138,9 +138,9 @@ function RallyPost() {
                 return (
                     <>
                         <button onClick={() => { dispatch(open_RecruitmentListModal()) }}>신청 현황</button>
-                        { recruitmentListState && <CurrentRecruitListModal/> }
-                        <button onClick={() => { dispatch(open_RecruitModal())}} style={{ background: '#056DFA' }}>랠리 신청</button>
-                        { recruitState && <RallyPartcipate/> }
+                        {recruitmentListState && <ModalCurrentRecruitList />}
+                        <button onClick={() => { dispatch(open_RecruitModal()) }} style={{ background: '#056DFA' }}>랠리 신청</button>
+                        {recruitState && <ModalRallyPartcipate />}
 
                     </>
                 );
@@ -149,8 +149,8 @@ function RallyPost() {
                 return (
                     <>
                         <button>신청 현황</button>
-                        <button onClick={() => { dispatch(open_CancelRecruitModal())}} style={{ background: '#056DFA' }}>신청 취소</button>
-                        { cancelRecruitState && <RallyCancle/> }
+                        <button onClick={() => { dispatch(open_CancelRecruitModal()) }} style={{ background: '#056DFA' }}>신청 취소</button>
+                        {cancelRecruitState && <ModalRallyCancel />}
                     </>
                 );
             }

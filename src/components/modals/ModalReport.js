@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
-import styles from './Report.module.css';
-import { closeModal } from "../../modules/ModalsModule";
+import { useDispatch, useSelector } from 'react-redux';
+import { closeModal } from '../../modules/ModalsModule';
+import styles from './ModalReport.module.css';
 
-function Report() {
+function ModalReport() {
 
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.modalsReducer.reportState);
@@ -61,4 +61,4 @@ function Report() {
         </Modal>
     );
 }
-export default Report;
+export default ModalReport;

@@ -1,9 +1,7 @@
 import SearchFilter from "../components/commons/SearchFilter";
 import RallyList from "../components/lists/RallyList";
 import style from "./RallyBoard.module.css";
-// import { searchRally } from "../apis/RallyAPICalls";
 import { getRallySearchResult } from "../apis/RallySearchAPICalls";
-
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router";
 import Pagination from "react-js-pagination";

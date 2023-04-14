@@ -1,7 +1,6 @@
 import QnAList from "../components/lists/QnAList";
 import style from "./QnABoard.module.css"
 import { getQnAList } from "../apis/QnAAPICalls";
-
 import { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import styled from 'styled-components';
@@ -24,15 +23,6 @@ function QnABoard() {
     }, [page]);
     
     const handlePageChange = (page) => { setPage(page) };
-
-    // const handleSearchInputChange = (event) => {
-    //     setSearchValue(event.target.value);
-    //   };
-    
-    //   const handleSearchSubmit = (event) => {
-    //     event.preventDefault();
-    //     navigate(`/qna/search?qnaName=${searchValue}`);
-    //   };
 
     const onClickhandler = () => {
         navigate(`/qna/search?qnaName=${searchValue}`);

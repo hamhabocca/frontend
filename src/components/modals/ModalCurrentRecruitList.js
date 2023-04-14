@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
-import style from './CurrentRecruitListModal.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from "../../modules/ModalsModule";
 import MemberCardModal from '../items/MemberCardModal';
+import style from './ModalCurrentRecruitList.module.css';
 
 
 function CurrentRecruitListModal() {
@@ -12,7 +12,7 @@ function CurrentRecruitListModal() {
 
 
     return (
-        <Modal isOpen={ isOpen } onRequestClose={() => dispatch(closeModal())} ariaHideApp={false} className={style.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>
+        <Modal isOpen={isOpen} onRequestClose={() => dispatch(closeModal())} ariaHideApp={false} className={style.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>
             <section>
                 <div className={style.header}>
                     <h1>신청 현황</h1>
@@ -26,7 +26,7 @@ function CurrentRecruitListModal() {
                     <p>신청 시각</p>
                 </div>
                 <div>
-                    <MemberCardModal/>
+                    <MemberCardModal />
                 </div>
             </section>
         </Modal>
