@@ -7,7 +7,12 @@ import Pagination from "react-js-pagination";
 import styled from 'styled-components';
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
 
+import { callRallyListAPI } from "../apis/RallyAPICalls";
+import { useDispatch, useSelector } from "react-redux";
+
 function RallyBoard() {
+
+    const dispatch = useDispatch();
 
     const [page, setPage] = useState(1);
 
@@ -15,10 +20,17 @@ function RallyBoard() {
 
     const [rallyPostList, setRallyPostList] = useState([]);
 
+    const test = useSelector(state => state.rallyReducer);
+
     useEffect(() => {
+
+        console.log("랠리게시판=========");
+        dispatch(callRallyListAPI({ currentPage: 1}));
+        
         setRallyPostList(getRallyList().slice(15 * (page - 1), 15 * (page - 1) + 15));
     }, [page]);
-
+    
+    console.log("Test", test);
     return (
         <main className={style.container}>
 

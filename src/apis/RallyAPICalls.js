@@ -1,4 +1,36 @@
+import { GET_RALLYLIST } from "../modules/RallyModule";
 import rallys from '../data/Rally.json';
+import { useSelector } from "react-redux";
+
+export const callRallyListAPI = ({currentPage}) => {
+
+    let URL;
+
+    if(currentPage !== undefined || currentPage !== null) {
+        URL = `/api/v1/rallies?page=${currentPage}`;
+    } else {
+        URL = 'api/v1/rallies';
+    }
+
+    console.log('[RallyAPICalls] URL : ', URL);
+
+    return async (dispatch, getState) => {
+        
+        const result = await fetch(URL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            }
+        })
+        .then(response => response.json());
+
+        if(result.httpStatus === 200) {
+            console.log('[RallyAPICalls] callRallyListAPI RESULT : ', result.results);
+            dispatch({ type: GET_RALLYLIST, payload: result.results.rallyList.content });
+        }
+    };
+}
 
 export function getRallyList() {
 
