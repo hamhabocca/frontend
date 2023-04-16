@@ -1,7 +1,8 @@
 import style from './Login.module.css';
 import { useGoogleLogin } from '@react-oauth/google';
 
-const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+// const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+const KAKAO_REST_API_KEY = "b6ed15cc6705233690f08417571cc3c0";
 const REDIRECT_URI = 'http://localhost:3000/oauth';
 
 const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;

@@ -1,6 +1,10 @@
+import { getMembers } from '../apis/UserAPICalls';
 import style from './Notice.module.css';
 
 function Notice() {
+
+    console.log("겟맴버스 호출...")
+    getMembers();
 
     return (
         <main className={style.main}>
