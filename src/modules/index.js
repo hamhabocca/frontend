@@ -3,10 +3,11 @@ import countReducer from "./CountModule";
 import addressReducer from "./AddressModule";
 import modalsReducer from "./ModalsModule";
 import rallyReducer from "./RallyModule";
+import participateReducer from "./ParticipateModule";
 
 const rootReducer = combineReducers({
     countReducer, addressReducer, modalsReducer,
-    rallyReducer
+    rallyReducer, participateReducer
 });
 
 export default rootReducer;

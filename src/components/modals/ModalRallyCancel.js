@@ -3,9 +3,10 @@ import Modal from 'react-modal';
 import { closeModal, open_CancelRecruitModalOk } from "../../modules/ModalsModule";
 import ModalRallyCancelOk from './ModalRallyCancelOK';
 import styles from './Modal.module.css';
+import { callCancelParticipateRallyAPI } from '../../apis/ParticipateAPICalls';
 
 
-function ModalRallyCancel() {
+function ModalRallyCancel({rallyId}) {
 
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.modalsReducer.cancelRecruitState);
@@ -22,10 +23,15 @@ function ModalRallyCancel() {
                 <div className={styles.info}>
                     <h2>랠리팀</h2>
                     <br />
-                    <h4>랠리에 취소하시겠습니까?</h4>
+                    <h4>랠리 신청을 취소하시겠습니까?</h4>
                     <h5 className={styles.text}> 잦은 취소는 이용자의 서비스 활동이 제한될 수 있습니다.</h5>
                     <div>
-                        <button className={styles.ok} onClick={() => { dispatch(open_CancelRecruitModalOk()) }}>랠리 취소</button>
+                        <button 
+                        className={styles.nagetive} 
+                        onClick={() => { 
+                            dispatch(open_CancelRecruitModalOk());
+                            dispatch(callCancelParticipateRallyAPI({rallyId: rallyId}));
+                        }}>랠리 취소</button>
                         {cancelRecruitStateOk && <ModalRallyCancelOk />}
                         <button className={styles.close} onClick={() => dispatch(closeModal())} >닫기</button>
                     </div>

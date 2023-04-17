@@ -1,10 +1,7 @@
 import SearchFilter from "../components/commons/SearchFilter";
 import RallyList from "../components/lists/RallyList";
 import style from "./RallyBoard.module.css";
-import { getRallyList } from "../apis/RallyAPICalls";
 import { useEffect, useState } from 'react';
-import Pagination from "react-js-pagination";
-import styled from 'styled-components';
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
 
 import { callRallyListAPI } from "../apis/RallyAPICalls";
@@ -12,32 +9,36 @@ import { useDispatch, useSelector } from "react-redux";
 
 function RallyBoard() {
 
+    // 리덕스
     const dispatch = useDispatch();
+    const rallies = useSelector((state) => state.rallyReducer);
+    const rallyList = rallies?.rallyList?.content;
+    const pageInfo = rallies?.paging;
 
-    const [page, setPage] = useState(1);
+    // 현재 페이지
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const handlePageChange = (page) => { setPage(page) };
-
-    const [rallyPostList, setRallyPostList] = useState([]);
-
-    const test = useSelector(state => state.rallyReducer);
-
+    // 페이지 변경될 때마다 리렌더링
     useEffect(() => {
 
-        console.log("랠리게시판=========");
-        dispatch(callRallyListAPI({ currentPage: 1}));
-        
-        setRallyPostList(getRallyList().slice(15 * (page - 1), 15 * (page - 1) + 15));
-    }, [page]);
-    
-    console.log("Test", test);
+        dispatch(callRallyListAPI({currentPage : currentPage}));
+
+    }, [currentPage]);
+
+    // 총 페이지의 모음
+    const pageNumber = [1];
+
+    if (pageInfo) {
+        for (let i = pageInfo.startPage + 1; i <= pageInfo.endPage; i++) {
+            pageNumber.push(i);
+        }
+    }
+
+    // 렌더링 성공적으로 될때만 리스트 조회 노출
     return (
         <main className={style.container}>
-
             <SearchFilter />
-
             <section className={style.board}>
-
                 <article className={style.title}>
                     <h1>랠리 모집</h1>
                 </article>
@@ -46,7 +47,7 @@ function RallyBoard() {
                     <select className={style.select}>
                         <option>전체</option>
                         <option>모집중</option>
-                        <option>모집마감</option>
+                        <option>모집완료</option>
                         <option>취소됨</option>
                         <option>완주!</option>
                     </select>
@@ -58,46 +59,33 @@ function RallyBoard() {
                 </article>
 
                 <article className={style.list}>
-                    <RallyList rallyPosts={rallyPostList} />
+                    {Array.isArray(rallyList) && <RallyList rallyList={rallyList} />}
                 </article>
 
-                <PaginationBox>
-                    <Pagination
-                        activePage={page}
-                        itemsCountPerPage={15}
-                        totalItemsCount={getRallyList().length}
-                        pageRangeDisplayed={5}
-                        firstPageText={<HiChevronDoubleLeft />}
-                        prevPageText={<HiChevronLeft />}
-                        nextPageText={<HiChevronRight />}
-                        lastPageText={<HiChevronDoubleRight />}
-                        onChange={handlePageChange}
-                    />
-                </PaginationBox>
-
+                <article className={style.pagination}>
+                    <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
+                        <HiChevronDoubleLeft />
+                    </button>
+                    <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} >
+                        <HiChevronLeft />
+                    </button>
+                    {pageNumber.map((num) => (
+                        <li key={num} onClick={() => setCurrentPage(num)}>
+                            <button style={ currentPage == num? {color : '#003ACE'}: null}>
+                                {num}
+                            </button>
+                        </li>
+                    ))}
+                    <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === pageInfo?.endPage || pageInfo?.endPage == 1}>
+                        <HiChevronRight />
+                    </button>
+                    <button onClick={() => setCurrentPage(pageInfo?.endPage)} disabled={currentPage === pageInfo?.endPage || pageInfo?.endPage == 1}>
+                        <HiChevronDoubleRight />
+                    </button>
+                </article>
             </section>
-
         </main>
     );
 }
-
-const PaginationBox = styled.div`
-  .pagination { display: flex; justify-content: center; margin-top: 15px;}
-  ul { list-style: none; padding: 0; }
-  ul.pagination li {
-    display: inline-block;
-    width: 30px;
-    height: 20px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem; 
-  }
-  ul.pagination li a { text-decoration: none; color: #A5A5A5; font-size: 12pt; }
-  ul.pagination li.active a { color: #202020; }
-  ul.pagination li a:hover,
-  ul.pagination li a.active { color: #202020; }
-`
 
 export default RallyBoard;
