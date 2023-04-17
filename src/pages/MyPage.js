@@ -1,7 +1,7 @@
 import style from './MyPage.module.css';
 import { IoIosFemale } from 'react-icons/io';
 import { IoIosMale } from 'react-icons/io';
-import { getOneMember } from '../apis/UserAPICalls';
+import { getMembers, getOneMember } from '../apis/MemberAPICalls';
 import RallyCardMyPage from '../components/items/RallyCardMyPage';
 import MyPageList from '../components/lists/MyPageList';
 import ModalDeactivate from '../components/modals/ModalDeactivate'; 
@@ -9,13 +9,12 @@ import ModalProfile from "../components/modals/ModalProfile";
 import { useDispatch, useSelector } from 'react-redux';
 import { open_deleteAccountModal, open_ProfileModal } from '../modules/ModalsModule';
 
-function MyPage(/* member */) {
+function MyPage() {
 
     const dispatch = useDispatch();
 
     const deleteAccountState = useSelector(state => state.modalsReducer.deleteAccountState);
     const profileState = useSelector(state => state.modalsReducer.profileState);
-
 
     /* 임시로 불러오는 테스트 목적 변수 */
     const member = getOneMember(2);

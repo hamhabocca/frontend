@@ -1,4 +1,4 @@
-import style from './Home.module.css';
+import style from './HomeLogin.module.css';
 import RallCardMain from '../components/items/RallyCardMain';
 import { useEffect, useState } from 'react';
 import { getRallyList } from '../apis/RallyAPICalls';
@@ -9,9 +9,15 @@ import { useSelector } from 'react-redux';
 function Home() {
 
     const [rallyList, setRallyList] = useState([]);
+
+    const loginStatus = useSelector(state => state.memberReducer)
+
+    if(loginStatus) {
+        
+    }
     
     useEffect(
-        () => {
+        async () => {
             setRallyList(getRallyList().slice(0, 6));
         },
         []

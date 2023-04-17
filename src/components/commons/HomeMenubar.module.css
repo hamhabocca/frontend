@@ -41,15 +41,18 @@
     height: 100%;
 }
 
-.Other li:nth-child(3) * {
+.Login {
     width: 150px;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #056DFA;
     background-color: white;
     text-decoration: none;
+}
+
+.Login a {
+    color: #056DFA;
     font-weight: 700;
 }
 

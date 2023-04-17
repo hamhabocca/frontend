@@ -1,4 +1,4 @@
-import { getMembers } from '../apis/UserAPICalls';
+import { getMembers } from '../apis/MemberAPICalls';
 import style from './Notice.module.css';
 
 function Notice() {

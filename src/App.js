@@ -19,6 +19,7 @@ import WriteQnA from './pages/WriteQnA';
 import MyPage from './pages/MyPage';
 import Login from './pages/Login';
 import Oauth from './pages/Oauth';
+import HomeLogin from './pages/HomeLogin';
 
 // 브라우저별 기본 CSS 스타일 초기화
 import '../src/reset.css';

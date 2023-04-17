@@ -3,7 +3,7 @@ import { POST_LOGIN } from "../modules/MemberModule";
 
 export const callLoginAPI = (code) => {
 
-    const requestURL = '/api/v1/login/kakaocode';
+    const requestURL = 'http://localhost:3307/api/v1/login/kakaocode';
 
     console.log(code);
 
@@ -13,35 +13,39 @@ export const callLoginAPI = (code) => {
 
         let data = { code: code }
         
-        // 클라이언트 fetch mode : no-cors 사용시 application/json 방식으로 요청이 불가능
-        // 서버에서 cors 허용을 해주어야 함
-        const result = await axios.post(requestURL, JSON.stringify(data), {
+        console.log(requestURL);
+
+        const result = await fetch(requestURL, {
+            method: 'POST',
             headers: {
                 "Content-Type": 'application/json',
-                "Accept": '*/*',
-                "Auth": null
-            }
-        })
+                "Accept": '*/*'
+            },
+            body: JSON.stringify(data)
+        }).then(res => res.json());
 
         console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
-        if(result.data.httpStatus === 200){
-            window.localStorage.setItem('jwtToken', JSON.stringify(result.data.results.token));            
+        if(result.httpStatus === 200){
+            window.localStorage.setItem('jwtToken', JSON.stringify(result.results.token));            
+        } else if(result.httpStatus === 401) {
+            
+            console.log("만료됨...")
+
         }
         dispatch({ type: POST_LOGIN,  payload: result });
 
     };
 }
 
-// /* 백엔드에 토큰 보내기 */
-// export const sendTokenAPI = async () => {
+export const callLogoutAPI = () => {
 
-//     const token = window.localStorage.getItem('jwtToken');
+    console.log('test1');
+    
+    return async (dispatch, getState) => {  
+        
+        console.log('test2');
 
-//     const requestURL = 'api/v1/members/auth'
-
-//     const res = await axios.post('url 여기에', data, {
-//         headers: {
-//             Auth: token
-//         }
-//     })
-// }
+        dispatch({ type: POST_LOGIN,  payload: '' });      
+        console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
+    };
+}
