@@ -25,7 +25,7 @@ function ModalDeativate() {
 
 
                         <div>
-                            <button className={styles.ok} onClick={() => { dispatch(open_deleteOkAccountModal()) }}>탈퇴하기</button>
+                            <button className={styles.ok} onClick={() => { dispatch(open_deleteOkAccountModal()) }}>확인</button>
                             {deleteOkAccountState && <ModalDeactivateOk />}
                             <button className={styles.close} onClick={() => dispatch(closeModal())} >취소</button>
                         </div>

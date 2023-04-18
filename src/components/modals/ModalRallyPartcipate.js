@@ -24,7 +24,7 @@ function ModalRallyPartcipate() {
                     <br />
                     <h4> 랠리에 참가하시겠습니까?</h4>
                     <div>
-                        <button className={styles.ok} onClick={() => { dispatch(open_RecruitOkModal()) }}>확인</button>
+                        <button className={styles.okblue} onClick={() => { dispatch(open_RecruitOkModal()) }}>확인</button>
                         {recruitStateOk && <ModalParticipateOk />}
                         <button className={styles.close} onClick={() => dispatch(closeModal())}>취소</button>
                     </div>
