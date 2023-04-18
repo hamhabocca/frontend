@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { closeModal, open_RecruitOkModal } from "../../modules/ModalsModule";
 import ModalParticipateOk from './ModalParticipateOk';
 import styles from './Modal.module.css';
+import { callParticipateRallyByMateAPI } from '../../apis/ParticipateAPICalls';
 
-function ModalRallyPartcipate() {
+function ModalRallyPartcipate({rallyId}) {
 
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.modalsReducer.recruitState);
@@ -24,7 +25,12 @@ function ModalRallyPartcipate() {
                     <br />
                     <h4> 랠리에 참가하시겠습니까?</h4>
                     <div>
-                        <button className={styles.okblue} onClick={() => { dispatch(open_RecruitOkModal()) }}>확인</button>
+                        <button 
+                        className={styles.ok} 
+                        onClick={() => { 
+                            dispatch(open_RecruitOkModal()); 
+                            dispatch(callParticipateRallyByMateAPI({rallyId: rallyId})); 
+                            }}>확인</button>
                         {recruitStateOk && <ModalParticipateOk />}
                         <button className={styles.close} onClick={() => dispatch(closeModal())}>취소</button>
                     </div>

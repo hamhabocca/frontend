@@ -31,6 +31,7 @@
     justify-Content : space-between;
     /* background-color: pink; */
 }
+
 .Kmlabel {
     margin-left: 15px;
     font-size: 42px;
@@ -83,7 +84,7 @@
 .postStatus {
     width: 175px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 

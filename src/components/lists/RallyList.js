@@ -1,10 +1,10 @@
 import RallyCardBoard from "../items/RallyCardBoard";
 
-function RallyList({rallyPosts}) {
+function RallyList({rallyList}) {
 
   return (
     <>
-        { rallyPosts.map(rally => <RallyCardBoard key={ rally.rallycode } rally={ rally }/>) }
+        { rallyList && rallyList.map(rally => <RallyCardBoard key={ rally.rallyId } rally={ rally }/>) }
     </>
   );
 }

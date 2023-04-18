@@ -33,10 +33,10 @@
 .postStatus {
     width: 175px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
-.label {
+.label > div {
     margin-right: 15px;
     width: 70px;
     height: 30px;
@@ -101,36 +101,42 @@
 
 .rallyinfo {
     margin: 10px 0;
-    height: 320px;
+    height: 400px;
     display: flex;
 }
 
 .map {
     width: 405px;
-    height: 320px;
+    height: 400px;
     background: #056DFA;
     border-radius: 2px;
     margin-right: 20px;
 }
 
-.location {
-    min-height: 120px;
-}
-
 .location h2 {
     font-size: 32px;
     font-weight: 700;
+    height: 35px;
 }
 
 .location h3 {
-    font-size: 24px;
+    font-size: 21px;
     font-weight: 700;
-    margin: 30px 0;
+    margin: 7px 0;
+    height: 60px;
+    line-height: normal;
 }
 
 .location h4 {
+    height: 20px;
+    color: white;
+    border-radius: 2px;
+    background-color: #FF7A00;
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 700;
+    padding: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .info {
@@ -172,7 +178,6 @@
     border-radius: 2px;
     border: none;
     height: 65px;
-    width: 100% !important;
     font-size: 20px;
     font-weight: 600;
     background: #FF7A00 !important;
@@ -180,16 +185,20 @@
     cursor: pointer;
 }
 
-.rallyStatus button {
+.rallyStatus > button {
     border-radius: 2px;
     border: none;
     height: 65px;
-    width: 150px;
+    width: 100%;
     font-size: 20px;
     font-weight: 600;
     background: #7D7D7D;
     color: white;
     cursor: pointer;
+}
+
+.rallyStatus > button:nth-child(2) {
+    margin-left: 10px;
 }
 
 /* 랠리 info 끝*/
@@ -229,12 +238,14 @@
     justify-content: space-between;
 }
 
-.mention textarea {
+.mention > textarea {
+    border: 1px solid gainsboro;
     width: 620px;
     height: 55px;
     padding: 5px;
     font-weight: 400;
     resize: none;
+    margin: 0;
 }
 
 .mycomment button {

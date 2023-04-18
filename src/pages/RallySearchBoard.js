@@ -1,34 +1,45 @@
 import SearchFilter from "../components/commons/SearchFilter";
 import RallyList from "../components/lists/RallyList";
 import style from "./RallyBoard.module.css";
-import { getRallySearchResult } from "../apis/RallySearchAPICalls";
-import { useEffect, useState } from 'react';
 import { useLocation } from "react-router";
-import Pagination from "react-js-pagination";
-import styled from 'styled-components';
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { callSearchRallyAPI } from "../apis/RallyAPICalls";
 
 
 function RallySearchBoard() {
 
-    const [page, setPage] = useState(1);
+    const dispatch = useDispatch();
 
-    const handlePageChange = (page) => { setPage(page) };
+    const { search } = useLocation();
 
-    const [searchResult, setSearchResult] = useState([]);
+    const query = decodeURI(search).replace('?', '');
 
-    const searchParams = useLocation();
+    console.log("query", query);
 
-    const uri = decodeURI(searchParams.search);
+    // 현재 페이지
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const uriNew = uri.replace('?', '');
+    // 페이지 변경될 때마다 리렌더링
+    useEffect(() => {
 
-    useEffect(
-        () => {
-            setSearchResult(getRallySearchResult(uriNew));
-        }, 
-    [page]
-    );
+        dispatch(callSearchRallyAPI({
+            criteria : query
+        }));
+
+    }, [currentPage]);
+
+    // 총 페이지의 모음
+    const pageNumber = [1];
+
+    let lastPage = pageNumber.length;   //임시
+
+    // if (pageInfo) {
+    //     for (let i = pageInfo.startPage + 1; i <= pageInfo.endPage; i++) {
+    //         pageNumber.push(i);
+    //     }
+    // }
 
     return (
         <main className={style.container}>
@@ -57,22 +68,30 @@ function RallySearchBoard() {
                 </article>
 
                 <article className={style.list}>
-                    <RallyList rallyPosts={searchResult} />
+                    {/* <RallyList /> */}
                 </article>
 
-                <PaginationBox>
-                    <Pagination
-                        activePage={page}
-                        itemsCountPerPage={15}
-                        totalItemsCount={searchResult.length}
-                        pageRangeDisplayed={5}
-                        firstPageText={<HiChevronDoubleLeft />}
-                        prevPageText={<HiChevronLeft />}
-                        nextPageText={<HiChevronRight />}
-                        lastPageText={<HiChevronDoubleRight />}
-                        onChange={handlePageChange}
-                    />
-                </PaginationBox>
+                <article className={style.pagination}>
+                    <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
+                        <HiChevronDoubleLeft />
+                    </button>
+                    <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} >
+                        <HiChevronLeft />
+                    </button>
+                    {pageNumber.map((num) => (
+                        <li key={num} onClick={() => setCurrentPage(num)}>
+                            <button style={currentPage == num ? { color: '#003ACE' } : null}>
+                                {num}
+                            </button>
+                        </li>
+                    ))}
+                    <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === lastPage || currentPage === 1}>
+                        <HiChevronRight />
+                    </button>
+                    <button onClick={() => setCurrentPage(lastPage)} disabled={currentPage === lastPage || currentPage === 1}>
+                        <HiChevronDoubleRight />
+                    </button>
+                </article>
 
             </section>
 
@@ -81,22 +100,3 @@ function RallySearchBoard() {
 }
 
 export default RallySearchBoard;
-
-const PaginationBox = styled.div`
-  .pagination { display: flex; justify-content: center; margin-top: 15px;}
-  ul { list-style: none; padding: 0; }
-  ul.pagination li {
-    display: inline-block;
-    width: 30px;
-    height: 20px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem; 
-  }
-  ul.pagination li a { text-decoration: none; color: #A5A5A5; font-size: 12pt; }
-  ul.pagination li.active a { color: #202020; }
-  ul.pagination li a:hover,
-  ul.pagination li a.active { color: #202020; }
-`
