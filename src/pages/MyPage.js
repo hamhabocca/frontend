@@ -15,10 +15,12 @@ function MyPage() {
 
     const deleteAccountState = useSelector(state => state.modalsReducer.deleteAccountState);
     const profileState = useSelector(state => state.modalsReducer.profileState);
+
+    const member = 1;
     
     function GenderIcon() {
     
-        if(member.membergender == 'f') {
+        if(member?.membergender == 'f') {
             return <IoIosFemale/>
         } else {
             return <IoIosMale/>
@@ -46,7 +48,7 @@ function MyPage() {
                             <label>본명임</label>
                             <label className={style.Gender}>{GenderIcon()}</label>
                         </div>
-                        <label className={style.Nickname}>{member.membernickname}</label>
+                        <label className={style.Nickname}>{member?.membernickname}</label>
                     </div>
                     <div className={style.RiderProfile}>
                         <h4>라이더 프로필</h4>
@@ -88,7 +90,7 @@ function MyPage() {
                     </div>
                 </section>
                 <section className={style.Right}>
-                    <MyPageList typeOfList={'모집'} membercode={member.membercode}/>
+                    <MyPageList typeOfList={'모집'} membercode={member?.membercode}/>
                     {/* <MyPageList typeOfList={'신청'} membercode={member.membercode}/> */}
                 </section>
             </main>

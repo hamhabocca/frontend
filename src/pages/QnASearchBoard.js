@@ -1,6 +1,5 @@
 import QnAList from "../components/lists/QnAList";
 import style from "./QnABoard.module.css"
-import { getQnAList, searchQnA } from "../apis/QnAAPICalls";
 import Pagination from "react-js-pagination";
 import styled from 'styled-components';
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
@@ -47,7 +46,7 @@ function QnASearchBoard() {
     console.log(qnatitle);
 
     useEffect(() => {
-        setQnAPostList(searchQnA(qnatitle).slice(10 * (page - 1), 10 * (page - 1) + 10));
+        // setQnAPostList(searchQnA(qnatitle).slice(10 * (page - 1), 10 * (page - 1) + 10));
     }, [qnatitle]);
 
     const handlePageChange = (page) => { setPage(page) };
@@ -112,7 +111,7 @@ function QnASearchBoard() {
                     <Pagination
                         activePage={page}
                         itemsCountPerPage={10}
-                        totalItemsCount={getQnAList().length}
+                        // totalItemsCount={getQnAList().length}
                         pageRangeDisplayed={5}
                         firstPageText={<HiChevronDoubleLeft />}
                         prevPageText={<HiChevronLeft />}

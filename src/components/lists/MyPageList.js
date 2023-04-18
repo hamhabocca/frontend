@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import RallyCardMyPage from '../items/RallyCardMyPage';
 import style from './MyPageList.module.css';
-import { getUserRallyCurrentRecruiting } from '../../apis/RallyAPICalls';
 
 function MyPageList({typeOfList, membercode}) {
 
@@ -9,8 +8,6 @@ function MyPageList({typeOfList, membercode}) {
 
     useEffect(
         () => {
-            setCurrentRecruit(getUserRallyCurrentRecruiting('자전거마스터')); // 최종적으론 멤버코드
-            // console.log(currentRecruit);
         },
         []
     )

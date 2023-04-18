@@ -1,8 +1,3 @@
-// import reviews from '../data/Review.json';
-
-
-import rallys from '../data/Rally.json';
-import reviews from '../data/Review.json';
 import { GET_REVIEW, GET_REVIEWLIST } from '../modules/ReviewModule';
 import { useSelector } from 'react-redux';
 
@@ -78,12 +73,12 @@ export const callReviewDetailAPI = ({reviewId}) => {
 // }
 
 export function searchReview(reviewTitle){
-    return reviews.filter(review => review.reviewname.match(reviewTitle));
+    // return reviews.filter(review => review.reviewname.match(reviewTitle));
 }
 
 export function getReviewList() {
 
-    const result = [...reviews].reverse();
+    // const result = [...reviews].reverse();
 
-    return result;
+    // return result;
 }

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { GET_QNALIST } from "../modules/QnaModule";
-import qnas from '../data/QnA.json';
 import { useSelector } from "react-redux";
 
 // export function getQnAList() {
