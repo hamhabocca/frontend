@@ -11,7 +11,7 @@ export const getMembers = async () => {
     /* 백엔드에 토큰 보내기 */
     const token = window.localStorage.getItem('jwtToken');
 
-    const requestURL = 'api/v1/members'
+    const requestURL = 'http://localhost:8000/api/v1/members/auth'
 
     const result = await fetch(requestURL, {
         method: 'GET',

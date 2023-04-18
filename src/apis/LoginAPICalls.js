@@ -3,7 +3,7 @@ import { POST_LOGIN } from "../modules/MemberModule";
 
 export const callLoginAPI = (code) => {
 
-    const requestURL = 'http://localhost:3307/api/v1/login/kakaocode';
+    const requestURL = 'http://localhost:8000/api/v1/login/kakaocode';
 
     console.log(code);
 
