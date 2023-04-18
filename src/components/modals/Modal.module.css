@@ -40,7 +40,29 @@
   .ok {
     width: 100px;
     height: 40px;
-    background-color: #FF342B ;
+    background-color: #056DFA ;
+    color: white;
+    margin-top: 50px;
+    margin-right: 10px;
+    border: none;
+    font-weight: bold;
+  }
+
+  .nagetive {
+    width: 100px;
+    height: 40px;
+    background-color: #FF342B;
+    color: white;
+    margin-top: 50px;
+    margin-right: 10px;
+    border: none;
+    font-weight: bold;
+  }
+
+  .okblue {
+    width: 100px;
+    height: 40px;
+    background-color: #056DFA ;
     color: white;
     margin-top: 50px;
     margin-right: 10px;
@@ -56,6 +78,7 @@
     color: black;
     border: none;
     font-weight: bold;
+    margin-top: 50px;
   }
 
   .text {

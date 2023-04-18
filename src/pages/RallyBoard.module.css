@@ -28,7 +28,7 @@
   text-align: center;
   align-items: center;
   font-size: 14px;
-  margin-top: 5px;
+  margin: 5px 0;
   height: 30px;
 }
 
@@ -49,6 +49,33 @@
   flex-grow: 5;
 }
 
+.category div:nth-child(5) {
+  flex-grow: 1.5;
+}
+
 .list {
   height: 600px;
+}
+
+.pagination {
+  height: 30px;
+  margin-top: 15px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination button {
+  border: none;
+  width: 30px;
+  background: none;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination button:hover {
+  cursor: pointer;
+  color: #A5A5A5;
 }
