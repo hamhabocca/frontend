@@ -48,6 +48,17 @@
     font-weight: bold;
   }
 
+  .okblue {
+    width: 100px;
+    height: 40px;
+    background-color: #056DFA ;
+    color: white;
+    margin-top: 50px;
+    margin-right: 10px;
+    border: none;
+    font-weight: bold;
+  }
+
   /* 모달창 내부 취소 버튼 */
   .close {
     width: 100px; 
@@ -56,6 +67,7 @@
     color: black;
     border: none;
     font-weight: bold;
+    margin-top: 50px;
   }
 
   .text {

@@ -20,7 +20,7 @@ function ModalRallyCancelOK() {
                         <br /><br />
                         <h4 className={styles.text}>랠리 참가 취소되었습니다. </h4>
                         <div>
-                            <input type='button' className={styles.close} onClick={() => dispatch(closeModal())} value='닫기' />
+                            <input type='button' className={styles.close} onClick={() => dispatch(closeModal())} value='확인' />
                         </div>
                     </div>
                 </div>

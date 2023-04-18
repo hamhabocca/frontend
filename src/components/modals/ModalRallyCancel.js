@@ -25,7 +25,7 @@ function ModalRallyCancel() {
                     <h4>랠리에 취소하시겠습니까?</h4>
                     <h5 className={styles.text}> 잦은 취소는 이용자의 서비스 활동이 제한될 수 있습니다.</h5>
                     <div>
-                        <button className={styles.ok} onClick={() => { dispatch(open_CancelRecruitModalOk()) }}>랠리 취소</button>
+                        <button className={styles.ok} onClick={() => { dispatch(open_CancelRecruitModalOk()) }}>확인</button>
                         {cancelRecruitStateOk && <ModalRallyCancelOk />}
                         <button className={styles.close} onClick={() => dispatch(closeModal())} >닫기</button>
                     </div>

@@ -1,11 +1,11 @@
 import ReviewCardBoard from "../items/ReviewCardBoard";
 
 
-function ReviewList({reviewPosts}) {
+function ReviewList({reviews}) {
 
     return (
         <>
-            {reviewPosts.map(review => <ReviewCardBoard key = {review.reviewcode} review={review}/>)}
+            {reviews && reviews.map(review => <ReviewCardBoard key = {review.reviewId} review={review}/>)}
         </>
     );
 }

@@ -23,7 +23,7 @@ function ModalRallyRecruitmentCancel() {
                     <br />
                     <h6 className={styles.text}> * 취소 한 후에는 되돌릴 수 없습니다! <br /> * 잦은 취소는 이용자의 서비스 활동이 제한될 수 있습니다. </h6>
                     <div>
-                        <button className={styles.ok} onClick={() => { dispatch(open_CancelRecruitModal2Ok()) }}>취소하기</button>
+                        <button className={styles.ok} onClick={() => { dispatch(open_CancelRecruitModal2Ok()) }}>확인</button>
                         {cancelRecruitState2Ok && <ModalRallyRecruitmentCancelOk />}
                         <button className={styles.close} onClick={() => dispatch(closeModal())} >취소</button>
                     </div>
