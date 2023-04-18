@@ -1,7 +1,7 @@
 import style from './MyPage.module.css';
 import { IoIosFemale } from 'react-icons/io';
 import { IoIosMale } from 'react-icons/io';
-import { getOneMember } from '../apis/MemberAPICalls';
+import { getCurrentMember } from '../apis/MemberAPICalls';
 import RallyCardMyPage from '../components/items/RallyCardMyPage';
 import MyPageList from '../components/lists/MyPageList';
 import ModalDeactivate from '../components/modals/ModalDeactivate'; 
@@ -17,6 +17,8 @@ function MyPage() {
     const profileState = useSelector(state => state.modalsReducer.profileState);
 
     const member = 1;
+
+    getCurrentMember();
     
     function GenderIcon() {
     

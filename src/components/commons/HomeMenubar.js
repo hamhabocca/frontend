@@ -4,10 +4,6 @@ import { useSelector } from 'react-redux';
 
 function HomeMenubar() {
 
-    const loginStatus = useSelector(state => state.memberReducer)
-
-    console.log(loginStatus.length);
-
     const loginOrMypage = () => {
         if(localStorage.getItem('jwtToken') != null) {
             return (
