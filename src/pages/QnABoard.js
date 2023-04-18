@@ -1,32 +1,40 @@
-import QnAList from "../components/lists/QnAList";
-import style from "./QnABoard.module.css"
-import { getQnAList } from "../apis/QnAAPICalls";
 import { useEffect, useState } from "react";
+import { HiChevronDoubleLeft, HiChevronDoubleRight, HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import Pagination from "react-js-pagination";
-import styled from 'styled-components';
-import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
 import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router";
-
+import styled from 'styled-components';
+import QnAList from "../components/lists/QnAList";
+import style from "./QnABoard.module.css";
+import { getQnAList } from "../apis/QnAAPICalls";
+import { callQnaListAPI } from "../apis/QnAAPICalls";
+import { useDispatch, useSelector } from "react-redux";
 
 function QnABoard() {
 
+    const dispatch = useDispatch();
+
     const [page, setPage] = useState(1);
-    const [qnaPostList, setQnAPostList] = useState([]);
-    const [searchValue, setSearchValue] = useState('');
 
-    const navigate = useNavigate();
+    // const [qnaPostList, setQnAPostList] = useState([]);
+    // const [searchValue, setSearchValue] = useState('');
 
-    
-    useEffect(() => {
-        setQnAPostList(getQnAList().slice(10 * (page - 1), 10 * (page - 1) + 10));
-    }, [page]);
-    
+    // const navigate = useNavigate();
+
     const handlePageChange = (page) => { setPage(page) };
 
-    const onClickhandler = () => {
-        navigate(`/qna/search?qnaName=${searchValue}`);
-    }
+    const [qnaPostList, setQnAPostList] = useState([]);
+
+    const test = useSelector(state => state.qnaReducer);
+
+    useEffect(() => {
+
+        console.log("QnA게시판");
+        dispatch(callQnaListAPI({ currentPage: 1 }));
+
+        // setQnAPostList(getQnAList().slice(10 * (page -1), 10 * (page - 1) + 10));
+    }, [page]);
+
+    console.log("Test", test);
 
     return (
 
@@ -37,15 +45,15 @@ function QnABoard() {
                     <option>카테고리</option>
                 </select>
                 <form className={style.input}>
-                    <input 
-                        className={style.searchfield} 
-                        type="text" 
-                        size="50" 
-                        name="search" 
-                        value={searchValue}
-                        onChange={ e => setSearchValue(e.target.value) }    
+                    <input
+                        className={style.searchfield}
+                        type="text"
+                        size="50"
+                        name="search"
+                    // value={searchValue}
+                    // onChange={ e => setSearchValue(e.target.value) }    
                     />
-                    <input onClick={ onClickhandler } className={style.searchbtn} type="submit" value="검색" />
+                    {/* <input onClick={ onClickhandler } className={style.searchbtn} type="submit" value="검색" /> */}
                 </form>
             </div>
 
@@ -70,7 +78,7 @@ function QnABoard() {
                 </div>
 
                 <article className={style.list}>
-                    <QnAList qnaPosts={qnaPostList} />
+                    <QnAList qnaPosts={test} />
                 </article>
 
             </div>
@@ -80,19 +88,6 @@ function QnABoard() {
             </article>
 
             <div className={style.pageNumber}>
-                <PaginationBox>
-                    <Pagination
-                        activePage={page}
-                        itemsCountPerPage={10}
-                        totalItemsCount={getQnAList().length}
-                        pageRangeDisplayed={5}
-                        firstPageText={<HiChevronDoubleLeft />}
-                        prevPageText={<HiChevronLeft />}
-                        nextPageText={<HiChevronRight />}
-                        lastPageText={<HiChevronDoubleRight />}
-                        onChange={handlePageChange}
-                    />
-                </PaginationBox>
 
             </div>
             <br />
@@ -102,25 +97,6 @@ function QnABoard() {
 
     );
 }
-
-const PaginationBox = styled.div`
-  .pagination { display: flex; justify-content: center; margin-top: 15px;}
-  ul { list-style: none; padding: 0; }
-  ul.pagination li {
-    display: inline-block;
-    width: 30px;
-    height: 20px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem; 
-  }
-  ul.pagination li a { text-decoration: none; color: #A5A5A5; font-size: 12pt; }
-  ul.pagination li.active a { color: #202020; }
-  ul.pagination li a:hover,
-  ul.pagination li a.active { color: #202020; }
-  `
 
 export default QnABoard;
 
