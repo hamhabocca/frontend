@@ -1,7 +1,7 @@
 import style from './MyPage.module.css';
 import { IoIosFemale } from 'react-icons/io';
 import { IoIosMale } from 'react-icons/io';
-import { getMembers, getOneMember } from '../apis/MemberAPICalls';
+import { getOneMember } from '../apis/MemberAPICalls';
 import RallyCardMyPage from '../components/items/RallyCardMyPage';
 import MyPageList from '../components/lists/MyPageList';
 import ModalDeactivate from '../components/modals/ModalDeactivate'; 
@@ -15,9 +15,6 @@ function MyPage() {
 
     const deleteAccountState = useSelector(state => state.modalsReducer.deleteAccountState);
     const profileState = useSelector(state => state.modalsReducer.profileState);
-
-    /* 임시로 불러오는 테스트 목적 변수 */
-    const member = getOneMember(2);
     
     function GenderIcon() {
     
