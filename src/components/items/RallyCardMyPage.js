@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import style from './RallyCardMyPage.module.css';
-import { checkReviewStatus } from "../../apis/ReviewUserAPICalls";
 import {BiCalendarCheck} from 'react-icons/bi';
 
 function RallyCardMyPage({rally, typeOfList}) {

@@ -1,7 +1,6 @@
-import style from './Home.module.css';
+import style from './HomeLogin.module.css';
 import RallCardMain from '../components/items/RallyCardMain';
 import { useEffect, useState } from 'react';
-import { getRallyList } from '../apis/RallyAPICalls';
 import { NavLink, json } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -9,10 +8,16 @@ import { useSelector } from 'react-redux';
 function Home() {
 
     const [rallyList, setRallyList] = useState([]);
+
+    const loginStatus = useSelector(state => state.memberReducer)
+
+    if(loginStatus) {
+        
+    }
     
     useEffect(
-        () => {
-            setRallyList(getRallyList().slice(0, 6));
+        async () => {
+
         },
         []
     );

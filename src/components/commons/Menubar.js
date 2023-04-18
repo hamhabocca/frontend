@@ -1,10 +1,38 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import style from './Menubar.module.css';
+import { callLogoutAPI } from '../../apis/LoginAPICalls';
+import { useDispatch } from 'react-redux';
+
 
 function Menubar() {
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const activeStyle = {
         boxShadow: 'inset 0 -10px 0 white'
+    }
+
+    const onClickLogoutHandler = () => {
+        window.localStorage.removeItem('jwtToken');  
+        //로그아웃
+        dispatch(callLogoutAPI());
+        
+        alert('로그아웃이 되어 메인화면으로 이동합니다.');
+        navigate("/", { replace: true })
+        window.location.reload();
+    }
+
+    const mypageOrLogout = () => {
+
+        const pathname = window.location.pathname;
+
+
+        if(pathname == '/mypage') {
+            return <button onClick={onClickLogoutHandler}>로그아웃</button>
+        } else {
+            return <NavLink to='/mypage'>마이페이지</NavLink>
+        }
     }
 
     return (
@@ -18,7 +46,7 @@ function Menubar() {
                 <ul className={style.Other}>
                     <li><NavLink to='/notice' style={ ({isActive}) => isActive? activeStyle: undefined }>공지</NavLink></li>
                     <li><NavLink to='/qna' style={ ({isActive}) => isActive? activeStyle: undefined }>건의</NavLink></li>
-                    <li><NavLink to='/mypage'>마이페이지</NavLink></li>
+                    <li>{mypageOrLogout()}</li>
                 </ul>
             </div>
         </nav>
