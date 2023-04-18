@@ -3,10 +3,18 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { callKakaoLoginAPI } from "../apis/LoginAPICalls";
 import { useDispatch, useSelector } from "react-redux";
+import { callNaverLoginAPI } from "../apis/LoginAPICalls";
 
-function Oauth() {
+/* 네이버용 */
+
+function Oauth1() {
 
     const code = new URL(window.location.href).searchParams.get('code');
+
+    const state = new URL(window.location.href).searchParams.get('state');
+
+    const NAVER_REDIRECT_URI = encodeURI('http://localhost:3000/oauth1');
+
 
     const navigate = useNavigate();
 
@@ -17,7 +25,7 @@ function Oauth() {
     useEffect(
         () => {
             console.log('로그인시작할거임')
-            dispatch(callKakaoLoginAPI(code));
+            dispatch(callNaverLoginAPI(code, state));
             console.log('로그인끝')
             if(loginStatus) {
                 console.log("로그인되어있다네~~")
@@ -34,5 +42,4 @@ return (
 
 }
 
-
-export default Oauth;
+export default Oauth1;
