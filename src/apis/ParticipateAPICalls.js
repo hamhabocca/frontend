@@ -5,7 +5,7 @@ export const callParticipateListAPI = ({ rallyId }) => {
 
     console.log("[ParticipateAPICalls] ParticipateListAPI Call...");
 
-    const URL = `https://localhost:3307/api/v1/rallies/${rallyId}/mate-list`;
+    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list`;
 
     return async (dispatch, getState) => {
 
@@ -21,7 +21,7 @@ export const callParticipateListAPI = ({ rallyId }) => {
 
         console.log('[ParticipateAPICalls] ParticipateListAPI RESULT: ', result);
 
-        if (result.httpStatus === 200) {
+        if (result.httptatus === 200) {
             console.log('[ParticipateAPICalls] ParticipateListAPI SUCCESS');
             dispatch({ type: GET_PARTICIPATE, payload: result.results.rallyMateList });
         }
@@ -33,7 +33,7 @@ export const callParticipateRallyByMateAPI = ({ rallyId }) => {
 
     console.log("[ParticipateAPICalls] participateRallyByMateAPI Call...");
 
-    const URL = `https://localhost:3307/api/v1/rallies/${rallyId}/mate-list`;
+    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list`;
 
     return async (dispatch, getState) => {
 
@@ -60,7 +60,7 @@ export const callCancelParticipateRallyAPI = ({ rallyId }) => {
 
     console.log("[ParticipateAPICalls] cancelParticipateRallyAPI Call...");
 
-    const URL = `https://localhost:3307/api/v1/rallies/${rallyId}/mate-list`;
+    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list`;
 
     return async (dispatch, getState) => {
 
@@ -86,7 +86,7 @@ export const callAllowParticipateByMasterAPI = ({ rallyId, mateId }) => {
 
     console.log("[ParticipateAPICalls] AllowParticipateByMasterAPI Call...");
 
-    const URL = `https://localhost:3307/api/v1/rallies/${rallyId}/mate-list?mateId=${mateId}`;
+    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list?mateId=${mateId}`;
 
     return async (dispatch, getState) => {
 

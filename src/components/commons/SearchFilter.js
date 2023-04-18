@@ -1,7 +1,7 @@
 import style from './SearchFilter.module.css';
 import { BiPlus, BiMinus } from "react-icons/bi";
 import sigunguList from '../../data/sigungu.json';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import $ from 'jquery';
 import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } from '../../modules/CountModule';

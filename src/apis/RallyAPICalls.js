@@ -8,9 +8,9 @@ export const callRallyListAPI = ({ currentPage }) => {
     let URL;
 
     if (currentPage !== undefined || currentPage !== null) {
-        URL = `https://localhost:3307/api/v1/rallies?page=${currentPage}`;
+        URL = `http://localhost:8000/api/v1/rallies?page=${currentPage}`;
     } else {
-        URL = 'https://localhost:3307/api/v1/rallies?page=1';
+        URL = '/api/v1/rallies?page=1';
     }
 
     console.log('[RallyAPICalls] URL : ', URL);
@@ -27,7 +27,7 @@ export const callRallyListAPI = ({ currentPage }) => {
             .then(response => response.json())
             .catch(console.error("에러발생"));
 
-        if (result.httpStatus === 200) {
+        if (result.httptatus === 200) {
             console.log('[RallyAPICalls] callRallyListAPI RESULT : ', result);
             dispatch({ type: GET_RALLYLIST, payload: result.results });
         }
@@ -39,7 +39,7 @@ export const callRallyDetailAPI = ({ rallyId }) => {
 
     console.log("[RallyAPICalls] callRallyDetailAPI Call");
 
-    const URL = `https://localhost:3307/api/v1/rallies/${rallyId}`;
+    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}`;
 
     return async (dispatch, getState) => {
 
@@ -48,7 +48,7 @@ export const callRallyDetailAPI = ({ rallyId }) => {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "*/*",
-                "Authorization": "Bearer " + window.localStorage.getItem("jwtToken")
+                "Auth": "Bearer " + window.localStorage.getItem("jwtToken")
             }
         })
             .then(response => response.json())
@@ -56,7 +56,7 @@ export const callRallyDetailAPI = ({ rallyId }) => {
 
         console.log('[RallyAPICalls] callRallyDetailAPI RESUTL : ', result);
 
-        if (result.httpStatus === 200) {
+        if (result.httptatus === 200) {
             console.log('[RallyAPICalls] callRallyDetailAPI SUCCESS');
             dispatch({ type: GET_RALLY, payload: result.results.rally })
         }
@@ -68,7 +68,7 @@ export const callPostRallyAPI = ({ form }) => {
 
     console.log("[RallyAPICalls] callPostRallyAPI Call");
 
-    const URL = 'https://localhost:3307/api/v1/rallies';
+    const URL = 'http://localhost:8000/api/v1/rallies';
 
     return async (dispatch, getState) => {
 
@@ -94,7 +94,7 @@ export const callModifyRallyAPI = ({ form, rallyId }) => {
 
     console.log('[RallyAPICalls] callModifyRallyAPI Call');
 
-    const URL = `https://localhost:3307/api/v1/rallies/${rallyId}`;
+    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}`;
 
     console.log("URL", URL);
 
@@ -121,11 +121,9 @@ export const callSearchRallyAPI = ({ criteria }) => {
 
     console.log('[RallyAPICalls] callSearchRallyAPI Call');
 
-    const URL = `https://localhost:3307/api/v1/rallies/search?${criteria}`;
+    const URL = `http://localhost:8000/api/v1/rallies/search?${criteria}`;
 
     console.log("URL : ", URL);
-
-    //밑에 호출이 안돼!!!!!!!!!!
 
     return async (dispatch, getState) => {
 

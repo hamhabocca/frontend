@@ -182,7 +182,7 @@
     width: 220px;
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .people input {
@@ -224,7 +224,7 @@
 .estimate div:last-child {
     display: flex;
     flex-flow: column nowrap;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .locationDetail input {
