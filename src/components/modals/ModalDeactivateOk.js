@@ -21,7 +21,7 @@ function ModalDeactivateOk() {
                         <br /><br />
                         <h5 className={styles.text}>회원님의 정보는 30일간 저장되며, 그 이후 삭제됩니다. </h5>
                         <div>
-                            <input type='button' className={styles.close} onClick={() => dispatch(closeModal())} value='닫기' />
+                            <input type='button' className={styles.close} onClick={() => dispatch(closeModal())} value='확인' />
                         </div>
                     </div>
                 </div>

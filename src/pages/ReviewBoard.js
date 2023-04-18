@@ -1,23 +1,36 @@
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
-import RallyList from "../components/lists/ReviewList";
+import ReviewList from "../components/lists/ReviewList";
 import style from "./ReviewBoard.module.css";
 import { getReviewList } from "../apis/ReviewAPICalls";
-
 import { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import styled from "styled-components";
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
 
+import { callReviewListAPI } from "../apis/ReviewAPICalls";
+import { useDispatch, useSelector } from "react-redux";
+
+
 function ReviewBoard() {
+
+    const dispatch = useDispatch();
+
+    const test = useSelector(state => state.reviewReducer);
+
+    const reviews = test.reviews;
 
     const [page, setPage] = useState(1);
 
-    const handlePageChange = (page) => {setPage(page)};
+    const handlePageChange = (page) => { setPage(page) };
 
-    const[reviewPostList, setReviewPostList] = useState([]);
+    const [reviewPostList, setReviewPostList] = useState([]);
 
     useEffect(() => {
-        setReviewPostList(getReviewList().slice(15 * (page -1 ), 15 * (page -1) + 15));
+
+        console.log("리뷰게시판");
+        dispatch(callReviewListAPI({ currentPage: 1 }));
+
+        setReviewPostList(getReviewList().slice(15 * (page - 1), 15 * (page - 1) + 15));
     }, [page]);
 
     return (
@@ -43,15 +56,14 @@ function ReviewBoard() {
                 </article>
 
                 <article className={style.list}>
-                    <RallyList reviewPosts = {reviewPostList}/>
-
+                    <ReviewList reviews={reviews} />
                 </article>
 
                 <PaginationBox>
                     <Pagination
                         activePage={page}
                         itemsCountPerPage={15}
-                        totalItemsCount={getReviewList().length}
+                        //totalItemsCount={getReviewList().length}
                         pageRangeDisplayed={5}
                         firstPageText={<HiChevronDoubleLeft />}
                         prevPageText={<HiChevronLeft />}
@@ -66,7 +78,8 @@ function ReviewBoard() {
     );
 }
 
-const PaginationBox = styled.div`
+const PaginationBox = styled.div
+`
   .pagination { display: flex; justify-content: center; margin-top: 15px;}
   ul { list-style: none; padding: 0; }
   ul.pagination li {
