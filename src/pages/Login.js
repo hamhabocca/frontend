@@ -38,7 +38,7 @@ function Login() {
             <section className={style.LoginBox}>
                 <h1>간편 로그인</h1>
                 <div className={style.Buttons}>
-                    <button className={style.Google} onClick={() => login()}><img src='./img/google.png' />구글로 로그인</button>
+                    {/* <button className={style.Google} onClick={() => login()}><img src='./img/google.png' />구글로 로그인</button> */}
                     <button className={style.Naver} onClick={() => loginHandler('N')}><img src='./img/naver.png' />네이버로 로그인</button>
                     <button className={style.Kakao} onClick={() => loginHandler('K')}><img src='./img/kakao.png' />카카오로 로그인</button>
                 </div>

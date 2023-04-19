@@ -1,5 +1,6 @@
 import axios from "axios";
 import { POST_LOGIN } from "../modules/MemberModule";
+import { post_login } from "../modules/MemberModule";
 
 export const callKakaoLoginAPI = (code) => {
 
@@ -28,12 +29,8 @@ export const callKakaoLoginAPI = (code) => {
         if(result.httpStatus === 200){
             window.localStorage.setItem('jwtToken', JSON.stringify(result.results.token));            
         } else if(result.httpStatus === 401) {
-            
             console.log("만료됨...")
-
         }
-        dispatch({ type: POST_LOGIN,  payload: result });
-
     };
 }
 
@@ -66,8 +63,6 @@ export const callNaverLoginAPI = (code, state) => {
             console.log("만료됨...")
 
         }
-        dispatch({ type: POST_LOGIN,  payload: result });
-
     };
 }
 
@@ -79,7 +74,6 @@ export const callLogoutAPI = () => {
         
         console.log('test2');
 
-        dispatch({ type: POST_LOGIN,  payload: '' });      
         console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
     };
 }

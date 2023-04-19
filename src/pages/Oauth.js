@@ -12,7 +12,7 @@ function Oauth() {
 
     const dispatch = useDispatch();
 
-    const loginStatus = useSelector(state => state.memberReducer)
+    const loginStatus = useSelector(state => state.memberReducer)            
 
     useEffect(
         () => {
@@ -24,7 +24,7 @@ function Oauth() {
             } else {
                 alert("로그인에 실패하였습니다.")
             }
-            navigate("/");
+            navigate("/", {replace: true});
         }
     )
 
