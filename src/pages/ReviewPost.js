@@ -1,67 +1,82 @@
-import { getReviewDetail } from '../apis/ReviewAPICalls';
-import { getRallyDetail } from '../apis/RallyAPICalls';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
 import style from './ReviewPost.module.css';
 
+import { open_ReportModal } from '../modules/ModalsModule';
 import { callReviewDetailAPI } from "../apis/ReviewAPICalls";
 import { useDispatch, useSelector } from "react-redux";
+import ModalReport from "../components/modals/ModalReport";
+import { Link, NavLink } from 'react-router-dom';
 
 
 function ReviewPost() {
 
     const dispatch = useDispatch();
-
-    const test = useSelector(state => state.reviewReducer);
-    
-    const testDetail = test.data;
-    const params = useParams();
     const { reviewId } = useParams();
+    const review = useSelector(state => state.reviewReducer);
+    const testDetail = review.testDetail;
 
-
-    const [review, setReview] = useState({});
-
+    // const [review, setReview] = useState({});
     // const [rally, setRally] = useState({});
+
+    /*모달*/ 
+    const reportState = useSelector(state => state.modalsReducer.reportState);
 
     useEffect(
         () => {
-            console.log('[testDetail] ReviewId :', params.reviewId);
+            console.log('[testDetail] reviewId :', testDetail);
             console.log("리뷰 디테일");
             // const temp = getReviewDetail(review); 
             // setReview(temp);
-            dispatch(callReviewDetailAPI({
-                reviewId: params.reviewId
-            }));
+    
+            dispatch(callReviewDetailAPI({reviewId: reviewId}));
 
             // setRally(getRallyDetail(temp.rallyId));
-        }, []
+        }
+        ,[]
     );
+
+
+    const REVIEW_ID = review.reviewId;
+
+    const REVIEW_TITLE = review.reviewTitle;
+
+    /* 리뷰 작성 일자 */
+    const REVIEW_WRITE_DATE = new Date(review.reviewWriteDate);
+
+    /* 리뷰 작성자 */
+    const REVIEW_WRITER = review.reviewWriter;
+
+    /* 리뷰 상세 내용 */
+    const REVIEW_DETAIL = review.reviewDetail;
 
     // const writedate = new Date(review.reviewWriteDate);
     // const rallystarttime = new Date(rally.rallystarttime);
     // const rallyendtime = new Date(rally.rallyendtime);
 
-    // const postSet = () => {
 
-    //     if (review.reviewId === 8) {
-    //         return <button className={style.edit}>수정</button>;
+    /* 작성자일 때 */
+    const postSet = () => {
 
-    //     } else if (review.reivewId === 7 && rally.rallystatus === 'in_process') {
+        if (review.reviewId === 1) {
+            return <Link to = {`/review/${review.reviewId}/edit`}>
+            <button className={style.edit}>수정</button>
+            </Link>
 
-    //         return (
-    //             <div className={style.postStatus}>
-    //                 <button className={style.edit}>신고</button>
-    //             </div>
-    //         );
-    //     } else {
-    //         return (
-    //             <div className={style.postStatus}>
-    //                 <button className={style.edit}>신고</button>
-    //             </div>
-    //         );
-    //     }
-    // }
+        // } else if (review.reivewId === 2 && rally.rallystatus === 'in_process') {
+        
+    /* 작성자가 아닐 때 */
+    } else if(!(review.reviewId === 1)){
+
+            return (
+                <div className={style.postStatus}>
+                    <button className={style.edit} onClick={() => { dispatch(open_ReportModal()) }}>신고</button>
+                    {reportState && <ModalReport/>}
+                </div>
+            );
+        }
+    }
 
 
 
@@ -83,7 +98,7 @@ function ReviewPost() {
                         </div>
                         <div className={style.postStatus}>
                             <div className={style.report}>
-                                {/* {postSet()} */}
+                                {postSet()}
                             </div>
                         </div>
                     </div>
@@ -92,10 +107,10 @@ function ReviewPost() {
                         <article className={style.containerTime}>
                             <div className={style.containerTime}>
                                 <div className={style.picture}>사진</div>
-                                {/* <h2 style={{ marginLeft: '10px' }}>{review.reviewwriter}</h2> */}
+                                <h2 style={{ marginLeft: '10px' }}>{REVIEW_WRITER}</h2>
                             </div>
                             <div className={style.container2}>
-                                {/* <h4>{writedate.toLocaleString()}</h4> */}
+                                <h4>{REVIEW_WRITE_DATE.toLocaleString()}</h4>
                             </div>
 
                         </article>
@@ -116,9 +131,7 @@ function ReviewPost() {
                         </div>
                         <div className={style.Review}>
                             <div className={style.mainPic}> 후기사진</div>
-                            {/* <h4 style={{ margin: '10px' }}>{review.reviewdetail}<br /><br /> */}
-
-                            {/* </h4> */}
+                            <h4 style={{ margin: '10px' }}>{REVIEW_DETAIL}<br /><br /></h4>
                         </div>
                         <br />
                         <br />
@@ -128,7 +141,7 @@ function ReviewPost() {
                         <br />
                         <hr />
                         <br />
-                        <h3>내 닉네임</h3>
+                        <h3>{REVIEW_WRITER}</h3>
                         <div className={style.container}>
 
                             <textarea className={style.Comment} cols='30' rows='5' />

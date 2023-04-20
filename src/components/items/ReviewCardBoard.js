@@ -1,10 +1,11 @@
-import style from './ReviewCardBoard.module.css';
 import { Link } from 'react-router-dom';
+import style from './ReviewCardBoard.module.css';
 
 function ReviewCardBoard({ review }) {
 
     /* 작성일 */
-    const reviewWriteDate = new Date(review.reviewWriteDate);
+    const REVIEW_DATE = new Date(review.reviewWriteDate).toLocaleDateString().slice(0, -1);
+
 
     /* 랠리 상태 */
     const reviewstatus = () => {
@@ -45,20 +46,19 @@ function ReviewCardBoard({ review }) {
 
     
     return (
-         <Link to={`/review/${review.reviewId}`} style={{ textDecoration: 'none', color: '#202020' }}>
-      
+        <Link to={`/review/${review.reviewId}`} style={{ textDecoration: 'none', color: '#202020' }}>
             <section className={`${style.category} ${style.flex_center}`}>
                 <article className={`${style.status} ${style.flex_center}`}>
-                    {/* {reviewstatus()} */}
+                    {reviewstatus()}
                 </article>
                 <div>
-                    {/* {reviewtype()} */}
+                    {reviewtype()}
                 </div>
                 <div>{review.reviewTitle}</div>
                 <div>{review.reviewWriter}</div>
-                <div>{reviewWriteDate.toLocaleDateString().slice(0, -1)}</div>
+                <div>{REVIEW_DATE}</div>
             </section>
-            </Link>
+        </Link>
     );
 }
 
