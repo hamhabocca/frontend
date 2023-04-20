@@ -1,4 +1,4 @@
-import { open_CancelRecruitModal, open_CancelRecruitModal2, open_RecruitmentListModal, open_RecruitModal, open_ReportModal } from "../modules/ModalsModule";
+import { OPEN_RECRUIT_LIST, OPEN_PARTICIPATE, OPEN_CANCEL_PARTICIPATE, OPEN_CANCEL_RALLY, OPEN_REPORT } from "../modules/ModalsModule";
 import ModalCurrentRecruitList from "../components/modals/ModalCurrentRecruitList";
 import ModalRallyPartcipate from "../components/modals/ModalRallyPartcipate";
 import ModalRallyCancel from "../components/modals/ModalRallyCancel";
@@ -8,49 +8,57 @@ import ModalReport from "../components/modals/ModalReport";
 import style from "./RallyPost.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SearchFilter from "../components/commons/SearchFilter";
 import { callModifyRallyAPI, callRallyDetailAPI } from "../apis/RallyAPICalls";
 import { callParticipateListAPI } from "../apis/ParticipateAPICalls";
+import Kakaomap from '../components/items/Kakaomap';
 
 function RallyPost() {
 
     const dispatch = useDispatch();
-    const { rallyCode } = useParams(); // :rallyCode
+    const navigate = useNavigate();
+
+    const { rallyId } = useParams(); // :rallyId
     const rally = useSelector(state => state.rallyReducer);
     const mateList = useSelector(state => state.participateReducer);
 
-    // 모달창...
-    const recruitmentListState = useSelector(state => state.modalsReducer.recruitmentListState);
-    const recruitState = useSelector(state => state.modalsReducer.recruitState);
-    const cancelRecruitState = useSelector(state => state.modalsReducer.cancelRecruitState);
-    const cancelRecruitState2 = useSelector(state => state.modalsReducer.cancelRecruitState2);
-    const reportState = useSelector(state => state.modalsReducer.reportState);
+    // 모달창
+    const isModal = useSelector(state => state.modalsReducer);
+    const recruitListModal = isModal.recruitListState;
+    const participateModal = isModal.participateState;
+    const cancelParticipateModal = isModal.cancelParticipateState;
+    const cancelRallyModal = isModal.cancelRallyState;
+    const reportModal = isModal.reportState;
 
     // 상태변경
     const onClickRallyStatusUpdateHandler = (status) => {
-
-        console.log("상태변경핸들러 클릭함");
 
         const formData = new FormData();
         formData.append("rallyStatus", status);
 
         dispatch(callModifyRallyAPI({
             form: formData,
-            rallyId: rallyCode
+            rallyId: rallyId
         }));
-
     }
 
     useEffect(
         () => {
-            dispatch(callRallyDetailAPI({ rallyId: rallyCode }));
-            dispatch(callParticipateListAPI({ rallyId: rallyCode }));
+            dispatch(callRallyDetailAPI({ rallyId: rallyId }));
         }, []
     );
 
+    useEffect(
+        () => {
+            dispatch(callParticipateListAPI({ rallyId: rallyId }));
+        }, []
+    );
+
+    
     /* 현재 사용자 */
-    const MEMBER_ID = 44;   //임시...
+    const token = window.localStorage.getItem("jwtToken");
+    const MEMBER_ID = JSON.parse(token)?.memberId;
 
     /* 랠리팀명 */
     const RALLY_NAME = rally.rallyName;
@@ -127,16 +135,16 @@ function RallyPost() {
 
             switch (RALLY_STATUS) {
                 case "완주!":
-                    return (<button className={style.edit}>수정</button>);
+                    return (<button className={style.edit} onClick={() => { navigate(`/rally/${rallyId}/write`, { replace : true }); }}>수정</button>);
 
                 case "취소됨":
                     return (<></>);
                 default:
                     return (
                         <>
-                            <button onClick={() => { dispatch(open_CancelRecruitModal2()); }} className={style.report}>랠리취소</button>
-                            {cancelRecruitState2 && <ModalRallyRecruitmentCancel rallyId={rallyCode} />}
-                            <button className={style.edit}>수정</button>
+                            <button onClick={() => { dispatch({ type: OPEN_CANCEL_RALLY }) }} className={style.report}>랠리취소</button>
+                            {cancelRallyModal && <ModalRallyRecruitmentCancel rallyId={rallyId} />}
+                            <button className={style.edit} onClick={() => { navigate(`/rally/${rallyId}/write`, { replace : true }); }}>수정</button>
                         </>
                     );
             }
@@ -145,14 +153,14 @@ function RallyPost() {
         // 작성자가 아닐 때
         return (
             <>
-                <button onClick={() => { dispatch(open_ReportModal()) }} className={style.edit}>신고</button>
-                {reportState && <ModalReport />}
+                <button onClick={() => { dispatch({ type: OPEN_REPORT }) }} className={style.edit}>신고</button>
+                {reportModal && <ModalReport />}
             </>
         );
     };
 
     /* 랠리 신청 이벤트 */
-    const rallybutton = () => {
+    function rallybutton() {
 
         /* 작성자일때 */
         if (MEMBER_ID === MASTER_ID) {
@@ -161,8 +169,8 @@ function RallyPost() {
                 case "모집중":
                     return (
                         <>
-                            <button onClick={() => { dispatch(open_RecruitmentListModal()) }}>신청 현황</button>
-                            {recruitmentListState && <ModalCurrentRecruitList rally={rally} />}
+                            <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
+                            {recruitListModal && <ModalCurrentRecruitList rally={rally} />}
                             <button style={{ background: '#056DFA' }} onClick={() => { onClickRallyStatusUpdateHandler("모집완료") }}>모집 마감</button>
                         </>
                     );
@@ -173,27 +181,26 @@ function RallyPost() {
                 default:
                     return (
                         <>
-                            <button onClick={() => { dispatch(open_RecruitmentListModal()) }}>신청 현황</button>
-                            {recruitmentListState && <ModalCurrentRecruitList rally={rally} />}
+                            <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
+                            {recruitListModal && <ModalCurrentRecruitList rally={rally} />}
                         </>
                     );
             }
-
         }
 
         /* 다른 회원일때 */
         if (RALLY_STATUS === '모집중' || RALLY_STATUS === '모집완료') {
-            
+
             let result = mateList.filter(mate => mate.memberId == MEMBER_ID)[0]
-            
+
             // 신청함
-            if(result != undefined) {
+            if (result != undefined) {
                 return (
                     <>
-                        <button onClick={() => { dispatch(open_RecruitmentListModal()) }}>신청 현황</button>
-                        {recruitmentListState && <ModalCurrentRecruitList rally={rally} />}
-                        <button onClick={() => { dispatch(open_CancelRecruitModal()) }} style={{ background: '#056DFA' }}>신청 취소</button>
-                        {cancelRecruitState && <ModalRallyCancel rallyId={rallyCode}/>}
+                        <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
+                        {recruitListModal && <ModalCurrentRecruitList rally={rally} />}
+                        <button onClick={() => { dispatch({ type: OPEN_CANCEL_PARTICIPATE }) }} style={{ background: '#056DFA' }}>신청 취소</button>
+                        {cancelParticipateModal && <ModalRallyCancel rallyId={rallyId} />}
                     </>
                 );
             }
@@ -201,10 +208,10 @@ function RallyPost() {
             // 미신청
             return (
                 <>
-                    <button onClick={() => { dispatch(open_RecruitmentListModal()) }}>신청 현황</button>
-                    {recruitmentListState && <ModalCurrentRecruitList rally={rally} />}
-                    <button onClick={() => { dispatch(open_RecruitModal()) }} style={{ background: '#056DFA' }}>랠리 신청</button>
-                    {recruitState && <ModalRallyPartcipate rallyId={rallyCode}/>}
+                    <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
+                    {recruitListModal && <ModalCurrentRecruitList rally={rally} />}
+                    <button onClick={() => { dispatch({ type: OPEN_PARTICIPATE }) }} style={{ background: '#056DFA' }}>랠리 신청</button>
+                    {participateModal && <ModalRallyPartcipate rallyId={rallyId} />}
 
                 </>
             );
@@ -231,7 +238,9 @@ function RallyPost() {
                     <p>{RALLY_WRITE_DATE}</p>
                 </article>
                 <article className={style.rallyinfo}>
-                    <div className={style.map}>맵</div>
+                    <div className={style.map}>
+                        {/* <Kakaomap departureAddress={RALLY_LOCATION} arrivalAddress={RALLY_END_LOCATION} /> */}
+                    </div>
                     <div className={style.info}>
                         <div className={style.location}>
                             <h2>{RALLY_DISTANCE}km</h2>

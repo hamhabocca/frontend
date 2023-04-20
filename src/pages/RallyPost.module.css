@@ -115,14 +115,12 @@
 
 .location h2 {
     font-size: 32px;
-    font-weight: 700;
     height: 35px;
 }
 
 .location h3 {
     font-size: 21px;
-    font-weight: 700;
-    margin: 7px 0;
+    margin: 5px 0;
     height: 60px;
     line-height: normal;
 }
@@ -133,15 +131,14 @@
     border-radius: 2px;
     background-color: #FF7A00;
     font-size: 20px;
-    font-weight: 700;
     padding: 5px;
     display: flex;
     align-items: center;
 }
 
 .info {
-    margin-top: 5px;
     width: 320px;
+    margin-top: 5px;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
@@ -205,6 +202,7 @@
 
 .rallydetail {
     margin: 10px 0;
+    padding: 10px;
     border: 2px solid #D9D9D9;
     border-radius: 2px;
     height: 310px;

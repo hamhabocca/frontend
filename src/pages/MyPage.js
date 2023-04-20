@@ -7,7 +7,7 @@ import MyPageList from '../components/lists/MyPageList';
 import ModalDeactivate from '../components/modals/ModalDeactivate'; 
 import ModalProfile from "../components/modals/ModalProfile";
 import { useDispatch, useSelector } from 'react-redux';
-import { open_deleteAccountModal, open_ProfileModal } from '../modules/ModalsModule';
+import { OPEN_DELETE_ACCOUNT, open_deleteAccountModal, OPEN_PROFILE, open_ProfileModal } from '../modules/ModalsModule';
 
 function MyPage() {
 
@@ -81,11 +81,11 @@ function MyPage() {
                                 <label>10</label>
                             </div>
                         </div>
-                        <button onClick={() => { dispatch(open_ProfileModal()) }} className={style.EditProfile}>프로필 수정</button>
+                        <button onClick={() => { dispatch({type: OPEN_PROFILE}) }} className={style.EditProfile}>프로필 수정</button>
                         { profileState && <ModalProfile/> }
                     </div>
                     <div>
-                    <button className={style.Deactivate} onClick = {() => { dispatch(open_deleteAccountModal())}}>사이트 탈퇴하기</button>
+                    <button className={style.Deactivate} onClick = {() => { dispatch({type: OPEN_DELETE_ACCOUNT})}}>사이트 탈퇴하기</button>
                     { deleteAccountState && <ModalDeactivate/> }
                     </div>
                 </section>

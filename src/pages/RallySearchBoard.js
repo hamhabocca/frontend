@@ -3,7 +3,7 @@ import RallyList from "../components/lists/RallyList";
 import style from "./RallyBoard.module.css";
 import { useLocation } from "react-router";
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { callSearchRallyAPI } from "../apis/RallyAPICalls";
 
@@ -11,12 +11,13 @@ import { callSearchRallyAPI } from "../apis/RallyAPICalls";
 function RallySearchBoard() {
 
     const dispatch = useDispatch();
+    const rallies = useSelector((state) => state.rallyReducer);
+    const rallyList = rallies?.rallyList;
+    const pageInfo = rallies?.paging;
 
     const { search } = useLocation();
 
     const query = decodeURI(search).replace('?', '');
-
-    console.log("query", query);
 
     // 현재 페이지
     const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +34,7 @@ function RallySearchBoard() {
     // 총 페이지의 모음
     const pageNumber = [1];
 
-    let lastPage = pageNumber.length;   //임시
+    let lastPage = Array.isArray(pageInfo).length;   //임시
 
     // if (pageInfo) {
     //     for (let i = pageInfo.startPage + 1; i <= pageInfo.endPage; i++) {
@@ -68,7 +69,7 @@ function RallySearchBoard() {
                 </article>
 
                 <article className={style.list}>
-                    {/* <RallyList /> */}
+                    {Array.isArray(rallyList) && <RallyList rallyList={rallyList} />}
                 </article>
 
                 <article className={style.pagination}>
@@ -80,7 +81,7 @@ function RallySearchBoard() {
                     </button>
                     {pageNumber.map((num) => (
                         <li key={num} onClick={() => setCurrentPage(num)}>
-                            <button style={currentPage == num ? { color: '#003ACE' } : null}>
+                            <button style={currentPage === num ? { color: '#003ACE' } : null}>
                                 {num}
                             </button>
                         </li>

@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { reset_state } from '../modules/AddressModule';
 import { useEffect, useState } from 'react';
-import Kakaomap from '../components/items/Kakaomap';
 import { callPostRallyAPI } from '../apis/RallyAPICalls';
+import Kakaomap from '../components/items/Kakaomap';
 
 function WriteRallyPost() {
 
@@ -51,8 +51,6 @@ function WriteRallyPost() {
             ...form,
             [e.target.name]: e.target.value
         });
-
-        console.log('form', form);
     }
 
     const onClickRallyPostHandler = () => {
@@ -72,7 +70,6 @@ function WriteRallyPost() {
         formData.append("rallyDetail", form.rallyDetail)
 
         dispatch(callPostRallyAPI({ form: formData }));
-
         dispatch(reset_state());
 
         alert('게시판으로 이동합니다.');
@@ -96,23 +93,23 @@ function WriteRallyPost() {
                             <h3>*랠리 타입을 선택해주세요</h3>
                             <div className={style.RallyType}>
                                 <div>
-                                    <input type={'radio'} id="lvl1" name='rallyType' value={'입문'} onChange={onChangeHandler}/>
+                                    <input type="radio" id="lvl1" name="rallyType" value={'입문'} onChange={onChangeHandler}/>
                                     <label htmlFor='lvl1'>입문</label>
                                 </div>
                                 <div>
-                                    <input type={'radio'} id="lvl2" name='rallyType' value={'초보'} onChange={onChangeHandler}/>
+                                    <input type="radio" id="lvl2" name="rallyType" value={'초보'} onChange={onChangeHandler}/>
                                     <label htmlFor='lvl2'>초보</label>
                                 </div>
                                 <div>
-                                    <input type={'radio'} id="lvl3" name='rallyType' value={'중수'} onChange={onChangeHandler}/>
+                                    <input type="radio" id="lvl3" name="rallyType" value={'중수'} onChange={onChangeHandler}/>
                                     <label htmlFor='lvl3'>중수</label>
                                 </div>
                                 <div>
-                                    <input type={'radio'} id="lvl4" name='rallyType' value={'고수'} onChange={onChangeHandler}/>
+                                    <input type="radio" id="lvl4" name="rallyType" value={'고수'} onChange={onChangeHandler}/>
                                     <label htmlFor='lvl4'>고수</label>
                                 </div>
                                 <div>
-                                    <input type={'radio'} id="lvl5" name='rallyType' value={'전설'} onChange={onChangeHandler}/>
+                                    <input type="radio" id="lvl5" name="rallyType" value={'전설'} onChange={onChangeHandler}/>
                                     <label htmlFor='lvl5'>전설</label>
                                 </div>
                                 <button className={style.QuestionButton}>?</button>
@@ -120,7 +117,7 @@ function WriteRallyPost() {
                         </div>
                         <div className={style.rallyName}>
                             <h3>*랠리명을 적어주세요.<p>(글자수제한있음 특수문자 불가)</p></h3>
-                            <input type={"text"} name='rallyName' onChange={onChangeHandler} />
+                            <input type="text" name='rallyName' onChange={onChangeHandler} />
                         </div>
                         <div className={style.rallyMap}>
                             <div className={style.mapImg}>
@@ -134,24 +131,20 @@ function WriteRallyPost() {
                                     <h3>*랠리 모집 인원</h3>
                                     <div>
                                         <p>최소</p>
-                                        <input type={"text"} name='rallyMinimum' onChange={onChangeHandler} />
+                                        <input type='text' name='rallyMinimum' onChange={onChangeHandler} />
                                         <p>최대</p>
-                                        <input type={"text"} name='rallyMaximum' onChange={onChangeHandler} />
+                                        <input type='text' name='rallyMaximum' onChange={onChangeHandler} />
                                     </div>
                                 </div>
                                 <div className={style.estimate}>
                                     <div>
                                         <h3>*랠리 출발 일시</h3>
-                                        <input type={"datetime-local"} name='rallyDate' onChange={onChangeHandler} className={style.dateInput} />
+                                        <input type='datetime-local' name='rallyDate' onChange={onChangeHandler} className={style.dateInput} />
                                     </div>
                                     <div>
                                         <h3>*총 예상 거리</h3>
-                                        <input type={"text"} name='rallyDistance' onChange={onChangeHandler} placeholder="           km" />
+                                        <input type='text' name='rallyDistance' onChange={onChangeHandler} placeholder="           km" />
                                     </div>
-                                </div>
-                                <div className={style.locationDetail}>
-                                    <h3>*상세 출발지</h3>
-                                    <input type={"text"} name='rallyLocationDetail' placeholder='출발지 상세내용' />
                                 </div>
                                 <div className={style.setMap}>
                                     <button type='button' onClick={toggleHandler}>출발지/도착지</button>
@@ -162,11 +155,8 @@ function WriteRallyPost() {
                             {isClick && <EnterRallyAddress />}
                         </div>
                     </form>
-                    <div>
-
-                    </div>
                     <div className={style.text}>
-                        <textarea name='rallyDetail'></textarea>
+                        <textarea name='rallyDetail' onChange={onChangeHandler} placeholder='구체적인 장소, 예상 완주 시간 등 랠리 상세 내용을 적어주세요.'></textarea>
                     </div>
                 </article>
             </section>

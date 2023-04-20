@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModal, open_CancelRecruitModal2Ok } from "../../modules/ModalsModule";
+import { closeModal, OPEN_OK } from "../../modules/ModalsModule";
 import ModalRallyRecruitmentCancelOk from './ModalRallyRecruitmentCancelOk';
 import styles from './Modal.module.css';
 import { callModifyRallyAPI } from '../../apis/RallyAPICalls';
@@ -8,13 +8,11 @@ import { callModifyRallyAPI } from '../../apis/RallyAPICalls';
 function ModalRallyRecruitmentCancel({ rallyId }) {
 
     const dispatch = useDispatch();
-    const isOpen = useSelector(state => state.modalsReducer.cancelRecruitState2);
-    const cancelRecruitState2Ok = useSelector(state => state.modalsReducer.cancelRecruitState2Ok);
+    const isOpen = useSelector(state => state.modalsReducer.cancelRallyState);
+    const okIsOpen = useSelector(state => state.modalsReducer.oKState);
 
     // 상태변경
     const onClickRallyStatusUpdateHandler = (status) => {
-
-        console.log("상태변경핸들러 클릭함");
 
         const formData = new FormData();
         formData.append("rallyStatus", status);
@@ -42,12 +40,12 @@ function ModalRallyRecruitmentCancel({ rallyId }) {
                             className={styles.ok}
                             onClick={() => {
                                 onClickRallyStatusUpdateHandler("취소됨");
-                                dispatch(open_CancelRecruitModal2Ok());
+                                dispatch({type: OPEN_OK});
                             }
                             }>
                             취소하기
                         </button>
-                        {cancelRecruitState2Ok && <ModalRallyRecruitmentCancelOk />}
+                        {okIsOpen && <ModalRallyRecruitmentCancelOk />}
                         <button className={styles.close} onClick={() => dispatch(closeModal())} >취소</button>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ export const callRallyListAPI = ({ currentPage }) => {
 
     console.log("[RallyAPICalls] callRallyListAPI Call");
 
-    let URL;
+    let URL = "";
 
     if (currentPage !== undefined || currentPage !== null) {
         URL = `http://localhost:8000/api/v1/rallies?page=${currentPage}`;
@@ -21,13 +21,13 @@ export const callRallyListAPI = ({ currentPage }) => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "*/*"
+                "Accept": "*/*",
+                "Auth": window.localStorage.getItem("jwtToken")
             }
         })
-            .then(response => response.json())
-            .catch(console.error("에러발생"));
+            .then(response => response.json());
 
-        if (result.httptatus === 200) {
+        if (result.httpStatus === 200) {
             console.log('[RallyAPICalls] callRallyListAPI RESULT : ', result);
             dispatch({ type: GET_RALLYLIST, payload: result.results });
         }
@@ -48,15 +48,14 @@ export const callRallyDetailAPI = ({ rallyId }) => {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "*/*",
-                "Auth": "Bearer " + window.localStorage.getItem("jwtToken")
+                "Auth": window.localStorage.getItem("jwtToken")
             }
         })
-            .then(response => response.json())
-            .catch(console.error("에러발생"));
+            .then(response => response.json());
 
         console.log('[RallyAPICalls] callRallyDetailAPI RESUTL : ', result);
 
-        if (result.httptatus === 200) {
+        if (result.httpStatus === 200) {
             console.log('[RallyAPICalls] callRallyDetailAPI SUCCESS');
             dispatch({ type: GET_RALLY, payload: result.results.rally })
         }
@@ -76,8 +75,7 @@ export const callPostRallyAPI = ({ form }) => {
             method: "POST",
             headers: {
                 "Accept": "*/*",
-                "memberId": 44, //임시
-                "Authorization": "Bearer " + window.localStorage.getItem("jwtToken")
+                "Auth": window.localStorage.getItem("jwtToken")
             },
             body: form
         })
@@ -103,8 +101,8 @@ export const callModifyRallyAPI = ({ form, rallyId }) => {
         const result = await fetch(URL, {
             method: "PUT",
             headers: {
-                "Accept": "*/*"
-                // "Authorization": "Bearer " + window.localStorage.getItem("jwtToken")
+                "Accept": "*/*",
+                "Auth": window.localStorage.getItem("jwtToken")
             },
             body: form
         })
@@ -131,7 +129,8 @@ export const callSearchRallyAPI = ({ criteria }) => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "*/*"
+                "Accept": "*/*",
+                "Auth": window.localStorage.getItem("jwtToken")
             }
         })
             .then(response => response.json())

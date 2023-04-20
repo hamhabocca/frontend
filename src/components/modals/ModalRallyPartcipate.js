@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModal, open_RecruitOkModal } from "../../modules/ModalsModule";
+import { closeModal, OPEN_PARTICIPATE_OK } from "../../modules/ModalsModule";
 import ModalParticipateOk from './ModalParticipateOk';
 import styles from './Modal.module.css';
 import { callParticipateRallyByMateAPI } from '../../apis/ParticipateAPICalls';
@@ -8,9 +8,8 @@ import { callParticipateRallyByMateAPI } from '../../apis/ParticipateAPICalls';
 function ModalRallyPartcipate({rallyId}) {
 
     const dispatch = useDispatch();
-    const isOpen = useSelector(state => state.modalsReducer.recruitState);
-
-    const recruitStateOk = useSelector(state => state.modalsReducer.recruitStateOk);
+    const isOpen = useSelector(state => state.modalsReducer.participateState);
+    const participateOkModal = useSelector(state => state.modalsReducer.participateOkState);
 
     return (
         <Modal isOpen={isOpen} ariaHideApp={false} className={styles.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>
@@ -28,10 +27,10 @@ function ModalRallyPartcipate({rallyId}) {
                         <button 
                         className={styles.ok} 
                         onClick={() => { 
-                            dispatch(open_RecruitOkModal()); 
+                            dispatch({type: OPEN_PARTICIPATE_OK}); 
                             dispatch(callParticipateRallyByMateAPI({rallyId: rallyId})); 
                             }}>확인</button>
-                        {recruitStateOk && <ModalParticipateOk />}
+                        {participateOkModal && <ModalParticipateOk />}
                         <button className={styles.close} onClick={() => dispatch(closeModal())}>취소</button>
                     </div>
                 </div>

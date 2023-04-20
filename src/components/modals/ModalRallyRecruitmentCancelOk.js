@@ -6,7 +6,7 @@ import styles from './Modal.module.css';
 function ModalRallyRecruitmentCancelOk() {
 
     const dispatch = useDispatch();
-    const isOpen = useSelector(state => state.modalsReducer.cancelRecruitState2Ok);
+    const isOpen = useSelector(state => state.modalsReducer.cancelRallyState);
 
     return (
         <Modal isOpen={isOpen} ariaHideApp={false} className={styles.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>

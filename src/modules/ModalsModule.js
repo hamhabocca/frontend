@@ -1,98 +1,20 @@
 import { createActions, handleActions } from "redux-actions";
 
-const initialState = {
-    recruitmentListState: false,    //신청현황
-    recruitState: false,            //랠리신청
-    recruitStateOk: false,          //랠리신청완료
-    cancelRecruitState: false,      //참가취소
-    cancelRecruitStateOk: false,    //참가취소완료
-    cancelRecruitState2: false,     //모집취소
-    cancelRecruitState2Ok:false,    //모집취소완료
-    reportState: false,             //신고하기
-    profileState: false,            //프로필수정
-    registerState:false,            //회원가입(닉네임)
-    deleteAccountState:false,        //회원탈퇴
-    deletePostState:false           //게시글 삭제
-};
+const initialState = false;
 
-const RECRUITMENT_LIST = 'rally/RECRUITMENT_LIST';
-const RECRUIT = 'rally/RECRUIT';
-const RECRUIT_OK = 'rally/RECRUIT_OK'
-const CANCEL_RECRUIT = 'rally/CANCEL_RECRUIT';
-const CANCEL_RECRUIT2 = 'rally/CANCEL_RECRUIT2';
-const CANCEL_RECRUIT_OK='rally/CANCEL_RECRUIT_OK';
-const CANCEL_RECRUIT2_OK='rally/CANCEL_RECRUIT2_OK';
-const REPORT = 'member/REPORT';
-const PROFILE = 'member/PROFILE';
-const REGISTER = 'member/REGISTER';
-const DELETE_ACCOUNT = 'member/DELETE_ACCOUNT';
-const DELETE_OK_ACCOUNT = 'member/DELETE_OK_ACCOUNT';
-const DELETE_POST = 'post/DELETE_POST';
-
-export const open_RecruitmentListModal = () => ({
-    type: RECRUITMENT_LIST,
-    payload: { result: true }
-});
-
-export const open_RecruitModal = () => ({
-    type: RECRUIT,
-    payload: { result: true }
-});
-
-export const open_RecruitOkModal = () => ({
-    type : RECRUIT_OK,
-    payload : { result:true}
-});
-
-export const open_CancelRecruitModal = () => ({
-    type: CANCEL_RECRUIT,
-    payload: { result: true }
-});
-
-export const open_CancelRecruitModalOk = () => ({
-    type: CANCEL_RECRUIT_OK,
-    payload: {result: true}
-});
-
-export const open_CancelRecruitModal2 = () => ({
-    type: CANCEL_RECRUIT2,
-    payload: { result: true }
-});
-
-export const open_CancelRecruitModal2Ok = () => ({
-    type: CANCEL_RECRUIT2_OK,
-    payload: {result: true}
-});
-
-export const open_ReportModal = () => ({
-    type: REPORT,
-    payload: { result: true }
-});
-
-export const open_ProfileModal = () => ({
-    type: PROFILE,
-    payload: { result: true }
-});
-
-export const open_RegisterModal = () => ({
-    type: REGISTER,
-    payload: { result: true }
-});
-
-export const open_deleteAccountModal = () => ({
-    type: DELETE_ACCOUNT,
-    payload: { result: true }
-});
-
-export const open_deleteOkAccountModal = () =>({
-    type : DELETE_OK_ACCOUNT,
-    payload : { result : true }
- });
-
-export const open_deleteModal = () => ({
-    type: DELETE_POST,
-    payload: { result: true }
-});
+export const OPEN_RECRUIT_LIST = 'modal/OPEN_RECRUIT_LIST';
+export const OPEN_PARTICIPATE = 'modal/OPEN_PARTICIPATE';
+export const OPEN_PARTICIPATE_OK = 'modal/OPEN_PARTICIPATE_OK'
+export const OPEN_CANCEL_PARTICIPATE = 'modal/OPEN_CANCEL_PARTICIPATE';
+export const OPEN_CANCEL_PARTICIPATE_OK = 'modal/OPEN_CANCEL_PARTICIPATE_OK';
+export const OPEN_CANCEL_RALLY = 'modal/OPEN_CANCEL_RALLY';
+export const OPEN_OK = 'modal/OPEN_OK';
+export const OPEN_REPORT = 'modal/OPEN_REPORT';
+export const OPEN_PROFILE = 'modal/OPEN_PROFILE';
+export const OPEN_REGISTER = 'modal/OPEN_REGISTER';
+export const OPEN_DELETE_ACCOUNT = 'modal/OPEN_DELETE_ACCOUNT';
+export const OPEN_DELETE_OK_ACCOUNT = 'modal/OPEN_DELETE_OK_ACCOUNT';
+export const OPEN_DELETE_POST = 'modal/OPEN_DELETE_POST';
 
 export const closeModal = () => ({
     type: 'CLOSE_MODAL',
@@ -100,82 +22,64 @@ export const closeModal = () => ({
 });
 
 const modalsReducer = handleActions({
-    [RECRUITMENT_LIST] : (state, { payload: {result} }) => {
+    [OPEN_RECRUIT_LIST]: () => {
         return {
-            ...state,
-            recruitmentListState: result
+            recruitListState: true
         };
     },
-    [RECRUIT] : (state, { payload: {result} }) => {
+    [OPEN_PARTICIPATE]: () => {
         return {
-            ...state,
-            recruitState: result
+            participateState: true
         };
     },
-    [RECRUIT_OK] : (state, {payload: {result}}) => {
+    [OPEN_PARTICIPATE_OK]: () => {
         return {
-            ...state,
-            recruitStateOk: result
+            participateOkState: true
         };
     },
-    [CANCEL_RECRUIT] : (state, { payload: {result} }) => {
+    [OPEN_CANCEL_PARTICIPATE]: () => {
         return {
-            ...state,
-            cancelRecruitState: result
+            cancelParticipateState: true
         };
     },
-    [CANCEL_RECRUIT_OK] : (state, {payload: {result}}) => {
+    [OPEN_CANCEL_RALLY]: () => {
         return {
-            ...state,
-            cancelRecruitStateOk: result
+            cancelRallyState: true
         };
     },
-    [CANCEL_RECRUIT2] : (state, { payload: {result} }) => {
+    [OPEN_OK]: () => {
         return {
-            ...state,
-            cancelRecruitState2: result
+            okState: true
         };
     },
-    [CANCEL_RECRUIT2_OK] : (state, {payload: {result}}) => {
+    [OPEN_REPORT]: () => {
         return {
-            ...state,
-            cancelRecruitState2Ok: result
+            reportState: true
         };
     },
-    [REPORT] : (state, { payload: {result} }) => {
+    [OPEN_PROFILE]: () => {
         return {
-            ...state,
-            reportState: result
+            profileState: true
         };
     },
-    [PROFILE] : (state, { payload: {result} }) => {
+    [OPEN_REGISTER]: () => {
         return {
-            ...state,
-            profileState: result
+            registerState: true
         };
     },
-    [REGISTER] : (state, { payload: {result} }) => {
+    [OPEN_DELETE_ACCOUNT]: () => {
         return {
-            ...state,
-            registerState: result
+            deleteAccountState: true
         };
     },
-    [DELETE_ACCOUNT] : (state, { payload: {result} }) => {
+    [OPEN_DELETE_OK_ACCOUNT]: () => {
         return {
-            ...state,
-            deleteAccountState: result
+            deleteOkAccountState: true
         };
     },
-    [DELETE_OK_ACCOUNT] : (state, {payload : {result}}) => {
+    [OPEN_DELETE_POST]: () => {
         return {
-            ...state,
-            deleteOkAccountState : result
-        };
-    },
-    [DELETE_POST] : (state, { payload: {result} }) => {
-        return {
-            ...state,
-            deletePostState: result
+            deletePostState: true
         };
     },
     'CLOSE_MODAL': (state, payload) => {

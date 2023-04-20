@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
-import { closeModal, open_CancelRecruitModalOk } from "../../modules/ModalsModule";
+import { closeModal, OPEN_OK } from "../../modules/ModalsModule";
 import ModalRallyCancelOk from './ModalRallyCancelOK';
 import styles from './Modal.module.css';
 import { callCancelParticipateRallyAPI } from '../../apis/ParticipateAPICalls';
@@ -9,9 +9,8 @@ import { callCancelParticipateRallyAPI } from '../../apis/ParticipateAPICalls';
 function ModalRallyCancel({rallyId}) {
 
     const dispatch = useDispatch();
-    const isOpen = useSelector(state => state.modalsReducer.cancelRecruitState);
-
-    const cancelRecruitStateOk = useSelector(state => state.modalsReducer.cancelRecruitStateOk);
+    const isOpen = useSelector(state => state.modalsReducer.cancelParticipateState);
+    const oKIsOpen = useSelector(state => state.modalsReducer.okState);
 
     return (
         <Modal isOpen={isOpen} ariaHideApp={false} className={styles.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>
@@ -29,10 +28,10 @@ function ModalRallyCancel({rallyId}) {
                         <button 
                         className={styles.nagetive} 
                         onClick={() => { 
-                            dispatch(open_CancelRecruitModalOk());
+                            dispatch({type: OPEN_OK});
                             dispatch(callCancelParticipateRallyAPI({rallyId: rallyId}));
                         }}>랠리 취소</button>
-                        {cancelRecruitStateOk && <ModalRallyCancelOk />}
+                        {oKIsOpen && <ModalRallyCancelOk />}
                         <button className={styles.close} onClick={() => dispatch(closeModal())} >닫기</button>
                     </div>
                 </div>
