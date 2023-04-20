@@ -1,7 +1,6 @@
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
 import ReviewList from "../components/lists/ReviewList";
 import style from "./ReviewBoard.module.css";
-import { getReviewList } from "../apis/ReviewAPICalls";
 import { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import styled from "styled-components";
@@ -14,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 function ReviewBoard() {
 
     const dispatch = useDispatch();
-
     const test = useSelector(state => state.reviewReducer);
 
     const reviews = test.reviews;
@@ -30,7 +28,7 @@ function ReviewBoard() {
         console.log("리뷰게시판");
         dispatch(callReviewListAPI({ currentPage: 1 }));
 
-        setReviewPostList(getReviewList().slice(15 * (page - 1), 15 * (page - 1) + 15));
+        // setReviewPostList(getReviewList().slice(15 * (page - 1), 15 * (page - 1) + 15));
     }, [page]);
 
     return (

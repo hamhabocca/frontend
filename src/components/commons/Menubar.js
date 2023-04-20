@@ -26,12 +26,14 @@ function Menubar() {
     const mypageOrLogout = () => {
 
         const pathname = window.location.pathname;
+        const token = window.localStorage.getItem('jwtToken');
 
-
-        if(pathname == '/mypage') {
+        if(pathname == '/mypage' && token != null) {
             return <button onClick={onClickLogoutHandler}>로그아웃</button>
-        } else {
+        } else if(token != null) {
             return <NavLink to='/mypage'>마이페이지</NavLink>
+        } else {
+            return <NavLink to='/login'>로그인</NavLink>
         }
     }
 
