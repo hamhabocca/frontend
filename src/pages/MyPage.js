@@ -8,6 +8,7 @@ import ModalDeactivate from '../components/modals/ModalDeactivate';
 import ModalProfile from "../components/modals/ModalProfile";
 import { useDispatch, useSelector } from 'react-redux';
 import { OPEN_DELETE_ACCOUNT, OPEN_PROFILE } from '../modules/ModalsModule';
+import { useEffect } from 'react';
 
 function MyPage() {
 

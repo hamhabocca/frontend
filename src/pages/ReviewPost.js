@@ -3,11 +3,11 @@ import { useParams } from 'react-router';
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
 import style from './ReviewPost.module.css';
 
-import { open_ReportModal } from '../modules/ModalsModule';
+import { OPEN_REPORT } from '../modules/ModalsModule';
 import { callReviewDetailAPI } from "../apis/ReviewAPICalls";
 import { useDispatch, useSelector } from "react-redux";
 import ModalReport from "../components/modals/ModalReport";
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function ReviewPost() {
@@ -71,7 +71,7 @@ function ReviewPost() {
 
             return (
                 <div className={style.postStatus}>
-                    <button className={style.edit} onClick={() => { dispatch(open_ReportModal()) }}>신고</button>
+                    <button className={style.edit} onClick={() => { dispatch({type: OPEN_REPORT }) }}>신고</button>
                     {reportState && <ModalReport/>}
                 </div>
             );
