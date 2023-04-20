@@ -2,14 +2,6 @@ import { createActions, handleActions } from 'redux-actions';
 
 // 초기값
 const initialState = [
-    // {
-    // qnaId: "",
-    // qnaDetail:"",
-    // qnaTitle: "",
-    // qnaWriteDate: "",
-    // qnaWriter:"",
-    // qnaCategory:""
-// },
 ];
 
 // 액선
