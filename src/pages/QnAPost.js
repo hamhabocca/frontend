@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { OPEN_DELETE_POST } from "../modules/ModalsModule";
 import ModalDelete from "../components/modals/ModalDelete";
 import style from './QnAPost.module.css';
+import { callQnaDetailAPI } from "../apis/QnAAPICalls";
 
 function QnAPost() {
 
@@ -11,17 +12,32 @@ function QnAPost() {
 
     const deletePostState = useSelector(state => state.modalsReducer.deletePostState);
 
-    const { qnaCode } = useParams();
+    const { qnaId } = useParams();
 
-    const [qna, setQna] = useState({});
+    const qna = useSelector(state => state.qnaReducer)
 
+        /* QNA 아이디 */
+        const QNA_ID = qnaId;
+    
+        /* QNA 카테고리 */
+        const QNA_CATEGORY = qna.qnaCategory;
+        
+        /* QNA 제목 */
+        const QNA_TITLE = qna.qnaTitle;
+        
+         /* QNA 내용 */
+         const QNA_DETAIL = qna.qnaDetail;    
+    
+        /* QNA 작성자 */
+        const QNA_WRITER = qna.qnaWriter;
+        
+        /* 작성일 */    
+        const qnawritedate = new Date(qna.qnaWriteDate);  
     useEffect(
         () => {
-            
+            dispatch(callQnaDetailAPI({ qnaId: qnaId }));
         }, [] 
     );   
-                 
-    const writedate = new Date(qna.qnawritedate);        
 
     return (
         <main className={style.all}>
@@ -32,18 +48,18 @@ function QnAPost() {
                     <div className={style.d1}>
                         <h6 className={style.member}>회원</h6>
 
-                        <h6 className={style.postname}>{qna.qnatitle}</h6>
+                        <h6 className={style.postname}>{QNA_TITLE}</h6>
                     </div>
 
                     <div className={style.d2}>
-                        <h6 className={style.writer}>{qna.qnawriter}</h6>
+                        <h6 className={style.writer}>{QNA_WRITER}</h6>
 
-                        <h6 className={style.date}>{writedate.toLocaleString()}</h6>
+                        <h6 className={style.date}>{qnawritedate.toLocaleDateString().slice(0, -1)}</h6>
                     </div>
                 </div>
                 <hr/>
                 <div className={style.button}>
-                    <button className={style.editbtn}>수정</button>
+                    <Link to='/qna/edit'> <button className={style.editbtn}>수정</button> </Link> 
                     <button onClick={() => { dispatch({type: OPEN_DELETE_POST})}} className={style.deletebtn}>삭제</button>
                     {deletePostState && <ModalDelete/>}
                 </div>
@@ -51,7 +67,7 @@ function QnAPost() {
                     <div>
                         <div className={style.img}>이미지</div>
                         <br />
-                        <h4>{qna.qnadetail}</h4>
+                        <h4>{QNA_DETAIL}</h4>
                     </div>
                 </div>
             </div>

@@ -1,37 +1,43 @@
 import style from "./WriteQnA.module.css"
-import { callPostQnaAPI } from "../apis/QnAAPICalls";
+import { callQnaDetailAPI, callModifyRallyAPI } from "../apis/QnAAPICalls";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Link, useParams } from "react-router-dom";
 
 
-function WriteQnA() {
+function EditQnA() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // const { qnaId } = useParams();
+    const { qnaId } = useParams();
 
-    // const qna = useSelector(state => state.qnaReducer)
+    const qna = useSelector(state => state.qnaReducer)
 
-    //     /* QNA 아이디 */
-    //     const QNA_ID = qnaId;
+    /* QNA 아이디 */
+    const QNA_ID = qnaId;
     
-    //     /* QNA 카테고리 */
-    //     const QNA_CATEGORY = qna.qnaCategory;
-        
-    //     /* QNA 제목 */
-    //     const QNA_TITLE = qna.qnaTitle;
-        
-    //      /* QNA 내용 */
-    //      const QNA_DETAIL = qna.qnaDetail;    
+    /* QNA 카테고리 */
+    const QNA_CATEGORY = qna.qnaCategory;
     
-    //     /* QNA 작성자 */
-    //     const QNA_WRITER = qna.qnaWriter;
-        
-    //     /* 작성일 */    
-    //     const qnawritedate = new Date(qna.qnaWriteDate);  
+    /* QNA 제목 */
+    const QNA_TITLE = qna.qnaTitle;
+    
+    /* QNA 내용 */
+    const QNA_DETAIL = qna.qnaDetail;    
+    
+    /* QNA 작성자 */
+    const QNA_WRITER = qna.qnaWriter;
+    
+    /* 작성일 */    
+    const qnawritedate = new Date(qna.qnaWriteDate); 
 
+    useEffect(
+        () => {
+            dispatch(callQnaDetailAPI({ qnaId: qnaId }));
+        }, [] 
+    ); 
     const [form, setForm] = useState({
         qnaCategory: '',
         qnaTitle: '',
@@ -65,7 +71,7 @@ function WriteQnA() {
         formData.append("qnaTitle", form.qnaTitle);
         formData.append("qnaDetail", form.qnaDetail);
 
-        dispatch(callPostQnaAPI({ form: formData }));
+        dispatch(callQnaDetailAPI({ form: formData }));
     
         alert('건의글 메인페이지로 이동합니다.');
         navigate('/qna', { replace : true });
@@ -77,7 +83,7 @@ function WriteQnA() {
         <main className={style.all}>
 
             <div className={style.title}>
-                <h1>건의 게시글 작성</h1>
+                <h1>건의 게시글 수정</h1>
                 <br />
                 <hr />
             </div>
@@ -86,8 +92,8 @@ function WriteQnA() {
 
                 <div className={style.cg}>
                     <label>카테고리</label>
-                    <select className={style.dropdownbox} name="qnaCategory" onChange={onChangeHandler}>
-                        <option>선택</option>
+                    <select className={style.dropdownbox} onChange={onChangeHandler}>
+                        <option>{QNA_CATEGORY}</option>
                         <option>건의</option>
                         <option>기타</option>
                     </select>
@@ -95,13 +101,13 @@ function WriteQnA() {
                 <br />
                 <div className={style.tit}>
                     <label>제목</label>
-                    <input className={style.titfield} type="text" size="50" name="qnaTitle" onChange={onChangeHandler}/>
+                    <input className={style.titfield} type="text" size="50" name="title" onChange={onChangeHandler} defaultValue={QNA_TITLE}/>
                 </div>
                 <br />
                 <div className={style.conTextarea}>
                     <label className={style.labelarea}>내용</label>
 
-                    <textarea className={style.textfield} cols="700" rows="230" name="qnaDetail" onChange={onChangeHandler}></textarea>
+                    <textarea className={style.textfield} cols="700" rows="230" onChange={onChangeHandler}>{QNA_DETAIL}</textarea>
 
                 </div>
                 <div className={style.fileImg}>
@@ -116,7 +122,7 @@ function WriteQnA() {
             <br />
             <hr />
             <article className={style.btn}>
-                <button onClick={onClickQnaPostHandler}>등록</button>
+                <button onClick={onClickQnaPostHandler}>완료</button>
             </article>
 
             <br />
@@ -125,4 +131,4 @@ function WriteQnA() {
     );
 }
 
-export default WriteQnA;
+export default EditQnA;

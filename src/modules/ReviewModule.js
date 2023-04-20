@@ -19,7 +19,7 @@ const reviewReducer = handleActions(
         [GET_REVIEW]:(state, {payload}) => { return payload; },
         [GET_REVIEWLIST]:(state, {payload}) => { return payload; },
         [POST_REVIEW]:(state, {payload}) => { return payload; },
-        [PUT_REVIEW]:(state, {payload}) => { return payload; }
+        [PUT_REVIEW]:(state, {payload}) => { console.log(payload); return payload; }
     }, initialState
 );
 

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { POST_LOGIN } from "../modules/MemberModule";
+import { post_login } from "../modules/MemberModule";
 
-export const callLoginAPI = (code) => {
+export const callKakaoLoginAPI = (code) => {
 
     const requestURL = 'http://localhost:8000/api/v1/login/kakaocode';
 
@@ -28,12 +29,40 @@ export const callLoginAPI = (code) => {
         if(result.httpStatus === 200){
             window.localStorage.setItem('jwtToken', JSON.stringify(result.results.token));            
         } else if(result.httpStatus === 401) {
+            console.log("만료됨...")
+        }
+    };
+}
+
+export const callNaverLoginAPI = (code, state) => {
+
+    console.log(code);
+
+    console.log(state);
+
+    const requestURL = 'http://localhost:8000/api/v1/login/navercode'
+
+    return async (dispatch, getState) => {
+
+        let data = { code: code, state: state }
+        
+        const result = await fetch(requestURL, {
+            method: 'POST',
+            headers: {
+                "Content-Type": 'application/json',
+                "Accept": '*/*'
+            },
+            body: JSON.stringify(data)
+        }).then(res => res.json());
+
+        console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
+        if(result.httpStatus === 200){
+            window.localStorage.setItem('jwtToken', JSON.stringify(result.results.token));            
+        } else if(result.httpStatus === 401) {
             
             console.log("만료됨...")
 
         }
-        dispatch({ type: POST_LOGIN,  payload: result });
-
     };
 }
 
@@ -45,7 +74,6 @@ export const callLogoutAPI = () => {
         
         console.log('test2');
 
-        dispatch({ type: POST_LOGIN,  payload: '' });      
         console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
     };
 }

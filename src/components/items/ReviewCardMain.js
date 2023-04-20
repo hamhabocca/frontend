@@ -32,7 +32,7 @@ function ReviewCardMain({ item }) {
         <div className={style.Container}>
             {reviewtype()}
             <h3>
-                {item.reviewname}
+                {item.reviewTitle}
             </h3>
             <div className={style.DateAndLocation}>
                 <label>{reviewstarttime.toLocaleDateString().slice(0, -1)}</label>

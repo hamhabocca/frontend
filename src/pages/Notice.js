@@ -1,10 +1,16 @@
+import { Navigate } from 'react-router-dom';
+import { checkLoginStatusAPICalls } from '../apis/CheckLoginStatusAPICalls';
 import { getMembers } from '../apis/MemberAPICalls';
 import style from './Notice.module.css';
 
 function Notice() {
 
-    console.log("겟맴버스 호출...")
-    getMembers();
+    if(checkLoginStatusAPICalls()) {
+
+        alert("test");
+
+        return <Navigate replace to={"/"}/>
+    }
 
     return (
         <main className={style.main}>
@@ -17,7 +23,6 @@ function Notice() {
                     <div>최종수정일</div>
                 </article>
             </div>
-
         </main>
     );
 }

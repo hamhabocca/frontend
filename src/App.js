@@ -12,6 +12,7 @@ import ReviewBoard from './pages/ReviewBoard';
 import ReviewSearchBoard from './pages/ReviewSearchBoard';
 import ReviewPost from './pages/ReviewPost';
 import WriteReviewPost from './pages/WriteReviewPost';
+import ReviewEdit from './pages/ReviewEdit';
 import Notice from './pages/Notice';
 import QnABoard from './pages/QnABoard';
 import QnAPost from './pages/QnAPost'
@@ -20,7 +21,7 @@ import WriteQnA from './pages/WriteQnA';
 import MyPage from './pages/MyPage';
 import Login from './pages/Login';
 import Oauth from './pages/Oauth';
-// import HomeLogin from './pages/HomeLogin';
+import EditQnA from './pages/EditQnA';
 
 // 브라우저별 기본 CSS 스타일 초기화
 import '../src/reset.css';
@@ -46,6 +47,7 @@ function App() {
 						<Route path=':reviewId' element={<ReviewPost />} />
 						<Route path='search' element={<ReviewSearchBoard />} />
 						<Route path='write' element={<WriteReviewPost />} />
+						<Route path=':reviewId/edit' element={<ReviewEdit/>}/>
 					</Route>
 					<Route path='notice' element={<Notice />} />
 					<Route path='qna'>
@@ -53,6 +55,7 @@ function App() {
 						<Route path=':qnaId' element={<QnAPost />} />
 						<Route path='search' element={<QnASearchBoard />} />
 						<Route path='write' element={<WriteQnA />} />
+						<Route path='edit' element={< EditQnA />} />
 					</Route>
 					<Route path='mypage' element={<MyPage />} />
 					<Route path='login' element={<Login />} />

@@ -14,16 +14,33 @@ const actions = createActions({
     [POST_REGISTER]: () => {}
 });
 
+// export const get_member = (value) => ({
+//     type: GET_MEMBER,
+//     payload: { result: value }
+// });
+
+// export const post_login = (value) => ({
+//     type: POST_LOGIN,
+//     payload: { result: value }
+// });
+
+// export const post_register = (value) => ({
+//     type: POST_REGISTER,
+//     payload: { result: value }
+// });
+
+
 /* 리듀서 */
 const memberReducer = handleActions(
     {
         [GET_MEMBER]: (state, { payload }) => {
-            
             return payload;
         },
-        [POST_LOGIN]: (state, { payload }) => {
-            
-            return payload;
+        [POST_LOGIN]: (state, { payload: {result} }) => {
+            return {
+                ...state,
+                postLoginState: result
+            }
         },
         [POST_REGISTER]: (state, { payload }) => {
             
