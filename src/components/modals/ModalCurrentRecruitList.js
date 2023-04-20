@@ -3,18 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from "../../modules/ModalsModule";
 import MemberCardModal from '../items/MemberCardModal';
 import style from './ModalCurrentRecruitList.module.css';
-import { useEffect } from 'react';
-
 
 function CurrentRecruitListModal({ rally }) {
 
     const dispatch = useDispatch();
-    const isOpen = useSelector(state => state.modalsReducer.recruitmentListState);
-
+    const isOpen = useSelector(state => state.modalsReducer.recruitListState);
     const mateList = useSelector(state => state.participateReducer);
-    console.log("mateList", mateList);
 
-    //mate 버전
     return (
         <Modal isOpen={isOpen} onRequestClose={() => dispatch(closeModal())} ariaHideApp={false} className={style.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>
             <section>
@@ -31,7 +26,7 @@ function CurrentRecruitListModal({ rally }) {
                     <p>승인처리</p>
                 </div>
                 <div>
-                    {Array.isArray(mateList) && mateList.map(mate => <MemberCardModal mate={mate} />)}
+                    {Array.isArray(mateList) && mateList.map(mate => <MemberCardModal mate={mate} masterId={rally.masterId} />)}
                 </div>
             </section>
         </Modal>

@@ -20,7 +20,7 @@ function RallyCardBoard({ rally }) {
     const RALLY_DATE = new Date(rally.rallyDate).toLocaleDateString().slice(0, -1);
 
     /* 모집지역 */
-    const RALLY_LOCATION = rally.rallyLocation.split(' ')[1];
+    const RALLY_LOCATION = rally.rallyLocation.split(' ')[0] + ' ' + rally.rallyLocation.split(' ')[1];
 
     /* 작성일 */
     const RALLY_WRITE_DATE = new Date(rally.rallyWriteDate).toLocaleDateString().slice(0, -1);

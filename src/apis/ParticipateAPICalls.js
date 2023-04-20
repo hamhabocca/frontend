@@ -14,14 +14,14 @@ export const callParticipateListAPI = ({ rallyId }) => {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "*/*",
-                "Authorization": "Bearer " + window.localStorage.getItem("jwtToken")
+                "Auth": window.localStorage.getItem("jwtToken")
             }
         })
             .then(response => response.json());
 
         console.log('[ParticipateAPICalls] ParticipateListAPI RESULT: ', result);
 
-        if (result.httptatus === 200) {
+        if (result.httpStatus === 200) {
             console.log('[ParticipateAPICalls] ParticipateListAPI SUCCESS');
             dispatch({ type: GET_PARTICIPATE, payload: result.results.rallyMateList });
         }
@@ -42,15 +42,14 @@ export const callParticipateRallyByMateAPI = ({ rallyId }) => {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "*/*",
-                "memberId": 44 //임시
-                // "Authorization": "Bearer " + window.localStorage.getItem("jwtToken")
+                "Auth": window.localStorage.getItem("jwtToken")
             }
         })
             .then(response => response.json());
 
         console.log('[ParticipateAPICalls] participateRallyByMateAPI RESULT: ', result);
 
-        dispatch({ type: POST_PARTICIPATE, payload: result });
+        dispatch({ type: POST_PARTICIPATE, payload: result.results.rallyMateList });
 
     }
 }
@@ -69,8 +68,7 @@ export const callCancelParticipateRallyAPI = ({ rallyId }) => {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "*/*",
-                "memberId": 44 //임시
-                // "Authorization": "Bearer " + window.localStorage.getItem("jwtToken")
+                "Auth": window.localStorage.getItem("jwtToken")
             }
         })
             .then(response => response.json());
@@ -94,8 +92,8 @@ export const callAllowParticipateByMasterAPI = ({ rallyId, mateId }) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "*/*"
-                // "Authorization": "Bearer " + window.localStorage.getItem("jwtToken")
+                "Accept": "*/*",
+                "Auth": window.localStorage.getItem("jwtToken")
             }
         })
             .then(response => response.json());

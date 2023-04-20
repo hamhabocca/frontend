@@ -7,6 +7,7 @@ import RallyBoard from './pages/RallyBoard';
 import RallySearchBoard from './pages/RallySearchBoard';
 import RallyPost from './pages/RallyPost';
 import WriteRallyPost from './pages/WriteRallyPost';
+import ModifyRallyPost from './pages/ModifyRallyPost';
 import ReviewBoard from './pages/ReviewBoard';
 import ReviewSearchBoard from './pages/ReviewSearchBoard';
 import ReviewPost from './pages/ReviewPost';
@@ -20,9 +21,7 @@ import WriteQnA from './pages/WriteQnA';
 import MyPage from './pages/MyPage';
 import Login from './pages/Login';
 import Oauth from './pages/Oauth';
-import HomeLogin from './pages/HomeLogin';
 import EditQnA from './pages/EditQnA';
-
 
 // 브라우저별 기본 CSS 스타일 초기화
 import '../src/reset.css';
@@ -38,7 +37,8 @@ function App() {
 				<Route path='/' element={<BoardLayout />}>
 					<Route path='rally'>
 						<Route index element={<RallyBoard />} />
-						<Route path=':rallyCode' element={<RallyPost />} />
+						<Route path=':rallyId' element={<RallyPost />} />
+						<Route path=':rallyId/write' element={<ModifyRallyPost/>} />
 						<Route path='search' element={<RallySearchBoard />} />
 						<Route path='write' element={<WriteRallyPost />} />
 					</Route>

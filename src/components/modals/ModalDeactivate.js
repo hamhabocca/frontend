@@ -1,6 +1,6 @@
 import styles from './Modal.module.css';
 import Modal from 'react-modal';
-import { closeModal, open_deleteOkAccountModal } from '../../modules/ModalsModule';
+import { OPEN_DELETE_OK_ACCOUNT, closeModal } from '../../modules/ModalsModule';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalDeactivateOk from './ModalDeactivateOk';
 import { deactivateMember } from '../../apis/MemberAPICalls';
@@ -26,10 +26,7 @@ function ModalDeativate() {
 
 
                         <div>
-                            <button className={styles.ok} onClick={() => { 
-                                dispatch(deactivateMember());
-                                dispatch(open_deleteOkAccountModal());
-                                }}>확인</button>
+                            <button className={styles.ok} onClick={() => { dispatch(deactivateMember()); dispatch({type: OPEN_DELETE_OK_ACCOUNT}) }}>확인</button>
                             {deleteOkAccountState && <ModalDeactivateOk />}
                             <button className={styles.close} onClick={() => dispatch(closeModal())} >취소</button>
                         </div>

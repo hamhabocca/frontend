@@ -39,21 +39,21 @@
 }
 
 /* 랠리타입 */
-.rallytype div {
+.rallytype > div {
     display: flex;
     align-items: center;
     font-size: 10pt;
     margin-top: 7px;
 }
 
-.rallytype input {
+.rallytype > input {
     width: 15px;
     height: 15px;
     margin-right: 10px;
 }
 
 /* 랠리지역 */
-.rallylocal select {
+.rallylocal > select {
     font-family: 'Noto Sans KR', sans-serif;
     width: 100%;
     height: 30px;
@@ -64,12 +64,12 @@
 }
 
 /* 시군구 위 간격 */
-.rallylocal select:last-child {
+.rallylocal > select:last-child {
     margin-top: 5px;
 }
 
 /* 랠리일정 */
-.rallydate input {
+.rallydate > input {
     font-family: 'Noto Sans KR', sans-serif;
     width: 100%;
     height: 30px;

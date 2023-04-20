@@ -19,3 +19,7 @@ main {
   width: 1000px;
   letter-spacing: -.2px;
 }
+
+button {
+  cursor: pointer;
+}

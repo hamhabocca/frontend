@@ -6,7 +6,7 @@ import styles from './Modal.module.css';
 function ModalParticipateOk() {
 
     const dispatch = useDispatch();
-    const isOpen = useSelector(state => state.modalsReducer.recruitStateOk);
+    const isOpen = useSelector(state => state.modalsReducer.participateOkState);
 
     return (
         <Modal isOpen={isOpen} ariaHideApp={false} className={styles.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>

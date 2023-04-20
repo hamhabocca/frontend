@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { open_deleteModal } from "../modules/ModalsModule";
+import { OPEN_DELETE_POST } from "../modules/ModalsModule";
 import ModalDelete from "../components/modals/ModalDelete";
 import style from './QnAPost.module.css';
 import { callQnaDetailAPI } from "../apis/QnAAPICalls";
@@ -60,7 +60,7 @@ function QnAPost() {
                 <hr/>
                 <div className={style.button}>
                     <Link to='/qna/edit'> <button className={style.editbtn}>수정</button> </Link> 
-                    <button onClick={() => { dispatch(open_deleteModal())}} className={style.deletebtn}>삭제</button>
+                    <button onClick={() => { dispatch({type: OPEN_DELETE_POST})}} className={style.deletebtn}>삭제</button>
                     {deletePostState && <ModalDelete/>}
                 </div>
                 <div className={style.contants}>
