@@ -4,7 +4,7 @@ function QnAList({qnaPosts}) {
 
   return (
     <>
-        { qnaPosts.map(qna => <QnACardBoard key={ qna.qnacode } qna={ qna }/>) }
+        { Array.isArray(qnaPosts) && qnaPosts.map(qna => <QnACardBoard key={ qna.qnaId } qna={ qna }/>) }
     </>
   );
 }

@@ -21,6 +21,7 @@ import MyPage from './pages/MyPage';
 import Login from './pages/Login';
 import Oauth from './pages/Oauth';
 import HomeLogin from './pages/HomeLogin';
+import EditQnA from './pages/EditQnA';
 
 
 // 브라우저별 기본 CSS 스타일 초기화
@@ -51,9 +52,10 @@ function App() {
 					<Route path='notice' element={<Notice />} />
 					<Route path='qna'>
 						<Route index element={<QnABoard />} />
-						<Route path=':qnaCode' element={<QnAPost />} />
+						<Route path=':qnaId' element={<QnAPost />} />
 						<Route path='search' element={<QnASearchBoard />} />
 						<Route path='write' element={<WriteQnA />} />
+						<Route path='edit' element={< EditQnA />} />
 					</Route>
 					<Route path='mypage' element={<MyPage />} />
 					<Route path='login' element={<Login />} />

@@ -3,8 +3,19 @@ import style from './QnACardBoard.module.css';
 
 function QnACardBoard({ qna }) {
 
+    /* QNA 아이디 */
+    const QNA_ID = qna.qnaId;
+
+    /* QNA 카테고리 */
+    const QNA_CATEGORY = qna.qnaCategory;
+
+    /* QNA 제목 */
+    const QNA_TITLE = qna.qnaTitle;
+
+    /* QNA 작성자 */
+    const QNA_WRITER = qna.qnaWriter;
     /* 작성일 */
-    const qnawritedate = new Date(qna.qnawritedate);
+    const qnawritedate = new Date(qna.qnaWriteDate);
 
     /* 건의 상태 */
     const qnastatus = () => {
@@ -25,7 +36,7 @@ function QnACardBoard({ qna }) {
     };
 
     return (
-        <Link to={`/qna/${qna.qnacode}`} style={{ textDecoration: 'none', color: '#202020' }}>
+        <Link to={`/qna/${QNA_ID}`} style={{ textDecoration: 'none', color: '#202020' }}>
 
 
             <div className={style.cg}>
@@ -34,10 +45,10 @@ function QnACardBoard({ qna }) {
                     {qnastatus()}
                 </div>
                 <div>
-                    <h6 className={style.postname}>{qna.qnatitle}</h6>
+                    <h6 className={style.postname}>{QNA_TITLE}</h6>
                 </div>
                 <div>
-                    <h6 className={style.writer}>{qna.qnawriter}</h6>
+                    <h6 className={style.writer}>{QNA_WRITER}</h6>
                 </div>
                 <div className={style.date}>
                     <h6>{qnawritedate.toLocaleDateString().slice(0, -1)}</h6>

@@ -83,12 +83,6 @@
     
 }
 
-.pageNumber {
-    display: flex;
-    justify-content: center;
-    margin-top: 139px;
-}
-
 /* .all div {
 
     border : 1px solid red;
@@ -114,4 +108,27 @@
     padding-right: 30px;
     border-left: 1px solid #202020;
     font-weight: 500;
+}
+
+.pagination {
+    height: 30px;
+    margin-top: 140px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination button {
+    border: none;
+    width: 30px;
+    background: none;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination button:hover {
+cursor: pointer;
+    color: #A5A5A5;
 }
