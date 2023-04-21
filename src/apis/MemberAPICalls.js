@@ -1,4 +1,3 @@
-import { async } from "q";
 import { GET_MEMBER } from "../modules/MemberModule";
 import { GET_RALLYLIST } from "../modules/RallyModule";
 
@@ -120,6 +119,31 @@ export const deactivateMember = () => {
             
             console.log("만료됨...");
     
+        }
+    };
+}
+
+/* 현재 로그인 된 멤버 간단정보 가져오기 */
+export const callSimpleMemberAPI = (memberId) => {
+
+    const token = window.localStorage.getItem('jwtToken');
+
+    const requestURL = `http://localhost:8000/api/v1/members/simple/${memberId}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                "Content-Type": 'application/json',
+                "Accept": '*/*',
+                "Auth": token
+            }
+        }).then(res => res.json());
+    
+        console.log('[MemberAPICalls] callSimpleMemberAPI RESULT : ', result);
+        if(result.httpStatus === 200){
+            dispatch({ type: GET_MEMBER,  payload: result.results?.member });
         }
     };
 }

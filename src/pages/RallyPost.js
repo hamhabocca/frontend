@@ -16,14 +16,40 @@ import Kakaomap from '../components/items/Kakaomap';
 
 function RallyPost() {
 
+    /* 현재 사용자 */
+    const token = window.localStorage.getItem("jwtToken");
+    const MEMBER_ID = JSON.parse(token)?.memberId;
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const { rallyId } = useParams(); // :rallyId
     const rally = useSelector(state => state.rallyReducer);
     const mateList = useSelector(state => state.participateReducer);
 
-    // 모달창
+    const RALLY_NAME = rally.rallyName;                 //랠리명
+    const RALLY_STATUS = rally.rallyStatus;             //랠리상태
+    const RALLY_TYPE = rally.rallyType;                 //랠리타입
+    const RALLY_DATE = rally.rallyDate;                 //랠리날짜
+    const RALLY_LOCATION = rally.rallyLocation;         //랠리모집장소
+    const RALLY_END_LOCATION = rally.rallyEndLocation;  //랠리도착장소
+    const RALLY_DISTANCE = rally.rallyDistance;         //랠리예상거리
+    const RALLY_MINIMUM = rally.rallyMinimum;           //랠리최소인원
+    const RALLY_MAXIMUM = rally.rallyMaximum;           //랠리최대인원
+    const RALLY_DETAIL = rally.rallyDetail;             //랠리상세글
+    const RALLY_WRITE_DATE = rally.rallyWriteDate;      //작성일
+
+    const MASTER_ID = rally.masterId;                   //작성자Id
+    const NICKNAME = rally.master?.nickname;                   //작성자닉네임
+    const PROFILE_IMG = rally.master?.imageSource;
+
+    useEffect(
+        () => {
+            dispatch(callRallyDetailAPI({ rallyId: rallyId }));
+            dispatch(callParticipateListAPI({ rallyId: rallyId }));
+        }, []
+    );
+
+    /* 모달오픈상태 */
     const isModal = useSelector(state => state.modalsReducer);
     const recruitListModal = isModal.recruitListState;
     const participateModal = isModal.participateState;
@@ -31,7 +57,7 @@ function RallyPost() {
     const cancelRallyModal = isModal.cancelRallyState;
     const reportModal = isModal.reportState;
 
-    // 상태변경
+    /* 상태변경 */
     const onClickRallyStatusUpdateHandler = (status) => {
 
         const formData = new FormData();
@@ -41,61 +67,7 @@ function RallyPost() {
             form: formData,
             rallyId: rallyId
         }));
-    }
-
-    useEffect(
-        () => {
-            dispatch(callRallyDetailAPI({ rallyId: rallyId }));
-        }, []
-    );
-
-    useEffect(
-        () => {
-            dispatch(callParticipateListAPI({ rallyId: rallyId }));
-        }, []
-    );
-
-    
-    /* 현재 사용자 */
-    const token = window.localStorage.getItem("jwtToken");
-    const MEMBER_ID = JSON.parse(token)?.memberId;
-
-    /* 랠리팀명 */
-    const RALLY_NAME = rally.rallyName;
-
-    /* 랠리마스터(작성자) 아이디 */
-    const MASTER_ID = rally.masterId;
-
-    /* 랠리 상태 */
-    const RALLY_STATUS = rally.rallyStatus;
-
-    /* 랠리 타입 */
-    const RALLY_TYPE = rally.rallyType;
-
-    /* 랠리 일정 */
-    const RALLY_DATE = rally.rallyDate;
-
-    /* 모집지역 */
-    const RALLY_LOCATION = rally.rallyLocation;
-
-    /* 도착지역 */
-    const RALLY_END_LOCATION = rally.rallyEndLocation;
-
-    /* 랠리 거리 */
-    const RALLY_DISTANCE = rally.rallyDistance;
-
-    /* 랠리 최소 인원 */
-    const RALLY_MINIMUM = rally.rallyMinimum;
-
-    /* 랠리 최대 인원 */
-    const RALLY_MAXIMUM = rally.rallyMaximum;
-
-    /* 랠리 상세 작성란 */
-    const RALLY_DETAIL = rally.rallyDetail;
-
-    /* 작성일 */
-    const RALLY_WRITE_DATE = rally.rallyWriteDate;
-
+    };
 
     /* 랠리 상태 */
     function RallyStatus() {
@@ -109,7 +81,7 @@ function RallyPost() {
             default:
                 return <div style={{ background: '#63AF73' }}>모집중</div>;
         }
-    }
+    };
 
     /* 랠리 타입 구분 */
     function RallyType() {
@@ -135,7 +107,7 @@ function RallyPost() {
 
             switch (RALLY_STATUS) {
                 case "완주!":
-                    return (<button className={style.edit} onClick={() => { navigate(`/rally/${rallyId}/write`, { replace : true }); }}>수정</button>);
+                    return (<button className={style.edit} onClick={() => { navigate(`/rally/${rallyId}/write`, { replace: true }); }}>수정</button>);
 
                 case "취소됨":
                     return (<></>);
@@ -144,7 +116,7 @@ function RallyPost() {
                         <>
                             <button onClick={() => { dispatch({ type: OPEN_CANCEL_RALLY }) }} className={style.report}>랠리취소</button>
                             {cancelRallyModal && <ModalRallyRecruitmentCancel rallyId={rallyId} />}
-                            <button className={style.edit} onClick={() => { navigate(`/rally/${rallyId}/write`, { replace : true }); }}>수정</button>
+                            <button className={style.edit} onClick={() => { navigate(`/rally/${rallyId}/write`, { replace: true }); }}>수정</button>
                         </>
                     );
             }
@@ -160,9 +132,9 @@ function RallyPost() {
     };
 
     /* 랠리 신청 이벤트 */
-    function rallybutton() {
+    function eventbutton() {
 
-        /* 작성자일때 */
+        // 작성자
         if (MEMBER_ID === MASTER_ID) {
 
             switch (RALLY_STATUS) {
@@ -170,7 +142,7 @@ function RallyPost() {
                     return (
                         <>
                             <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
-                            {recruitListModal && <ModalCurrentRecruitList rally={rally} />}
+                            {recruitListModal && <ModalCurrentRecruitList />}
                             <button style={{ background: '#056DFA' }} onClick={() => { onClickRallyStatusUpdateHandler("모집완료") }}>모집 마감</button>
                         </>
                     );
@@ -182,23 +154,23 @@ function RallyPost() {
                     return (
                         <>
                             <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
-                            {recruitListModal && <ModalCurrentRecruitList rally={rally} />}
+                            {recruitListModal && <ModalCurrentRecruitList />}
                         </>
                     );
             }
         }
 
-        /* 다른 회원일때 */
+        // 타회원
         if (RALLY_STATUS === '모집중' || RALLY_STATUS === '모집완료') {
 
-            let result = mateList.filter(mate => mate.memberId == MEMBER_ID)[0]
+            let result = mateList?.filter(mate => mate.memberId == MEMBER_ID)[0]
 
-            // 신청함
+            // 신청
             if (result != undefined) {
                 return (
                     <>
                         <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
-                        {recruitListModal && <ModalCurrentRecruitList rally={rally} />}
+                        {recruitListModal && <ModalCurrentRecruitList />}
                         <button onClick={() => { dispatch({ type: OPEN_CANCEL_PARTICIPATE }) }} style={{ background: '#056DFA' }}>신청 취소</button>
                         {cancelParticipateModal && <ModalRallyCancel rallyId={rallyId} />}
                     </>
@@ -209,7 +181,7 @@ function RallyPost() {
             return (
                 <>
                     <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
-                    {recruitListModal && <ModalCurrentRecruitList rally={rally} />}
+                    {recruitListModal && <ModalCurrentRecruitList />}
                     <button onClick={() => { dispatch({ type: OPEN_PARTICIPATE }) }} style={{ background: '#056DFA' }}>랠리 신청</button>
                     {participateModal && <ModalRallyPartcipate rallyId={rallyId} />}
 
@@ -217,8 +189,7 @@ function RallyPost() {
             );
 
         }
-
-    }
+    };
 
     return (
         <main className={style.container}>
@@ -232,14 +203,17 @@ function RallyPost() {
                 </article>
                 <article className={style.writer}>
                     <div>
-                        <div className={style.writerImg}>프사</div>
-                        <h4>{MASTER_ID}번</h4>
+                        <div className={style.writerImg}>
+                            <img src={PROFILE_IMG} style={{ borderRadius: '50%' }} />
+                        </div>
+                        <h4>{NICKNAME}</h4>
                     </div>
                     <p>{RALLY_WRITE_DATE}</p>
                 </article>
                 <article className={style.rallyinfo}>
                     <div className={style.map}>
-                        {/* <Kakaomap departureAddress={RALLY_LOCATION} arrivalAddress={RALLY_END_LOCATION} /> */}
+                        {RALLY_LOCATION && RALLY_END_LOCATION ?
+                            <Kakaomap departureAddress={RALLY_LOCATION} arrivalAddress={RALLY_END_LOCATION} /> : null}
                     </div>
                     <div className={style.info}>
                         <div className={style.location}>
@@ -259,7 +233,7 @@ function RallyPost() {
                                 <p>최소 {RALLY_MINIMUM || 0}명 ~ 최대 {RALLY_MAXIMUM || '4'}명</p>
                             </div>
                         </div>
-                        <div className={style.rallyStatus}>{rallybutton()}</div>
+                        <div className={style.rallyStatus}>{eventbutton()}</div>
                     </div>
                 </article>
                 <article className={style.rallydetail}>

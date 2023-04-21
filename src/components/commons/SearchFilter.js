@@ -3,7 +3,6 @@ import { BiPlus, BiMinus } from "react-icons/bi";
 import sigunguList from '../../data/sigungu.json';
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import $ from 'jquery';
 import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } from '../../modules/CountModule';
 import { Link } from 'react-router-dom';
 
@@ -21,43 +20,42 @@ function SearchFilter() {
 
     const dispatch = useDispatch();
 
+    /* 회원 확인 */
+    const token = window.localStorage.getItem("jwtToken");
+
+
     /* state값 가져오기 */
     const distanceCount = useSelector(state => state.countReducer.distanceState);
     const peopleCount = useSelector(state => state.countReducer.peopleState);
 
     /* 증감버튼 클릭이벤트핸들러 */
     const distanceCountIncrease = () => dispatch(distanceIncrease());
-
     const distanceCountDecrease = () => { distanceCount > 0 && dispatch(distanceDecrease()) };
-
     const peopleCountIncrease = () => dispatch(peopleIncrease());
-
     const peopleCountDecrease = () => { peopleCount > 0 && dispatch(peopleDecrease()) };
-    
-    /* 시도 선택시 시군구 리스트 담음 */
 
+    // 시도 선택시 시군구 리스트 담음
     const [sigList, setSigList] = useState([]);
 
-    const onChangeHandler = (e) => { 
+    // 시도 + 시군구 합치기
+    const [location, setLocation] = useState({
+        SIDO: '',
+        SIGUNGU: ''
+    });
+
+    const onChangeSidoHandler = (e) => {
         setSigList(searchSig(e.target.value));
+        setLocation({
+            ...location,
+            SIDO: e.target.value
+        })
     }
-    
-    let SIDO = "";
-    let LOCATION = "";
-    let SIGUNGU = "";
 
-    /**
-     * 문제점!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     * 시군구를 제일 마지막으로 클릭 후 전송 누르면... ... 안들어감
-     *  */
-    function _onSubmit() {
-        
-        SIDO = $("#sido").val();
-        SIGUNGU = $("#sigungu").val();
-
-        LOCATION = SIDO + " " + SIGUNGU;
-
-        $("#location").val(LOCATION+"");
+    const onChangeSigunguHandler = (e) => {
+        setLocation({
+            ...location,
+            SIGUNGU: e.target.value
+        })
     }
 
     /* 체크박스 - 한번만 체크할 수 있도록 */
@@ -69,14 +67,14 @@ function SearchFilter() {
             }
         }
     }
-    
+
     return (
         <div className={style.filter}>
             <article className={style.title}>
                 <h1>Filter</h1>
             </article>
 
-            <form className={style.form} action={"/rally/search"} onSubmit={_onSubmit()}>
+            <form className={style.form} action={"/rally/search"}>
                 <section>
                     <article className={style.rallytype}>
                         <h2>랠리 타입</h2>
@@ -104,7 +102,7 @@ function SearchFilter() {
 
                     <article className={style.rallylocal}>
                         <h2>랠리 장소</h2>
-                        <select id="sido" onChange={onChangeHandler}>
+                        <select id="sido" onChange={onChangeSidoHandler}>
                             <option value="">시/도</option>
                             <option value="서울">서울특별시</option>
                             <option value="부산">부산광역시</option>
@@ -124,7 +122,7 @@ function SearchFilter() {
                             <option value="경남">경상남도</option>
                             <option value="제주특별자치도">제주특별자치도</option>
                         </select>
-                        <select id="sigungu" readOnly>
+                        <select id="sigungu" onChange={onChangeSigunguHandler} readOnly>
                             <option value="">시/군/구</option>
                             {sigList.map(sig => <Sigoon key={sig.id} sig={sig} />)}
                         </select>
@@ -132,14 +130,14 @@ function SearchFilter() {
 
                     <article className={style.rallydate}>
                         <h2>랠리 일정</h2>
-                        <input type="month" min="2023-01" max="2023-12" name='date'/>
+                        <input type="month" min="2023-01" max="2023-12" name='date' />
                     </article>
 
                     <article className={style.rallydistance}>
                         <h2>랠리 거리</h2>
                         <div>
                             <button type='button' onClick={distanceCountDecrease}><BiMinus /></button>
-                            <input name='distance' value={distanceCount} readOnly/>km
+                            <input name='distance' value={distanceCount} readOnly />km
                             <button type='button' onClick={distanceCountIncrease}><BiPlus /></button>
                         </div>
                     </article>
@@ -148,19 +146,20 @@ function SearchFilter() {
                         <h2>랠리 인원</h2>
                         <div>
                             <button type='button' onClick={peopleCountDecrease}><BiMinus /></button>
-                            <input name='maximum' value={peopleCount} readOnly/>명
+                            <input name='maximum' value={peopleCount} readOnly />명
                             <button type='button' onClick={peopleCountIncrease}><BiPlus /></button>
                         </div>
                     </article>
                 </section>
-                <input type="hidden" id="location" name="location"/>
+                <input type="hidden" id="location" name="location" value={location.SIDO + " " + location.SIGUNGU} />
                 <input type='submit' value='랠리 검색' className={style.search} />
             </form>
 
-            <article className={style.recruit}>
-                <p>랠리장이 되어보세요!</p>
-                <Link to='/rally/write' style={{ color: 'white', textDecoration: 'none' }}><button>모집 작성</button></Link>
-            </article>
+            {token != undefined &&
+                <article className={style.recruit}>
+                    <p>랠리장이 되어보세요!</p>
+                    <Link to='/rally/write' style={{ color: 'white', textDecoration: 'none' }}><button>모집 작성</button></Link>
+                </article>}
         </div>
     );
 }

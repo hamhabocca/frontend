@@ -7,14 +7,12 @@ const Kakaomap = (address) => {
         let mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
-                level: 7, // 지도의 확대 레벨
+                level: 10, // 지도의 확대 레벨
                 mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
             };
 
         // 지도를 생성한다 
         var map = new kakao.maps.Map(mapContainer, mapOption);
-
-        console.log('address :', address);
 
         // 출발 마커 이미지를 생성합니다
         var startSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/red_b.png', // 출발 마커이미지의 주소입니다    
@@ -52,11 +50,13 @@ const Kakaomap = (address) => {
                     image: startImage // 출발 마커이미지를 설정합니다
                 });
 
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
             }
         });
 
         // 주소-좌표 변환 객체를 생성합니다
-        let arriveGeocoder = new kakao.maps.services.Geocoder();
+        let arriveGeocoder = new kakao.maps.services.Geocoder(); 
 
         // 주소로 좌표를 검색합니다
         arriveGeocoder.addressSearch(address.arrivalAddress, function (result, status) {
@@ -72,9 +72,6 @@ const Kakaomap = (address) => {
                     position: coords,
                     image: arriveImage // 도착 마커이미지를 설정합니다
                 });
-                
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                map.setCenter(coords);
             }
         });
         
@@ -84,7 +81,7 @@ const Kakaomap = (address) => {
 
     return (
         <div style={{ zIndex: '1' }}>
-            <div id="map" style={{ width: "400px", height: "370px" }}></div>
+            <div id="map" style={{ width: "405px", height: "400px" }}></div>
 
         </div>
     )

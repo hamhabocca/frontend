@@ -3,7 +3,7 @@ import { GET_PARTICIPATE, POST_PARTICIPATE, PUT_PARTICIPATE, CANCEL_PARTICIPATE 
 // 랠리 신청 현황
 export const callParticipateListAPI = ({ rallyId }) => {
 
-    console.log("[ParticipateAPICalls] ParticipateListAPI Call...");
+    // console.log("[ParticipateAPICalls] ParticipateListAPI Call...");
 
     const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list`;
 
@@ -22,8 +22,26 @@ export const callParticipateListAPI = ({ rallyId }) => {
         console.log('[ParticipateAPICalls] ParticipateListAPI RESULT: ', result);
 
         if (result.httpStatus === 200) {
-            console.log('[ParticipateAPICalls] ParticipateListAPI SUCCESS');
-            dispatch({ type: GET_PARTICIPATE, payload: result.results.rallyMateList });
+
+            const rallyMateList = result.results.rallyMateList;
+
+            for (let i = 0; i < rallyMateList.length; i++) {
+
+                const getMemberURL = `http://localhost:8000/api/v1/members/simple/${rallyMateList[i].memberId}`;
+                const member = await fetch(getMemberURL, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "*/*",
+                        "Auth": window.localStorage.getItem("jwtToken")
+                    }
+                })
+                    .then(response => response.json());
+
+                rallyMateList[i].member = member.results.member;
+            }
+
+            dispatch({ type: GET_PARTICIPATE, payload: rallyMateList });
         }
     };
 }
@@ -31,7 +49,7 @@ export const callParticipateListAPI = ({ rallyId }) => {
 // 랠리 참가 신청
 export const callParticipateRallyByMateAPI = ({ rallyId }) => {
 
-    console.log("[ParticipateAPICalls] participateRallyByMateAPI Call...");
+    // console.log("[ParticipateAPICalls] participateRallyByMateAPI Call...");
 
     const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list`;
 

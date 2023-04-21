@@ -1,21 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import style from './HomeMenubar.module.css';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 
 function HomeMenubar() {
 
-    const loginOrMypage = () => {
-        if (localStorage.getItem('jwtToken') != null) {
-            return (
-                <NavLink to='/mypage'>마이페이지</NavLink>
-            )
-        } else {
-            return (
-                <NavLink to='/login'>로그인</NavLink>
-            )
-        }
-    }
+    const isLogin = useSelector(state => state.loginReducer);
+    const token = localStorage.getItem('jwtToken');
 
     const activeStyle = {
         borderBottom: '2px solid red'
@@ -31,7 +21,9 @@ function HomeMenubar() {
                 <ul className={style.Other}>
                     <li><NavLink to='/notice' style={({ isActive }) => isActive ? activeStyle : undefined}>공지</NavLink></li>
                     <li><NavLink to='/qna' style={({ isActive }) => isActive ? activeStyle : undefined}>건의</NavLink></li>
-                    <li className={style.Login}>{loginOrMypage()}</li>
+                    <li className={style.Login}>
+                        {isLogin || token != null ? <NavLink to='/mypage'>마이페이지</NavLink> : <NavLink to='/login'>로그인</NavLink>}
+                    </li>
                 </ul>
             </div>
         </div>

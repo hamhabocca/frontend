@@ -1,16 +1,16 @@
-import { GET_RALLYLIST, GET_RALLY, POST_RALLY, PUT_RALLY } from "../modules/RallyModule";
+import { GET_RALLYLIST, GET_RALLY, POST_RALLY, PUT_RALLY, GET_MASTER } from "../modules/RallyModule";
 
 // 전체 목록 조회 (페이징)
 export const callRallyListAPI = ({ currentPage }) => {
 
-    console.log("[RallyAPICalls] callRallyListAPI Call");
+    // console.log("[RallyAPICalls] callRallyListAPI Call");
 
     let URL = "";
 
     if (currentPage !== undefined || currentPage !== null) {
         URL = `http://localhost:8000/api/v1/rallies?page=${currentPage}`;
     } else {
-        URL = '/api/v1/rallies?page=1';
+        URL = 'http://localhost:8000/api/v1/rallies?page=1';
     }
 
     console.log('[RallyAPICalls] URL : ', URL);
@@ -37,7 +37,7 @@ export const callRallyListAPI = ({ currentPage }) => {
 // 선택 조회
 export const callRallyDetailAPI = ({ rallyId }) => {
 
-    console.log("[RallyAPICalls] callRallyDetailAPI Call");
+    // console.log("[RallyAPICalls] callRallyDetailAPI Call");
 
     const URL = `http://localhost:8000/api/v1/rallies/${rallyId}`;
 
@@ -53,11 +53,25 @@ export const callRallyDetailAPI = ({ rallyId }) => {
         })
             .then(response => response.json());
 
-        console.log('[RallyAPICalls] callRallyDetailAPI RESUTL : ', result);
+        console.log('[RallyAPICalls] callRallyDetailAPI RESULT : ', result);
 
         if (result.httpStatus === 200) {
-            console.log('[RallyAPICalls] callRallyDetailAPI SUCCESS');
-            dispatch({ type: GET_RALLY, payload: result.results.rally })
+
+            const URL = `http://localhost:8000/api/v1/members/simple/${result.results.rally.masterId}`;
+            const master = await fetch(URL, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "*/*",
+                    "Auth": window.localStorage.getItem("jwtToken")
+                }
+            })
+                .then(res => res.json());
+
+            console.log('[RallyAPICalls] callRallyMasterAPI RESULT : ', master);
+
+            const rallyInfo = { ...result.results?.rally, master: master.results?.member };
+            dispatch({ type: GET_RALLY, payload: rallyInfo });
         }
     };
 }
@@ -65,7 +79,7 @@ export const callRallyDetailAPI = ({ rallyId }) => {
 // 랠리 등록
 export const callPostRallyAPI = ({ form }) => {
 
-    console.log("[RallyAPICalls] callPostRallyAPI Call");
+    // console.log("[RallyAPICalls] callPostRallyAPI Call");
 
     const URL = 'http://localhost:8000/api/v1/rallies';
 
@@ -90,7 +104,7 @@ export const callPostRallyAPI = ({ form }) => {
 // 랠리 수정
 export const callModifyRallyAPI = ({ form, rallyId }) => {
 
-    console.log('[RallyAPICalls] callModifyRallyAPI Call');
+    // console.log('[RallyAPICalls] callModifyRallyAPI Call');
 
     const URL = `http://localhost:8000/api/v1/rallies/${rallyId}`;
 
@@ -117,7 +131,7 @@ export const callModifyRallyAPI = ({ form, rallyId }) => {
 // 랠리 검색
 export const callSearchRallyAPI = ({ criteria }) => {
 
-    console.log('[RallyAPICalls] callSearchRallyAPI Call');
+    // console.log('[RallyAPICalls] callSearchRallyAPI Call');
 
     const URL = `http://localhost:8000/api/v1/rallies/search?${criteria}`;
 
@@ -133,8 +147,7 @@ export const callSearchRallyAPI = ({ criteria }) => {
                 "Auth": window.localStorage.getItem("jwtToken")
             }
         })
-            .then(response => response.json())
-            .catch(error => console.error("에러발생"));
+            .then(response => response.json());
 
         console.log('[RallyAPICalls] callSearchRallyAPI RESULT : ', result);
 

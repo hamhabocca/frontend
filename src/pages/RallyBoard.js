@@ -18,13 +18,6 @@ function RallyBoard() {
     // 현재 페이지
     const [currentPage, setCurrentPage] = useState(1);
 
-    // 페이지 변경될 때마다 리렌더링
-    useEffect(() => {
-
-        dispatch(callRallyListAPI({currentPage : currentPage}));
-
-    }, [currentPage]);
-
     // 총 페이지의 모음
     const pageNumber = [1];
 
@@ -33,6 +26,13 @@ function RallyBoard() {
             pageNumber.push(i);
         }
     }
+
+    // 페이지 변경될 때마다 리렌더링
+    useEffect(() => {
+
+        dispatch(callRallyListAPI({ currentPage: currentPage }));
+
+    }, [currentPage]);
 
     // 렌더링 성공적으로 될때만 리스트 조회 노출
     return (
@@ -71,7 +71,7 @@ function RallyBoard() {
                     </button>
                     {pageNumber.map((num) => (
                         <li key={num} onClick={() => setCurrentPage(num)}>
-                            <button style={ currentPage == num? {color : '#003ACE'}: null}>
+                            <button style={currentPage == num ? { color: '#003ACE' } : null}>
                                 {num}
                             </button>
                         </li>

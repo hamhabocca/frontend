@@ -3,28 +3,13 @@ import style from './RallyCardBoard.module.css';
 
 function RallyCardBoard({ rally }) {
 
-
-    /* 랠리 아이디 */
-    const RALLY_ID = rally.rallyId;
-
-    /* 랠리 상태 */
-    const RALLY_STATUS = rally.rallyStatus;
-
-    /* 랠리 타입 */
-    const RALLY_TYPE = rally.rallyType;
-
-    /* 랠리팀명 */
-    const RALLY_NAME = rally.rallyName;
-
-    /* 랠리 일정 */
-    const RALLY_DATE = new Date(rally.rallyDate).toLocaleDateString().slice(0, -1);
-
-    /* 모집지역 */
-    const RALLY_LOCATION = rally.rallyLocation.split(' ')[0] + ' ' + rally.rallyLocation.split(' ')[1];
-
-    /* 작성일 */
-    const RALLY_WRITE_DATE = new Date(rally.rallyWriteDate).toLocaleDateString().slice(0, -1);
-
+    const RALLY_ID = rally.rallyId;             //랠리ID    
+    const RALLY_STATUS = rally.rallyStatus;     //랠리상태
+    const RALLY_TYPE = rally.rallyType;         //랠리타입
+    const RALLY_NAME = rally.rallyName;         //랠리팀명
+    const RALLY_DATE = new Date(rally.rallyDate).toLocaleDateString().slice(0, -1);                         //랠리일정
+    const RALLY_LOCATION = rally.rallyLocation.split(' ')[0] + ' ' + rally.rallyLocation.split(' ')[1];     //랠리지역
+    const RALLY_WRITE_DATE = new Date(rally.rallyWriteDate).toLocaleDateString().slice(0, -1);              //작성일
 
     /* 랠리 상태 */
     const rallyStatus = () => {
@@ -56,30 +41,9 @@ function RallyCardBoard({ rally }) {
         }
     };
 
-    if (RALLY_STATUS === "취소됨") {
-        return (
-            <Link to={`/rally/${RALLY_ID}`} style={{ textDecoration: 'none', color: '#202020' }}>
-                <section className={`${style.category} ${style.cancel}`}>
-                    <div className={style.status}>
-                        {rallyStatus()}
-                    </div>
-                    <div className={style.type}>
-                        {rallyType()}
-                    </div>
-                    <div>{RALLY_NAME}</div>
-                    <div className={style.date}>
-                        {RALLY_DATE}
-                    </div>
-                    <div>{RALLY_LOCATION}</div>
-                    <div>{RALLY_WRITE_DATE}</div>
-                </section>
-            </Link>
-        );
-    }
-
     return (
         <Link to={`/rally/${RALLY_ID}`} style={{ textDecoration: 'none', color: '#202020' }}>
-            <section className={style.category}>
+            <section className={RALLY_STATUS === "취소됨"? `${style.category} ${style.cancel}`: `${style.category}`}>
                 <div className={style.status}>
                     {rallyStatus()}
                 </div>

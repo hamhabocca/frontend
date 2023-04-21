@@ -42,10 +42,6 @@ function WriteRallyPost() {
         }, [departureAddress && arrivalAddress]
     );
 
-    let hasAddress =
-        departureAddress !== '' && arrivalAddress !== '' ?
-            <Kakaomap departureAddress={departureAddress} arrivalAddress={arrivalAddress} /> : null;
-
     const onChangeHandler = (e) => {
         setForm({
             ...form,
@@ -53,9 +49,7 @@ function WriteRallyPost() {
         });
     }
 
-    const onClickRallyPostHandler = () => {
-
-        console.log('[랠리등록] onClickRallyPostHandler');
+    const onClickRallyPost = () => {
 
         const formData = new FormData();
 
@@ -72,10 +66,21 @@ function WriteRallyPost() {
         dispatch(callPostRallyAPI({ form: formData }));
         dispatch(reset_state());
 
-        alert('게시판으로 이동합니다.');
-        navigate('/rally', { replace : true });
+        alert('랠리게시판으로 이동합니다.');
+        navigate('/rally', { replace: true });
         window.location.reload();
     };
+
+    const onClickPostHandler = () => {
+
+        const formList = Object.entries(form).slice(0, 8)
+
+        if (formList.filter(value => value[1] === '').length = 0) {
+            onClickRallyPost();
+        }
+
+        alert("*항목은 필수입니다!\n원활한 랠리 모집을 위해 기입하시길 바랍니다.");
+    }
 
     return (
         <main className={style.container}>
@@ -84,32 +89,32 @@ function WriteRallyPost() {
                 <article className={style.title}>
                     <h1>랠리 모집글 작성</h1>
                     <div>
-                        <button className={style.edit} onClick={onClickRallyPostHandler}>등록</button>
+                        <button className={style.edit} onClick={onClickPostHandler}>등록</button>
                     </div>
                 </article>
                 <article className={style.rallyPost}>
-                    <form>
+                    <form id='rallyForm'>
                         <div className={style.rallyType}>
                             <h3>*랠리 타입을 선택해주세요</h3>
                             <div className={style.RallyType}>
                                 <div>
-                                    <input type="radio" id="lvl1" name="rallyType" value={'입문'} onChange={onChangeHandler}/>
+                                    <input type="radio" id="lvl1" name="rallyType" value={'입문'} onChange={onChangeHandler} />
                                     <label htmlFor='lvl1'>입문</label>
                                 </div>
                                 <div>
-                                    <input type="radio" id="lvl2" name="rallyType" value={'초보'} onChange={onChangeHandler}/>
+                                    <input type="radio" id="lvl2" name="rallyType" value={'초보'} onChange={onChangeHandler} />
                                     <label htmlFor='lvl2'>초보</label>
                                 </div>
                                 <div>
-                                    <input type="radio" id="lvl3" name="rallyType" value={'중수'} onChange={onChangeHandler}/>
+                                    <input type="radio" id="lvl3" name="rallyType" value={'중수'} onChange={onChangeHandler} />
                                     <label htmlFor='lvl3'>중수</label>
                                 </div>
                                 <div>
-                                    <input type="radio" id="lvl4" name="rallyType" value={'고수'} onChange={onChangeHandler}/>
+                                    <input type="radio" id="lvl4" name="rallyType" value={'고수'} onChange={onChangeHandler} />
                                     <label htmlFor='lvl4'>고수</label>
                                 </div>
                                 <div>
-                                    <input type="radio" id="lvl5" name="rallyType" value={'전설'} onChange={onChangeHandler}/>
+                                    <input type="radio" id="lvl5" name="rallyType" value={'전설'} onChange={onChangeHandler} />
                                     <label htmlFor='lvl5'>전설</label>
                                 </div>
                                 <button className={style.QuestionButton}>?</button>
@@ -123,7 +128,7 @@ function WriteRallyPost() {
                             <div className={style.mapImg}>
                                 <h3>랠리 모집 정보</h3>
                                 <div>
-                                    {/* {hasAddress} */}
+                                    {departureAddress && arrivalAddress? <Kakaomap departureAddress={departureAddress} arrivalAddress={arrivalAddress} />: null}
                                 </div>
                             </div>
                             <div className={style.mapInfo}>
@@ -131,9 +136,12 @@ function WriteRallyPost() {
                                     <h3>*랠리 모집 인원</h3>
                                     <div>
                                         <p>최소</p>
-                                        <input type='text' name='rallyMinimum' onChange={onChangeHandler} />
+                                        <input type='text' name='rallyMinimum' onChange={onChangeHandler} placeholder='2' />
+                                        <p>명 </p>
+                                        <p> ~ </p>
                                         <p>최대</p>
-                                        <input type='text' name='rallyMaximum' onChange={onChangeHandler} />
+                                        <input type='text' name='rallyMaximum' onChange={onChangeHandler} placeholder='5' />
+                                        <p>명</p>
                                     </div>
                                 </div>
                                 <div className={style.estimate}>
@@ -143,7 +151,7 @@ function WriteRallyPost() {
                                     </div>
                                     <div>
                                         <h3>*총 예상 거리</h3>
-                                        <input type='text' name='rallyDistance' onChange={onChangeHandler} placeholder="           km" />
+                                        <input type='text' name='rallyDistance' onChange={onChangeHandler} placeholder="    km" />
                                     </div>
                                 </div>
                                 <div className={style.setMap}>

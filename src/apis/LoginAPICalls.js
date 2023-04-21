@@ -1,6 +1,4 @@
-import axios from "axios";
-import { POST_LOGIN } from "../modules/MemberModule";
-import { post_login } from "../modules/MemberModule";
+import { IS_LOGIN } from "../modules/LoginModule";
 
 export const callKakaoLoginAPI = (code) => {
 
@@ -27,7 +25,8 @@ export const callKakaoLoginAPI = (code) => {
 
         console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
         if(result.httpStatus === 200){
-            window.localStorage.setItem('jwtToken', JSON.stringify(result.results.token));            
+            window.localStorage.setItem('jwtToken', JSON.stringify(result.results.token));
+            dispatch({type: IS_LOGIN})            
         } else if(result.httpStatus === 401) {
             console.log("만료됨...")
         }
