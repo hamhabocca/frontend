@@ -28,6 +28,10 @@
     text-overflow: ellipsis;
 }
 
+.RallyName:hover {
+    cursor: pointer;
+}
+
 .Others {
     display: flex;
     width: 100%;

@@ -1,8 +1,15 @@
+import { useSearchParams } from "react-router-dom";
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
 import style from "./WriteReviewPost.module.css";
 import React, { useRef } from "react";
 
 function WriteReviewPost() {
+
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    /* 이 리뷰의 랠리의 id */
+    const rallyId = searchParams.get("rallyid");
+
     const imageInput = useRef();
     const onCickImageUpload = () => {
         imageInput.current.click();
