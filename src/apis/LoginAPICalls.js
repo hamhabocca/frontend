@@ -8,14 +8,10 @@ export const callKakaoLoginAPI = (code) => {
 
     console.log(code);
 
-    console.log('test 1');
-
     return async (dispatch, getState) => {
 
         let data = { code: code }
         
-        console.log(requestURL);
-
         const result = await fetch(requestURL, {
             method: 'POST',
             headers: {
@@ -67,8 +63,6 @@ export const callNaverLoginAPI = (code, state) => {
 }
 
 export const callLogoutAPI = () => {
-
-    console.log('test1');
     
     return async (dispatch, getState) => {  
         
