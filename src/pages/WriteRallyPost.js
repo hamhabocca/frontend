@@ -73,10 +73,10 @@ function WriteRallyPost() {
 
     const onClickPostHandler = () => {
 
-        const formList = Object.entries(form).slice(0, 8)
+        const formList = Object.entries(form).slice(0, 8);
 
-        if (formList.filter(value => value[1] === '').length = 0) {
-            onClickRallyPost();
+        if (formList.filter(value => value[1] == '').length == 0) {
+            return onClickRallyPost();
         }
 
         alert("*항목은 필수입니다!\n원활한 랠리 모집을 위해 기입하시길 바랍니다.");
@@ -128,7 +128,7 @@ function WriteRallyPost() {
                             <div className={style.mapImg}>
                                 <h3>랠리 모집 정보</h3>
                                 <div>
-                                    {departureAddress && arrivalAddress? <Kakaomap departureAddress={departureAddress} arrivalAddress={arrivalAddress} />: null}
+                                    {departureAddress && arrivalAddress ? <Kakaomap departureAddress={departureAddress} arrivalAddress={arrivalAddress} /> : null}
                                 </div>
                             </div>
                             <div className={style.mapInfo}>
@@ -136,11 +136,11 @@ function WriteRallyPost() {
                                     <h3>*랠리 모집 인원</h3>
                                     <div>
                                         <p>최소</p>
-                                        <input type='text' name='rallyMinimum' onChange={onChangeHandler} placeholder='2' />
+                                        <input type='text' name='rallyMinimum' onChange={onChangeHandler} placeholder='0'/>
                                         <p>명 </p>
                                         <p> ~ </p>
                                         <p>최대</p>
-                                        <input type='text' name='rallyMaximum' onChange={onChangeHandler} placeholder='5' />
+                                        <input type='text' name='rallyMaximum' onChange={onChangeHandler} placeholder='0'/>
                                         <p>명</p>
                                     </div>
                                 </div>

@@ -26,17 +26,17 @@ function RallyPost() {
     const rally = useSelector(state => state.rallyReducer);
     const mateList = useSelector(state => state.participateReducer);
 
-    const RALLY_NAME = rally.rallyName;                 //랠리명
-    const RALLY_STATUS = rally.rallyStatus;             //랠리상태
-    const RALLY_TYPE = rally.rallyType;                 //랠리타입
-    const RALLY_DATE = rally.rallyDate;                 //랠리날짜
-    const RALLY_LOCATION = rally.rallyLocation;         //랠리모집장소
-    const RALLY_END_LOCATION = rally.rallyEndLocation;  //랠리도착장소
-    const RALLY_DISTANCE = rally.rallyDistance;         //랠리예상거리
-    const RALLY_MINIMUM = rally.rallyMinimum;           //랠리최소인원
-    const RALLY_MAXIMUM = rally.rallyMaximum;           //랠리최대인원
-    const RALLY_DETAIL = rally.rallyDetail;             //랠리상세글
-    const RALLY_WRITE_DATE = rally.rallyWriteDate;      //작성일
+    const RALLY_NAME = rally.rallyName;                                         //랠리명
+    const RALLY_STATUS = rally.rallyStatus;                                     //랠리상태
+    const RALLY_TYPE = rally.rallyType;                                         //랠리타입
+    const RALLY_DATE = new Date(rally.rallyDate).toLocaleString();              //랠리날짜
+    const RALLY_LOCATION = rally.rallyLocation;                                 //랠리모집장소
+    const RALLY_END_LOCATION = rally.rallyEndLocation;                          //랠리도착장소
+    const RALLY_DISTANCE = rally.rallyDistance;                                 //랠리예상거리
+    const RALLY_MINIMUM = rally.rallyMinimum;                                   //랠리최소인원
+    const RALLY_MAXIMUM = rally.rallyMaximum;                                   //랠리최대인원
+    const RALLY_DETAIL = rally.rallyDetail;                                     //랠리상세글
+    const RALLY_WRITE_DATE = new Date(rally.rallyWriteDate).toLocaleString();   //작성일
 
     const MASTER_ID = rally.masterId;                   //작성자Id
     const NICKNAME = rally.master?.nickname;                   //작성자닉네임
