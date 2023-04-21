@@ -4,6 +4,7 @@
     height: 33px;
     text-align: center;
     border-bottom: 1px solid lightgray;
+
 }
 
 .category>* {
@@ -34,7 +35,7 @@
 }
 
 .status {
-    width: 90px;
+    width: 10px;
 }
 
 .label {
@@ -69,7 +70,10 @@
     flex-grow: 1;
 }
 
-.category div:nth-child(3) {
-    flex-grow: 5;
+.category div:nth-child(2) {
+    flex-grow: 3.5;
 }
 
+.category div:nth-child(3) {
+    flex-grow: 3.5;
+}

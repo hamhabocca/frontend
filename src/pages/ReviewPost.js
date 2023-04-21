@@ -2,45 +2,35 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
 import style from './ReviewPost.module.css';
-
 import { OPEN_REPORT } from '../modules/ModalsModule';
-import { callReviewDetailAPI } from "../apis/ReviewAPICalls";
 import { useDispatch, useSelector } from "react-redux";
 import ModalReport from "../components/modals/ModalReport";
 import { Link } from 'react-router-dom';
+import { callReviewRallyAPI } from '../apis/RallyReviewAPICalls';
 
 
 function ReviewPost() {
 
+    //리덕스
     const dispatch = useDispatch();
     const { reviewId } = useParams();
     const review = useSelector(state => state.reviewReducer);
-    const testDetail = review.testDetail;
+    console.log("현재 포스트에서의 review : ", review);
 
-    // const [review, setReview] = useState({});
-    // const [rally, setRally] = useState({});
+    const REVIEW_TITLE = review.reviewTitle;
 
-    /*모달*/ 
+    const RALLY = review.rally;
+    const RALLY_NAME = review.rally?.rallyName;
+
+    /*모달*/
     const reportState = useSelector(state => state.modalsReducer.reportState);
 
     useEffect(
         () => {
-            console.log('[testDetail] reviewId :', testDetail);
-            console.log("리뷰 디테일");
-            // const temp = getReviewDetail(review); 
-            // setReview(temp);
-    
-            dispatch(callReviewDetailAPI({reviewId: reviewId}));
-
-            // setRally(getRallyDetail(temp.rallyId));
+            dispatch(callReviewRallyAPI({ reviewId: reviewId }));
         }
-        ,[]
+        , []
     );
-
-
-    const REVIEW_ID = review.reviewId;
-
-    const REVIEW_TITLE = review.reviewTitle;
 
     /* 리뷰 작성 일자 */
     const REVIEW_WRITE_DATE = new Date(review.reviewWriteDate);
@@ -51,34 +41,70 @@ function ReviewPost() {
     /* 리뷰 상세 내용 */
     const REVIEW_DETAIL = review.reviewDetail;
 
-    // const writedate = new Date(review.reviewWriteDate);
-    // const rallystarttime = new Date(rally.rallystarttime);
-    // const rallyendtime = new Date(rally.rallyendtime);
+    /* 랠리 출발 시각 */
+    const RALLY_START_TIME = new Date(review.rally?.rallyDate);
+
+    /* 랠리 거리 */
+    const RALLY_DISTANCE = review.rally?.rallyDistance;
+
+    /* 랠리 장소 */
+    const RALLY_LOCATION = review.rally?.rallyLocation;
+
+    /* 랠리 종료 장소 */
+    const RALLY_END_LOCATION = review.rally?.rallyEndLocation;
+
+    /* 랠리 타입(입문~) */
+    const RALLY_TYPE = review.rally?.rallyType;
+
+/* 랠리 타입 구분 */
+    const rallytype = () => {
+
+        const styleIpmun = {
+            border: '1.5px solid #056DFA',
+            color: '#056DFA'
+        };
+
+        switch (RALLY_TYPE) {
+            default:
+                return <div className={style.label} style={styleIpmun}>입문</div>;
+            case "초보":
+                return <div className={style.label} style={{ background: '#60A3FF' }}>초보</div>;
+            case "중수":
+                return <div className={style.label} style={{ background: '#056DFA' }}>중수</div>;
+            case "고수":
+                return <div className={style.label} style={{ background: '#0E4288' }}>고수</div>;
+            case "전설":
+                return <div className={style.label} style={{ background: '#303030' }}>전설</div>;
+        }
+    };
+
 
 
     /* 작성자일 때 */
     const postSet = () => {
 
         if (review.reviewId === 1) {
-            return <Link to = {`/review/${review.reviewId}/edit`}>
-            <button className={style.edit}>수정</button>
-            </Link>
+            return (
+                <>
+                    <button style={{ marginLeft: '10px' }}>삭제</button>
+                    <Link to={`/review/${review.reviewId}/edit`}>
+                        <button className={style.edit}>수정</button>
+                    </Link>
+                </>
+            )
+            // } else if (review.reivewId === 2 && rally.rallystatus === 'in_process') {
 
-        // } else if (review.reivewId === 2 && rally.rallystatus === 'in_process') {
-        
-    /* 작성자가 아닐 때 */
-    } else if(!(review.reviewId === 1)){
+            /* 작성자가 아닐 때 */
+        } else if (!(review.reviewId === 1)) {
 
             return (
                 <div className={style.postStatus}>
-                    <button className={style.edit} onClick={() => { dispatch({type: OPEN_REPORT }) }}>신고</button>
-                    {reportState && <ModalReport/>}
+                    <button className={style.edit} onClick={() => { dispatch({ type: OPEN_REPORT }) }}>신고</button>
+                    {reportState && <ModalReport />}
                 </div>
             );
         }
     }
-
-
 
     return (
         <>
@@ -92,9 +118,8 @@ function ReviewPost() {
                 <div className={style.Main}>
                     <div className={style.title} >
                         <div className={style.labellabel}>
-                            {/* <div className={style.mini1}>{review.reviewWriterType}</div> */}
-                            {/* <div className={style.mini2}>{review.rallytype}</div> */}
-                            {/* <h2>{rally.rallyname}</h2> */}
+                            <div className={style.mini2}>{rallytype()}</div>
+                            <h2>{REVIEW_TITLE}</h2>
                         </div>
                         <div className={style.postStatus}>
                             <div className={style.report}>
@@ -104,46 +129,45 @@ function ReviewPost() {
                     </div>
 
                     <div className={style.Context}>
-                        <article className={style.containerTime}>
-                            <div className={style.containerTime}>
-                                <div className={style.picture}>사진</div>
-                                <h2 style={{ marginLeft: '10px' }}>{REVIEW_WRITER}</h2>
-                            </div>
+                        <article className={style.container2}>
                             <div className={style.container2}>
-                                <h4>{REVIEW_WRITE_DATE.toLocaleString()}</h4>
+                                <div className={style.picture}>사진</div>
+                                <h3 >{REVIEW_WRITER}</h3>
                             </div>
-
+                            <div className={style.containerTime}>
+                                {REVIEW_WRITE_DATE.toLocaleString().slice(0, -3)}
+                            </div>
                         </article>
-                        <div className={style.container3}>
-                            <div className={style.mainPic}> 본 랠리 게시글 사진</div>
-                            <div className={style.mainContext}>
-                                {/* <h1 className={style.Kmlabel}>{rally.rallydistance}Km</h1> */}
-                                {/* <h3 className={style.Placelabel}>{rally.rallystartlocation}</h3> */}
-                                <div className={style.container}>
-                                    <div className={style.startlabel}>출발 시각</div>
-                                    {/* <h3 style={{ marginTop: '160px', marginLeft: '10px' }}>{rallystarttime.toLocaleString()}</h3> */}
-                                </div>
-                                <div className={style.container}>
-                                    <div className={style.endlabel}>예상 완주</div>
-                                    {/* <h3 style={{ marginTop: '10px', marginLeft: '10px' }}>{rallyendtime.toLocaleString()}</h3> */}
+
+                        <div className={style.Review}>
+                            <h2 style={{ margin: '13px' }}>랠리명 : {RALLY_NAME}</h2>
+                            <div className={style.container3}>
+                                <div className={style.mainPic}> 본 랠리 지도</div>
+                                <div className={style.mainContext}>
+                                    <h1 className={style.Kmlabel}>{RALLY_DISTANCE}Km</h1>
+                                    <div className={style.info}>
+                                        <div className={style.location}>
+                                            <h4>출발지</h4>
+                                            <h3>{RALLY_LOCATION}</h3>
+                                            <h4>도착지</h4>
+                                            <h3>{RALLY_END_LOCATION}</h3>
+                                        </div>
+                                    </div>
+                                    {/* <h3 className={style.Placelabel}>{rally.rallystartlocation}</h3> */}
+                                    <div className={style.container}>
+                                        <div className={style.startlabel}>출발 시각</div>
+                                        <h3 style={{ marginTop: '17px', marginLeft: '10px' }}>{RALLY_START_TIME.toLocaleString().slice(0, -3)}</h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className={style.Review}>
-                            <div className={style.mainPic}> 후기사진</div>
-                            <h4 style={{ margin: '10px' }}>{REVIEW_DETAIL}<br /><br /></h4>
-                        </div>
-                        <br />
-                        <br />
+                        <div className={style.mainPic}> 후기사진</div>
+                        <h3 style={{ margin: '15px' ,  lineHeight : '25px'}}>{REVIEW_DETAIL}</h3>
                         <hr />
-                        <h2>여기에 댓글</h2>
-                        <br />
-                        <br />
+                        <div style={{ margin: '15px', height: '300px' }}>여기에 댓글</div>
                         <hr />
-                        <br />
                         <h3>{REVIEW_WRITER}</h3>
                         <div className={style.container}>
-
                             <textarea className={style.Comment} cols='30' rows='5' />
                             <div>
                                 <button className={style.GoReview} >작성</button>

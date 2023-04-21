@@ -1,12 +1,15 @@
 import style from './ReviewSearchFilter.module.css';
+import { BiPlus, BiMinus } from "react-icons/bi";
 import sigunguList from '../../data/sigungu.json';
-import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router';
-import { searchReview } from '../../apis/ReviewAPICalls';
+import { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import $ from 'jquery';
+import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } from '../../modules/CountModule';
+import { Link } from 'react-router-dom';
 
-function searchSig(sidoCode) {
+function searchSig(sido) {
 
-    return sigunguList.filter(sig => sig.sig.sig_cd.startsWith(sidoCode));
+    return sigunguList.filter(sig => sig.sig.sig_full_nm.startsWith(sido));
 }
 
 function Sigoon({ sig }) {
@@ -14,26 +17,60 @@ function Sigoon({ sig }) {
     return <option value={sig.sig.sig_kor_nm} >{sig.sig.sig_kor_nm}</option>;
 }
 
+
 function ReviewSearchFilter() {
 
-    const [searchValue, setSearchValue] = useState('');
+    const dispatch = useDispatch();
 
-    const navigate = useNavigate();
+   /* state값 가져오기 */
+   const distanceCount = useSelector(state => state.countReducer.distanceState);
+   const peopleCount = useSelector(state => state.countReducer.peopleState);
 
+   /* 증감버튼 클릭이벤트핸들러 */
+   const distanceCountIncrease = () => dispatch(distanceIncrease());
 
-    /* 시군구 담을 리스트 */
-    const [sigList, setSigList] = useState([]);
+   const distanceCountDecrease = () => { distanceCount > 0 && dispatch(distanceDecrease()) };
 
+   const peopleCountIncrease = () => dispatch(peopleIncrease());
 
-    /* 시도 선택시 시군구 리스트 담음 */
-    const onChangeHandler = (e) => {
-        setSigList(searchSig(e.target.value));
-    }
+   const peopleCountDecrease = () => { peopleCount > 0 && dispatch(peopleDecrease()) };
+   
+   /* 시도 선택시 시군구 리스트 담음 */
 
-    const onClickHandler = () => {
-        navigate(`/review/search?reviewname=${searchValue}`);
-        console.log({searchReview})
-    }
+   const [sigList, setSigList] = useState([]);
+
+   const onChangeHandler = (e) => { 
+       setSigList(searchSig(e.target.value));
+   }
+   
+   let SIDO = "";
+   let LOCATION = "";
+   let SIGUNGU = "";
+
+   /**
+    * 문제점!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    * 시군구를 제일 마지막으로 클릭 후 전송 누르면... ... 안들어감
+    *  */
+   function _onSubmit() {
+       
+       SIDO = $("#sido").val();
+       SIGUNGU = $("#sigungu").val();
+
+       LOCATION = SIDO + " " + SIGUNGU;
+
+       $("#location").val(LOCATION+"");
+   }
+
+   /* 체크박스 - 한번만 체크할 수 있도록 */
+   const checkOnlyOne = (checkThis) => {
+       const checkboxes = document.getElementsByName('rallytype')
+       for (let i = 0; i < checkboxes.length; i++) {
+           if (checkboxes[i] !== checkThis) {
+               checkboxes[i].checked = false
+           }
+       }
+   }
+   
 
     return (
         <div className={style.filter}>
@@ -41,28 +78,28 @@ function ReviewSearchFilter() {
                 <h1>Filter</h1>
             </article>
 
-            <form className={style.form}>
+            <form className={style.form} action={"/rally/search"} onSubmit={_onSubmit()}>
                 <section>
-                    <article className={style.rallytype}>
+                <article className={style.rallytype}>
                         <h2>랠리 타입</h2>
                         <div>
-                            <input type="checkbox" id="ipmun" name='rallytype' value={'ipmun'} />
+                            <input type="checkbox" id="ipmun" name='type' value='입문' onChange={(e) => checkOnlyOne(e.target)} />
                             <label htmlFor='ipmun'>입문</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="chobo" name='rallytype' value={'chobo'} />
+                            <input type="checkbox" id="chobo" name='type' value='초보' onChange={(e) => checkOnlyOne(e.target)} />
                             <label htmlFor='chobo'>초보</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="jungsu" name='rallytype' value={'jungsu'} />
+                            <input type="checkbox" id="jungsu" name='type' value='중수' onChange={(e) => checkOnlyOne(e.target)} />
                             <label htmlFor='jungsu'>중수</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="gosu" name='rallytype' value={'gosu'} />
+                            <input type="checkbox" id="gosu" name='type' value='고수' onChange={(e) => checkOnlyOne(e.target)} />
                             <label htmlFor='gosu'>고수</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="legend" name='rallytype' value={'legend'} />
+                            <input type="checkbox" id="legend" name='type' value='전설' onChange={(e) => checkOnlyOne(e.target)} />
                             <label htmlFor='legend'>전설</label>
                         </div>
                     </article>
@@ -89,8 +126,8 @@ function ReviewSearchFilter() {
                             <option value="48">경상남도</option>
                             <option value="50">제주특별자치도</option>
                         </select>
-                        <select id="sigoon_code" name='sigungu' readOnly>
-                            <option defaultValue=''>시/군/구</option>
+                        <select id="sigungu" readOnly>
+                            <option value="">시/군/구</option>
                             {sigList.map(sig => <Sigoon key={sig.id} sig={sig} />)}
                         </select>
                     </article>
@@ -104,14 +141,15 @@ function ReviewSearchFilter() {
                         <h2>랠리 팀명</h2>
                         <input type="text"
                         name='rallyteam' 
-                        value={searchValue}
-                        onChange= {e => setSearchValue(e.target.value)}/>
+                        // value={searchValue}
+                        // onChange= {e => setSearchValue(e.target.value)}
+                        />
                     </article>
 
                 </section>
-                <button className={style.search} onClick={onClickHandler}>후기 검색</button>
+                <input type="hidden" id="location" name="location"/>
+                <input type='submit' value='랠리 검색' className={style.search} />
             </form>
-
         </div>
     );
 }
