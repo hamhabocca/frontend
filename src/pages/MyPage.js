@@ -1,10 +1,9 @@
 import style from './MyPage.module.css';
 import { IoIosFemale } from 'react-icons/io';
 import { IoIosMale } from 'react-icons/io';
-import { getCurrentMember, getRecruitedRallies } from '../apis/MemberAPICalls';
-import RallyCardMyPage from '../components/items/RallyCardMyPage';
+import { getCurrentMember, getParticipatedRallies, getRecruitedRallies } from '../apis/MemberAPICalls';
 import MyPageList from '../components/lists/MyPageList';
-import ModalDeactivate from '../components/modals/ModalDeactivate'; 
+import ModalDeactivate from '../components/modals/ModalDeactivate';
 import ModalProfile from "../components/modals/ModalProfile";
 import { useDispatch, useSelector } from 'react-redux';
 import { OPEN_DELETE_ACCOUNT, OPEN_PROFILE } from '../modules/ModalsModule';
@@ -14,38 +13,45 @@ function MyPage() {
 
     const dispatch = useDispatch();
 
+    /* 모달 */
     const deleteAccountState = useSelector(state => state.modalsReducer.deleteAccountState);
     const profileState = useSelector(state => state.modalsReducer.profileState);
-    
+
+    /* 이 마이페이지의 주인 멤버 */
     const member = useSelector(state => state.memberReducer);
 
+    /* 멤버의 모집/참여 이력 */
     const recruited = useSelector(state => state.rallyReducer);
     const recruitedList = recruited?.recruitedRallyList;
     const participated = useSelector(state => state.participateReducer);
-    const participatedList = participated?.participatedRallyList;
+    const participatedList = participated?.finalRallyList;
 
-    console.log("recruited : " + recruitedList);
-    console.log("participated : " + participatedList);
-    
+    /* 성별 아이콘 */
     function GenderIcon() {
-        
-        if(member?.gender == 'female') {
-            return <IoIosFemale/>
+
+        if (member?.gender == 'female') {
+            return <IoIosFemale />
         } else {
-            return <IoIosMale/>
+            return <IoIosMale />
         }
     }
 
+    /* 소셜 로그인 아이콘 */
     function SocialIcon() {
 
-        if(member?.socialLogin == "KAKAO") {
-            return <img src='./img/kakao.png' width={'20px'} height={'20px'}/>
+        if (member?.socialLogin == "KAKAO") {
+            return <img src='./img/kakao.png' width={'20px'} height={'20px'} />
+        }
+
+        if (member?.socialLogin == 'NAVER') {
+            return <img src='./img/naver.png' width={'20px'} height={'20px'} />
         }
     }
 
+    /* 달성 퍼센티지 구하는 함수 */
     function getPercent() {
 
-        if(member?.mileage != null && member?.mileage > 0) {
+        if (member?.mileage != null && member?.mileage > 0) {
             return (
                 (member?.mileage - ((member?.level - 1) * 200)) / 200
             )
@@ -53,30 +59,24 @@ function MyPage() {
         return 0;
     }
 
+    /* 다음 단계까지 남은 km 수 구하는 함수 */
     function getRemainingKm() {
 
         return (member?.level * 200) - member?.mileage;
     }
-    
+
     /* 원형 프로그레스 바 용도 */
     const RADIUS = 54;
     const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
-    // const per = 60;
     var progress = getPercent();
     const dashoffset = CIRCUMFERENCE * (1 - progress);
     const circleStyle = { strokeDasharray: CIRCUMFERENCE, strokeDashoffset: dashoffset }
-    
+
     useEffect(() => {
         dispatch(getCurrentMember());
-    },
-    []
-    );
-    
-    useEffect(() => {
-        
+        dispatch(getParticipatedRallies());
         dispatch(getRecruitedRallies());
-    },
-    []
+    }, []
     );
 
     return (
@@ -84,9 +84,7 @@ function MyPage() {
             <main className={style.Main}>
                 <section className={style.Left}>
                     <div className={style.Profile}>
-                        <div className={style.ProfileImg}>
-                            이미지
-                        </div>
+                        <img src={member?.imageSource} alt='profile image' className={style.ProfileImg} />
                         <div className={style.Name}>
                             <div className={style.Social}>{SocialIcon()}</div>
                             <label>{member?.nickname}</label>
@@ -118,24 +116,24 @@ function MyPage() {
                             </div>
                             <div>
                                 <h4>랠리 모집 횟수</h4>
-                                <label>2</label>
+                                <label>{recruitedList?.length}</label>
                             </div>
                             <div>
                                 <h4>랠리 참여 횟수</h4>
-                                <label>10</label>
+                                <label>{participatedList?.length}</label>
                             </div>
                         </div>
-                        <button onClick={() => { dispatch({type: OPEN_PROFILE}) }} className={style.EditProfile}>프로필 수정</button>
-                        { profileState && <ModalProfile/> }
+                        <button onClick={() => { dispatch({ type: OPEN_PROFILE }) }} className={style.EditProfile}>프로필 수정</button>
+                        {profileState && <ModalProfile member={member} />}
                     </div>
                     <div>
-                    <button className={style.Deactivate} onClick = {() => { dispatch({type: OPEN_DELETE_ACCOUNT})}}>사이트 탈퇴하기</button>
-                    { deleteAccountState && <ModalDeactivate/> }
+                        <button className={style.Deactivate} onClick={() => { dispatch({ type: OPEN_DELETE_ACCOUNT }) }}>사이트 탈퇴하기</button>
+                        {deleteAccountState && <ModalDeactivate />}
                     </div>
                 </section>
                 <section className={style.Right}>
-                    <MyPageList typeOfList={'모집'} rallyList={recruitedList}/>
-                    {/* <MyPageList typeOfList={'신청'} membercode={member.membercode}/> */}
+                    <MyPageList typeOfList={'모집'} rallyList={recruitedList} />
+                    <MyPageList typeOfList={'참여'} rallyList={participatedList} />
                 </section>
             </main>
         </>
