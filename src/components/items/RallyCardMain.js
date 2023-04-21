@@ -1,10 +1,13 @@
+import { Link } from 'react-router-dom';
 import style from './RallyCardMain.module.css';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
-function RallCardMain({ item }) {
+function RallCardMain({ rally }) {
 
-    const rallylocation = item.rallystartlocation.split(' ');
-    const rallystarttime = new Date(item.rallystarttime);
+    var index = rally.rallyLocation.indexOf(' ', rally.rallyLocation.indexOf(' ') + 1);
+
+    const rallylocation = rally.rallyLocation.substr(0, index);
+    const rallystarttime = new Date(rally.rallyDate);
 
     /* 랠리 타입 구분 */
     const rallytype = () => {
@@ -14,7 +17,7 @@ function RallCardMain({ item }) {
             color: '#056DFA'
         };
 
-        switch (item.rallytype) {
+        switch (rally.rallyType) {
             default:
                 return <div className={style.RallyType} style={styleIpmun}>입문</div>;
             case "초보":
@@ -32,14 +35,14 @@ function RallCardMain({ item }) {
         <div className={style.Container}>
             {rallytype()}
             <h3>
-                {item.rallyname}
+                {rally.rallyName}
             </h3>
             <div className={style.DateAndLocation}>
                 <label>{rallystarttime.toLocaleDateString().slice(0, -1)}</label>
-                <label className={style.RallyLocation}>{rallylocation[1]}</label>
+                <label className={style.RallyLocation}>{rallylocation}</label>
             </div>
-            <label className={style.RallyMaster}>{item.rallymaster}</label>
-            <button><AiOutlineArrowRight /></button>
+            <label className={style.RallyMaster}>{rally.masterId}</label>
+            <Link to={`/rally/${rally.rallyId}`}><button><AiOutlineArrowRight /></button></Link>
         </div>
     )
 }

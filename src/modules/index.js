@@ -8,10 +8,12 @@ import participateReducer from "./ParticipateModule";
 import reviewReducer from "./ReviewModule";
 import qnaReducer from "./QnaModule";
 import loginReducer from "./LoginModule";
+import nicknameReducer from "./NicknameModule";
+import listSizeReducer from "./ListSizeModule";
 
 const rootReducer = combineReducers({
-    countReducer, addressReducer, modalsReducer,
-    reviewReducer, qnaReducer, rallyReducer, participateReducer, memberReducer, loginReducer
+    countReducer, addressReducer, modalsReducer, reviewReducer, qnaReducer,
+    rallyReducer, participateReducer, memberReducer, nicknameReducer, listSizeReducer, loginReducer
 });
 
 export default rootReducer;

@@ -69,13 +69,11 @@ function WriteReviewPost() {
     const REVIEW_TITLE = review.reviewTitle;
 
 
-
     return (
         <main className={style.container}>
             <section className={style.filter}>
                 <ReviewSearchFilter />
             </section>
-
             <section className={style.board}>
 
                 <article className={style.title}>
@@ -96,11 +94,6 @@ function WriteReviewPost() {
                             {/* {REVIEW_TITLE} */}
                             <input type="text" onChange={onChangeHandler} defaultValue={form.reviewTitle} style={{ marginLeft: '15px', backgroundColor: 'lightgray', width: '630px' }} name="reviewTitle"/>
                         </div>
-                        <div className={style.container}>
-                            <h4>랠리 완주 일시</h4>
-                            <h4>2020-20202020</h4>
-                        </div>
-                        {/* <input type="date" min="2023-01" max="2023-12" name='rallydate' /> */}
                     </article>
                     <br />
                     <div className={style.textBoard}>

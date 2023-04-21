@@ -19,12 +19,12 @@ function QnACardBoard({ qna }) {
 
     /* 건의 상태 */
     const qnastatus = () => {
-        switch (qna.qnastatus) {
-            case "member":
+        switch (qna.qnaCategory) {
+            case "건의":
                 return <div className={style.label} style={{ background: '#7D7D7D' }}>
                     건의
                 </div>;
-            case "rally":
+            case "랠리":
                 return <div className={style.label} style={{ background: '#7D7D7D', color: 'black' }}>
                     랠리
                 </div>;

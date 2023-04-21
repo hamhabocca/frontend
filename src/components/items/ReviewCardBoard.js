@@ -1,35 +1,24 @@
 import { Link } from 'react-router-dom';
 import style from './ReviewCardBoard.module.css';
 
-function ReviewCardBoard({ review }) {
+function ReviewCardBoard({review}) {
+
 
     /* 작성일 */
     const REVIEW_DATE = new Date(review.reviewWriteDate).toLocaleDateString().slice(0, -1);
 
+    const RALLY_NAME = review.rally?.rallyName;
 
-    /* 랠리 상태 */
-    const reviewstatus = () => {
-        switch (review.reviewwritertype) {
-            case "master":
-                return <div className={style.label} style={{ background: '#FF7A00' }}>
-                    랠리장
-                </div>;
-            default:
-                return <div className={style.label} style={{ background: '#63AF73' }}>
-                    랠리원
-                </div>;
-        }
-    };
-
+    const RALLY_TYPE = review.rally?.rallyType;
     /* 랠리 타입 구분 */
-    const reviewtype = () => {
+    const rallytype = () => {
 
         const styleIpmun = {
             border: '1.5px solid #056DFA',
             color: '#056DFA'
         };
 
-        switch (review.rallytype) {
+        switch (RALLY_TYPE) {
             default:
                 return <div className={style.label} style={styleIpmun}>입문</div>;
             case "초보":
@@ -48,12 +37,10 @@ function ReviewCardBoard({ review }) {
     return (
         <Link to={`/review/${review.reviewId}`} style={{ textDecoration: 'none', color: '#202020' }}>
             <section className={`${style.category} ${style.flex_center}`}>
-                <article className={`${style.status} ${style.flex_center}`}>
-                    {reviewstatus()}
-                </article>
                 <div>
-                    {reviewtype()}
+                    {rallytype()}
                 </div>
+                <div>{RALLY_NAME}</div>
                 <div>{review.reviewTitle}</div>
                 <div>{review.reviewWriter}</div>
                 <div>{REVIEW_DATE}</div>

@@ -1,16 +1,24 @@
 import style from './Home.module.css';
 import RallCardMain from '../components/items/RallyCardMain';
 import { useEffect, useState } from 'react';
-import { NavLink, json } from 'react-router-dom';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { callRallyListAPI } from '../apis/RallyAPICalls';
 
 function Home() {
 
-    const [rallyList, setRallyList] = useState([]);
-    
+    const dispatch = useDispatch();
+    const rallies = useSelector((state) => state.rallyReducer);
+    const rallyList = rallies?.rallyList?.content.filter(rally => rally.rallyStatus != '취소됨').slice(0, 6);
+    const pageInfo = rallies?.paging;
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    console.log(rallyList);
+
     useEffect(
         () => {
+            dispatch(callRallyListAPI({currentPage : currentPage}));
         },
         []
     );
@@ -21,10 +29,10 @@ function Home() {
                 <label className={style.Notice}>공지사항일듯</label>
                 <div className={style.NewestRallyAndMore}>
                     <h4>&gt; 최신 랠리 모집</h4>
-                    <button><NavLink to='/rally'>더보기&nbsp;&nbsp; &gt;</NavLink></button>
+                    <button><Link to='/rally'>더보기&nbsp;&nbsp; &gt;</Link></button>
                 </div>
                 <div className={style.Rallycards}>
-                    {rallyList.map(rally => <RallCardMain key={'rallycode'} item={rally} />)}
+                    {Array.isArray(rallyList) && rallyList.map(rally => <RallCardMain key={rally.rallyId} rally={rally} />)}
                 </div>
             </main>
         </>

@@ -1,12 +1,14 @@
 import QnACardBoard from "../items/QnACardBoard";
 
-function QnAList({qnaPosts}) {
+function QnAList({ qnaList }) {
 
   return (
     <>
-        { Array.isArray(qnaPosts) && qnaPosts.map(qna => <QnACardBoard key={ qna.qnaId } qna={ qna }/>) }
+      {qnaList && qnaList.map(qna => <QnACardBoard key={qna.qnaId} qna={qna} />)}
     </>
   );
 }
 
 export default QnAList;
+
+

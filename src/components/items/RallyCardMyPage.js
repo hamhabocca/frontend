@@ -1,63 +1,56 @@
-import { useEffect } from "react";
 import style from './RallyCardMyPage.module.css';
-import {BiCalendarCheck} from 'react-icons/bi';
+import { BiCalendarCheck } from 'react-icons/bi';
+import { Link, useNavigate } from "react-router-dom";
 
-function RallyCardMyPage({rally}) {
+function RallyCardMyPage({ rally, typeOfList }) {
 
-    var index = rally.rallyLocation.indexOf( ' ', rally.rallyLocation.indexOf( ' ' ) + 1 );
+    var index = rally.rallyLocation.indexOf(' ', rally.rallyLocation.indexOf(' ') + 1);
 
     const rallylocation = rally.rallyLocation.substr(0, index);
     const rallystarttime = new Date(rally.rallyDate);
 
     const rallyStatus = rally.rallyStatus;
 
-    // const isReviewWritten = checkReviewStatus(rally.rallycode);
+    const myId = JSON.parse(window.localStorage.getItem('jwtToken')).memberId;
+
+    const navigate = useNavigate();
+
+    // const isReviewWritten = checkReviewStatus(rally.rallyId, myId);
+
+    function goWriteReview() {
+        navigate("/review/write");
+    }
 
     const availableOptions = () => {
-        if(rallyStatus == 'currentRecruit') {
-            switch (rally.rallyStatus) {
-                case "ready":
-                    return <button className={style.button} style={{ background: '#7D7D7D' }}>
-                        나의 후기
-                    </button>;
-                default:
+
+        if(typeOfList == '과거' || typeOfList == '모집') {
+
+            switch (rallyStatus) {
+                case "완주!":
+                    return <Link to={`/review/write?rallyid=${rally.rallyId}`} style={{ color: 'white', textDecoration: 'none' }}><button className={style.button} style={{ background: '#7D7D7D' }}>
+                        후기 작성
+                        </button></Link>;
+                case "모집중":
                     return <button className={style.button} style={{ background: '#D9D9D9' }}>
                         모집중
                     </button>;
-            }   
-        } else if(rallyStatus == 'currentRecruit') {
-            switch (rally.rallyStatus) {
-                case "ready":
-                    return <button className={style.button} style={{ background: '#056DFA' }}>
-                        후기
-                    </button>;
-                default:
+                case "모집완료":
                     return <button className={style.button} style={{ background: '#D9D9D9' }}>
-                        모집중
+                        모집완료
                     </button>;
-            }   
-        }
-        if(rallyStatus == '') {
-            switch (rally.rallyStatus) {
-                case "ready":
-                    return <button className={style.button} style={{ background: '#7D7D7D' }}>
-                        후기
-                    </button>;
-                case "done":
-                    return <button className={style.button} style={{ background: '#7D7D7D' }}>
-                        후기
-                    </button>;
-                case "cancel":
-                    return <button className={style.button} style={{ background: '#D9D9D9', color: 'black' }}>
-                        랠리취소
-                    </button>;
-                default:
+                case "취소됨":
                     return <button className={style.button} style={{ background: '#D9D9D9' }}>
-                        모집중
+                        취소됨
                     </button>;
             }
         }
+
+        if(typeOfList == '참여') {
+
+        }
+
     }
+
     const rallytype = () => {
 
         const styleIpmun = {
@@ -79,29 +72,18 @@ function RallyCardMyPage({rally}) {
         }
     };
 
-    const Recruit = () => {
-        return null;
-    }
-
-    useEffect(
-        () => {
-
-        },
-        []
-    )
-
     return (
-        <div className={style.CardContainer}>
+        <Link className={style.CardContainer} to={`/rally/${rally.rallyId}`} style={{ textDecoration: 'none', color: '#202020' }}>
             <div className={style.TypeAndTitle}>
                 {rallytype()}
                 <label className={style.RallyName}>{rally.rallyName}</label>
             </div>
             <div className={style.Others}>
-                <label className={style.Date}><BiCalendarCheck className={style.BiCalendarCheck}/>{rallystarttime.toLocaleDateString().slice(0, -1)}</label>
+                <label className={style.Date}><BiCalendarCheck className={style.BiCalendarCheck} />{rallystarttime.toLocaleDateString().slice(0, -1)}</label>
                 <h4>{rallylocation}</h4>
                 {availableOptions()}
             </div>
-        </div>
+        </Link>
     );
 }
 

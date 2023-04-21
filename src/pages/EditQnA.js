@@ -3,7 +3,7 @@ import { callQnaDetailAPI, callModifyRallyAPI } from "../apis/QnAAPICalls";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 function EditQnA() {
@@ -15,55 +15,41 @@ function EditQnA() {
 
     const qna = useSelector(state => state.qnaReducer)
 
-    /* QNA 아이디 */
-    const QNA_ID = qnaId;
-    
     /* QNA 카테고리 */
     const QNA_CATEGORY = qna.qnaCategory;
-    
+
     /* QNA 제목 */
     const QNA_TITLE = qna.qnaTitle;
-    
-    /* QNA 내용 */
-    const QNA_DETAIL = qna.qnaDetail;    
-    
-    /* QNA 작성자 */
-    const QNA_WRITER = qna.qnaWriter;
-    
-    /* 작성일 */    
-    const qnawritedate = new Date(qna.qnaWriteDate); 
 
-    useEffect(
-        () => {
-            dispatch(callQnaDetailAPI({ qnaId: qnaId }));
-        }, [] 
-    ); 
+    /* QNA 내용 */
+    const QNA_DETAIL = qna.qnaDetail;
+
     const [form, setForm] = useState({
-        qnaCategory: '',
-        qnaTitle: '',
-        qnaDetail: ''
+        qnaCategory: "",
+        qnaTitle: "",
+        qnaDetail: ""
     });
 
-    useEffect(
-        () => {
+    useEffect(() => {
+        dispatch(callQnaDetailAPI({ qnaId: qnaId })).then(response => {
             setForm({
-                ...form,
-            })
-        }, []
-    );
+                qnaCategory: qna.qnaCategory,
+                qnaTitle: qna.qnaTitle,
+                qnaDetail: qna.qnaDetail
+            });
+        });
+    }, [dispatch, qnaId]);
 
     const onChangeHandler = (e) => {
         setForm({
             ...form,
             [e.target.name]: e.target.value
         });
-
-        console.log('form', form);
     }
 
-    const onClickQnaPostHandler = () => {
+    const onClickQnaUpdateHandler = () => {
 
-        console.log('[QNA 등록] onClickQnaPostHandler');
+        console.log('[QNA 수정완료] onClickQnaUpdateHandler');
 
         const formData = new FormData();
 
@@ -71,10 +57,10 @@ function EditQnA() {
         formData.append("qnaTitle", form.qnaTitle);
         formData.append("qnaDetail", form.qnaDetail);
 
-        dispatch(callQnaDetailAPI({ form: formData }));
-    
+        dispatch(callModifyRallyAPI({ form: formData, qnaId: qnaId }));
+
         alert('건의글 메인페이지로 이동합니다.');
-        navigate('/qna', { replace : true });
+        navigate('/qna', { replace: true });
         window.location.reload();
     };
 
@@ -92,41 +78,41 @@ function EditQnA() {
 
                 <div className={style.cg}>
                     <label>카테고리</label>
-                    <select className={style.dropdownbox} onChange={onChangeHandler}>
+                    <select className={style.dropdownbox} name="qnaCategory" onChange={onChangeHandler}>
                         <option>{QNA_CATEGORY}</option>
-                        <option>건의</option>
-                        <option>기타</option>
+                        <option value="건의">건의</option>
+                        <option value="랠리">랠리</option>
                     </select>
                 </div>
                 <br />
                 <div className={style.tit}>
                     <label>제목</label>
-                    <input className={style.titfield} type="text" size="50" name="title" onChange={onChangeHandler} defaultValue={QNA_TITLE}/>
+                    <input className={style.titfield} type="text" size="50" name="qnaTitle" onChange={onChangeHandler} defaultValue={QNA_TITLE} />
                 </div>
                 <br />
                 <div className={style.conTextarea}>
                     <label className={style.labelarea}>내용</label>
 
-                    <textarea className={style.textfield} cols="700" rows="230" onChange={onChangeHandler}>{QNA_DETAIL}</textarea>
+                    <textarea className={style.textfield} cols="700" rows="230" name="qnaDetail" onChange={onChangeHandler}>{QNA_DETAIL}</textarea>
 
                 </div>
                 <div className={style.fileImg}>
                     <label>파일첨부</label>
-                    
-                    <input className={style.filearea} type="file" name="uploadFile" onChange={onChangeHandler}/>
 
-                    
+                    <input className={style.filearea} type="file" name="uploadFile" onChange={onChangeHandler} />
+
+
                 </div>
 
             </div>
             <br />
             <hr />
             <article className={style.btn}>
-                <button onClick={onClickQnaPostHandler}>완료</button>
+                <button onClick={onClickQnaUpdateHandler}>완료</button>
             </article>
 
             <br />
-           
+
         </main>
     );
 }

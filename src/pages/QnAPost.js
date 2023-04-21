@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { OPEN_DELETE_POST } from "../modules/ModalsModule";
 import ModalDelete from "../components/modals/ModalDelete";
@@ -9,6 +9,7 @@ import { callQnaDetailAPI } from "../apis/QnAAPICalls";
 function QnAPost() {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const deletePostState = useSelector(state => state.modalsReducer.deletePostState);
 
@@ -16,28 +17,62 @@ function QnAPost() {
 
     const qna = useSelector(state => state.qnaReducer)
 
-        /* QNA 아이디 */
-        const QNA_ID = qnaId;
-    
-        /* QNA 카테고리 */
-        const QNA_CATEGORY = qna.qnaCategory;
-        
-        /* QNA 제목 */
-        const QNA_TITLE = qna.qnaTitle;
-        
-         /* QNA 내용 */
-         const QNA_DETAIL = qna.qnaDetail;    
-    
-        /* QNA 작성자 */
-        const QNA_WRITER = qna.qnaWriter;
-        
-        /* 작성일 */    
-        const qnawritedate = new Date(qna.qnaWriteDate);  
+    /* 현재 사용자 */
+    const token = window.localStorage.getItem("jwtToken");
+    const MEMBER_ID = JSON.parse(token)?.memberId;
+
+    /* QNA 아이디 */
+    const QNA_ID = qnaId;
+
+    /* QNA 카테고리 */
+    const QNA_CATEGORY = qna.qnaCategory;
+
+    /* QNA 제목 */
+    const QNA_TITLE = qna.qnaTitle;
+
+    /* QNA 내용 */
+    const QNA_DETAIL = qna.qnaDetail;
+
+    /* QNA 작성자 */
+    const QNA_WRITER = qna.qnaWriter;
+
+    /* 작성일 */
+    const qnawritedate = new Date(qna.qnaWriteDate);
+
+    /* 게시글 상단 버튼 */
+    function PostSet() {
+
+        // 작성자일 때 
+        if (MEMBER_ID === QNA_WRITER) {
+
+            return (
+                <>
+                    <button onClick={() => { navigate(`/qna/${qnaId}/edit`, { replace: true }); }} className={style.editbtn}>수정</button>
+                    <button onClick={() => { dispatch({ type: OPEN_DELETE_POST }) }} className={style.deletebtn}>삭제</button>
+                    {deletePostState && <ModalDelete qnaId={qnaId} />}
+                </>
+            );
+        }
+
+        // 작성자 아닐떄
+
+
+        return (
+            <>
+
+            </>
+        );
+
+
+    }
+
     useEffect(
         () => {
             dispatch(callQnaDetailAPI({ qnaId: qnaId }));
-        }, [] 
-    );   
+        }, []
+    );
+
+
 
     return (
         <main className={style.all}>
@@ -46,7 +81,7 @@ function QnAPost() {
 
                 <div className={style.post}>
                     <div className={style.d1}>
-                        <h6 className={style.member}>회원</h6>
+                        <h6 className={style.member}>{QNA_CATEGORY}</h6>
 
                         <h6 className={style.postname}>{QNA_TITLE}</h6>
                     </div>
@@ -57,11 +92,9 @@ function QnAPost() {
                         <h6 className={style.date}>{qnawritedate.toLocaleDateString().slice(0, -1)}</h6>
                     </div>
                 </div>
-                <hr/>
+                <hr />
                 <div className={style.button}>
-                    <Link to='/qna/edit'> <button className={style.editbtn}>수정</button> </Link> 
-                    <button onClick={() => { dispatch({type: OPEN_DELETE_POST})}} className={style.deletebtn}>삭제</button>
-                    {deletePostState && <ModalDelete/>}
+                    {PostSet()}
                 </div>
                 <div className={style.contants}>
                     <div>

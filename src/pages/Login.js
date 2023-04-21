@@ -1,5 +1,4 @@
 import style from './Login.module.css';
-import { useGoogleLogin } from '@react-oauth/google';
 
 const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const KAKAO_REDIRECT_URI = 'http://localhost:3000/oauth';
@@ -28,17 +27,12 @@ const loginHandler = (platform) => {
 
 function Login() {
 
-    const login = useGoogleLogin({
-        onSuccess: tokenResponse => console.log(tokenResponse),
-    });
-
     return (
         <main className={style.Container}>
             <img src="./img/Logo_blue.png" alt='Logo_blue' />
             <section className={style.LoginBox}>
                 <h1>간편 로그인</h1>
                 <div className={style.Buttons}>
-                    {/* <button className={style.Google} onClick={() => login()}><img src='./img/google.png' />구글로 로그인</button> */}
                     <button className={style.Naver} onClick={() => loginHandler('N')}><img src='./img/naver.png' />네이버로 로그인</button>
                     <button className={style.Kakao} onClick={() => loginHandler('K')}><img src='./img/kakao.png' />카카오로 로그인</button>
                 </div>
