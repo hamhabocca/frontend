@@ -10,28 +10,6 @@ function WriteQnA() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // const { qnaId } = useParams();
-
-    // const qna = useSelector(state => state.qnaReducer)
-
-    //     /* QNA 아이디 */
-    //     const QNA_ID = qnaId;
-    
-    //     /* QNA 카테고리 */
-    //     const QNA_CATEGORY = qna.qnaCategory;
-        
-    //     /* QNA 제목 */
-    //     const QNA_TITLE = qna.qnaTitle;
-        
-    //      /* QNA 내용 */
-    //      const QNA_DETAIL = qna.qnaDetail;    
-    
-    //     /* QNA 작성자 */
-    //     const QNA_WRITER = qna.qnaWriter;
-        
-    //     /* 작성일 */    
-    //     const qnawritedate = new Date(qna.qnaWriteDate);  
-
     const [form, setForm] = useState({
         qnaCategory: '',
         qnaTitle: '',
@@ -51,8 +29,6 @@ function WriteQnA() {
             ...form,
             [e.target.name]: e.target.value
         });
-
-        console.log('form', form);
     }
 
     const onClickQnaPostHandler = () => {
@@ -66,9 +42,9 @@ function WriteQnA() {
         formData.append("qnaDetail", form.qnaDetail);
 
         dispatch(callPostQnaAPI({ form: formData }));
-    
+
         alert('건의글 메인페이지로 이동합니다.');
-        navigate('/qna', { replace : true });
+        navigate('/qna', { replace: true });
         window.location.reload();
     };
 
@@ -88,14 +64,14 @@ function WriteQnA() {
                     <label>카테고리</label>
                     <select className={style.dropdownbox} name="qnaCategory" onChange={onChangeHandler}>
                         <option>선택</option>
-                        <option>건의</option>
-                        <option>기타</option>
+                        <option value="건의">건의</option>
+                        <option value="랠리">랠리</option>
                     </select>
                 </div>
                 <br />
                 <div className={style.tit}>
                     <label>제목</label>
-                    <input className={style.titfield} type="text" size="50" name="qnaTitle" onChange={onChangeHandler}/>
+                    <input className={style.titfield} type="text" size="50" name="qnaTitle" onChange={onChangeHandler} />
                 </div>
                 <br />
                 <div className={style.conTextarea}>
@@ -106,10 +82,10 @@ function WriteQnA() {
                 </div>
                 <div className={style.fileImg}>
                     <label>파일첨부</label>
-                    
-                    <input className={style.filearea} type="file" name="uploadFile" onChange={onChangeHandler}/>
 
-                    
+                    <input className={style.filearea} type="file" name="uploadFile" onChange={onChangeHandler} />
+
+
                 </div>
 
             </div>
@@ -120,7 +96,7 @@ function WriteQnA() {
             </article>
 
             <br />
-           
+
         </main>
     );
 }
