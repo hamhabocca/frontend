@@ -29,7 +29,7 @@ function Menubar() {
         const token = window.localStorage.getItem('jwtToken');
 
         if(pathname == '/mypage' && token != null) {
-            return <button onClick={onClickLogoutHandler}>로그아웃</button>
+            return <button onClick={onClickLogoutHandler}  style={{width: '150px', height: '100%', color: '#056DFA', backgroundColor: 'white', fontSize: '20px', fontWeight: '700', border: 'none'}}>로그아웃</button>
         } else if(token != null) {
             return <NavLink to='/mypage'>마이페이지</NavLink>
         } else {
