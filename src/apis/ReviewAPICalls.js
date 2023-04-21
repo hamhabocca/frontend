@@ -1,4 +1,4 @@
-import { GET_REVIEW, GET_REVIEWLIST, PUT_REVIEW } from '../modules/ReviewModule';
+import { GET_REVIEW, GET_REVIEWLIST, PUT_REVIEW, POST_REVIEW } from '../modules/ReviewModule';
 import { useSelector } from 'react-redux';
 
 // 전체 리뷰 리스트 조회
@@ -63,13 +63,11 @@ export const callReviewDetailAPI = ({ reviewId }) => {
         else {
             console.log("데이터 안돼");
         }
-
     };
-
 }
 
 /* 데이터 수정 */
-export const callReviewUpdateAPI = ({form, reviewId}) => {
+export const callReviewUpdateAPI = ({ form, reviewId }) => {
 
     const URL = `http://localhost:8000/api/v1/reviews/${reviewId}`;
 
@@ -98,6 +96,34 @@ export const callReviewUpdateAPI = ({form, reviewId}) => {
             console.log("데이터 안돼");
         };
     }
+}
+
+
+/* 리뷰 등록 */
+export const callPostReviewAPI = ({ form }) => {
+
+    console.log("[ReviewAPICalls] callPostReviewAPI Call");
+    
+    const token = window.localStorage.getItem('jwtToken');
+
+    const URL = 'http://localhost:8000/api/v1/reviews';
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(URL, {
+            method: "POST",
+            headers: {
+                "Accept": "*/*",
+                "Auth": window.localStorage.getItem("jwtToken")
+            },
+            body: form
+        })
+            // .then(response => response.json());
+
+        console.log("[ReviewAPICalls] callPostReviewAPi Result : ", result);
+
+        dispatch({ type: POST_REVIEW, payload: result });
+    };
 }
 
 

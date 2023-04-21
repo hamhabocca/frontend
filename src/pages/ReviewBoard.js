@@ -6,29 +6,22 @@ import Pagination from "react-js-pagination";
 import styled from "styled-components";
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
 
-import { callReviewListAPI } from "../apis/ReviewAPICalls";
+import {  callReviewRallyListAPI } from "../apis/RallyReviewAPICalls";
 import { useDispatch, useSelector } from "react-redux";
 
 
 function ReviewBoard() {
 
+    //리덕스
     const dispatch = useDispatch();
-    const test = useSelector(state => state.reviewReducer);
-
-    const reviews = test.reviews;
-
+    const reviewList = useSelector(state => state.reviewReducer);
     const [page, setPage] = useState(1);
 
     const handlePageChange = (page) => { setPage(page) };
 
-    const [reviewPostList, setReviewPostList] = useState([]);
-
     useEffect(() => {
-
-        console.log("리뷰게시판");
-        dispatch(callReviewListAPI({ currentPage: 1 }));
-
-        // setReviewPostList(getReviewList().slice(15 * (page - 1), 15 * (page - 1) + 15));
+        dispatch(callReviewRallyListAPI({currentPage: 1 }));
+        
     }, [page]);
 
     return (
@@ -40,21 +33,16 @@ function ReviewBoard() {
                 <article className={style.title}>
                     <h1>랠리 후기</h1>
                 </article>
-
                 <article className={style.category}>
-                    <select className={style.select}>
-                        <option>전체</option>
-                        <option>랠리장</option>
-                        <option>랠리원</option>
-                    </select>
-                    <div>타입</div>
+                    <div>랠리 타입</div>
                     <div>랠리명</div>
+                    <div>리뷰명</div>
                     <div>작성자</div>
                     <div>작성일</div>
                 </article>
 
                 <article className={style.list}>
-                    <ReviewList reviews={reviews} />
+                    {Array.isArray(reviewList) && <ReviewList reviewList={reviewList} />}
                 </article>
 
                 <PaginationBox>
