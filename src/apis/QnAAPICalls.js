@@ -1,7 +1,7 @@
-import { GET_QNALIST, GET_QNA, POST_QNA, PUT_QNA } from "../modules/QnaModule";
+import { GET_QNALIST, GET_QNA, POST_QNA, PUT_QNA, DELETE_QNA } from "../modules/QnaModule";
 
 // 전체 목록 조회
-export const callQnaListAPI = ({currentPage}) => {
+export const callQnaListAPI = ({ currentPage }) => {
 
     let URL;
 
@@ -9,7 +9,7 @@ export const callQnaListAPI = ({currentPage}) => {
 
     // const requestURL = 'http://localhost:8000/api/members/auth'
 
-    if(currentPage !== undefined || currentPage !== null) {
+    if (currentPage !== undefined || currentPage !== null) {
         URL = `http://localhost:8000/api/v1/qnas?page=${currentPage}`;
     } else {
         URL = 'localhost:800/api/v1/qnas';
@@ -18,20 +18,20 @@ export const callQnaListAPI = ({currentPage}) => {
     console.log('[QnaAPICalls] URL : ', URL);
 
     return async (dispatch, getState) => {
-        
+
         const result = await fetch(URL, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Accept":"*/*",
-                "Auth":token
+                "Accept": "*/*",
+                "Auth": token
             }
         })
-        .then(response => response.json());
+            .then(response => response.json());
 
-        if(result.httpStatus === 200) {
-            console.log('[QnaAPICalls] callQnaListAPI RESULT : ', result.results);
-            dispatch({ type: GET_QNALIST, payload: result.results.QnaList.content });
+        if (result.httpStatus === 200) {
+            console.log('[QnaAPICalls] callQnaListAPI RESULT : ', result);
+            dispatch({ type: GET_QNALIST, payload: result.results });
         }
     };
 }
@@ -50,12 +50,12 @@ export const callQnaDetailAPI = ({ qnaId }) => {
         const result = await fetch(URL, {
             method: "GET",
             headers: {
-                "Content-Type":"application/json",
+                "Content-Type": "application/json",
                 "Accept": "*/*",
-                "Auth":token
+                "Auth": token
             }
         })
-        .then(response => response.json())
+            .then(response => response.json())
         // .catch(console.error("에러발생"));
 
         if (result.httpStatus === 200) {
@@ -82,7 +82,7 @@ export const callPostQnaAPI = ({ form }) => {
             method: "POST",
             headers: {
                 "Accept": "*/*",
-                "Auth":token
+                "Auth": token
             },
             body: form
         })
@@ -97,13 +97,9 @@ export const callPostQnaAPI = ({ form }) => {
 // 수정
 export const callModifyRallyAPI = ({ form, qnaId }) => {
 
-    console.log('[QnaAPICalls] callModifyQnaAPI Call');
-
-    const token = window.localStorage.getItem('jwtToken');
-
     const URL = `http://localhost:8000/api/v1/qnas/${qnaId}`;
 
-    console.log("URL", URL);
+    const token = window.localStorage.getItem('jwtToken');
 
     return async (dispatch, getState) => {
 
@@ -111,7 +107,7 @@ export const callModifyRallyAPI = ({ form, qnaId }) => {
             method: "PUT",
             headers: {
                 "Accept": "*/*",
-                "Auth":token
+                "Auth": token
             },
             body: form
         })
@@ -128,7 +124,9 @@ export const callSearchQnaAPI = ({ criteria }) => {
 
     console.log('[QnaAPICalls] callSearchQnaAPI Call');
 
-    const URL = `http://localhost:8000/api/v1/qns/search?${criteria}`;
+    const URL = `http://localhost:8000/api/v1/qnas/search?${criteria}`;
+
+    const token = window.localStorage.getItem('jwtToken');
 
     console.log("URL : ", URL);
 
@@ -138,7 +136,8 @@ export const callSearchQnaAPI = ({ criteria }) => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "*/*"
+                "Accept": "*/*",
+                "Auth": token
             }
         })
             .then(response => response.json())
@@ -150,10 +149,33 @@ export const callSearchQnaAPI = ({ criteria }) => {
     }
 }
 
+// 삭제
+export const callQnaDeleteAPI = ({ qnaId }) => {
 
+    const URL = `http://localhost:8000/api/v1/qnas/${qnaId}`;
 
+    console.log(URL)
 
+    const token = window.localStorage.getItem('jwtToken');
 
+    return async (dispatch, getState) => {
 
-export function getQnAList() {};
+        const result = await fetch(URL, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+                "Auth": token
+            }
+        })
+            .then(response => response.json())
+
+        if (result.httpStatus === 200) {
+            console.log('[QnaAPICalls] callQnaDeleteAPI SUCCESS', result);
+            dispatch({ type: DELETE_QNA, payload: result.results })
+        }
+    }
+}
+
+export function getQnAList() { };
 

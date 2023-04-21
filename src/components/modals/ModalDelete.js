@@ -1,9 +1,10 @@
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModal } from "../../modules/ModalsModule";
+import { OPEN_DELETE_OK_POST, closeModal } from "../../modules/ModalsModule";
 import styles from './Modal.module.css';
+import { callQnaDeleteAPI } from '../../apis/QnAAPICalls';
 
-function DeleteModal() {
+function DeleteModal({qnaId}) {
 
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.modalsReducer.deletePostState);
@@ -20,7 +21,13 @@ function DeleteModal() {
                     <br />
                     <h6 className={styles.text}> * 삭제된 후에는 되돌릴 수 없습니다. </h6>
 
-                    <input type='button' className={styles.ok} value='확인' />
+                    <input 
+                        type='button' 
+                        className={styles.ok} 
+                        onClick={() => { 
+                            dispatch({type: OPEN_DELETE_OK_POST});
+                            dispatch(callQnaDeleteAPI({qnaId: qnaId}));
+                    }} value='확인' />
                     <input type='button' className={styles.close} onClick={() => dispatch(closeModal())} value='취소' />
                 </div>
             </div>

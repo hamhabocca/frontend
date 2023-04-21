@@ -1,60 +1,43 @@
-import QnAList from "../components/lists/QnAList";
-import style from "./QnABoard.module.css"
-import Pagination from "react-js-pagination";
-import styled from 'styled-components';
-import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
+import { useEffect, useState } from "react";
+import { HiChevronDoubleLeft, HiChevronDoubleRight, HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useSearchParams } from "react-router-dom";
+import QnAList from "../components/lists/QnAList";
+import style from "./QnABoard.module.css";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
+import { callSearchQnaAPI } from "../apis/QnAAPICalls";
 
 function QnASearchBoard() {
 
-    const [page, setPage] = useState(1);
-    const [qnaPostList, setQnAPostList] = useState([]);
-    const [searchValue, setSearchValue] = useState('');
+    // 리덕스
+    const dispatch = useDispatch();
+    const qnas = useSelector((state) => state.qnaReducer);
+    const qnaList = qnas?.qnaList;
+    const pageInfo = qnas?.paging;
+    const { search } = useLocation();
+    const query = decodeURI(search).replace('?', '');
 
-    const [searchParams] = useSearchParams();
+    const [searchValue, setSearchValue] = useState("");
 
-    const [qnaList, setQnAList] = useState([]);
+    // 현재 페이지
+    const [currentPage, setCurrentPage] = useState(1);
 
-
-    const navigate = useNavigate();
-
-    const url = useLocation();
-
-    console.log(url);
-
-    console.log(decodeURI(url.search));
-
-    const newurl = decodeURI(url.search)
-
-    console.log(newurl.split('=')[1]);
-
-    // const qnatitle = searchParams.get('qnatitle');
-    const qnatitle = newurl.split('=')[1];
-
-    decodeURI(url);
-
-    // useEffect(
-    //     () => {
-    //         setQnAList(searchQnA(qnatitle));
-    //     },
-    //     [qnatitle]
-    // );
-
-    console.log(qnatitle);
-
+    // 페이지 변경될 때마다 리렌더링
     useEffect(() => {
-        // setQnAPostList(searchQnA(qnatitle).slice(10 * (page - 1), 10 * (page - 1) + 10));
-    }, [qnatitle]);
 
-    const handlePageChange = (page) => { setPage(page) };
+        dispatch(callSearchQnaAPI({ criteria: query, page: currentPage }));
 
-    const onClickhandler = () => {
-        navigate(`/qna/search?qnaName=${searchValue}`);
+    }, [currentPage, query]);
+
+    // 총 페이지의 모음
+    const pageNumber = [1];
+    if (pageInfo) {
+        for (let i = pageInfo.startPage + 1; i <= pageInfo.endPage; i++) {
+            pageNumber.push(i);
+        }
     }
 
+    // 렌더링 성공적으로 될때만 리스트 조회 노출
     return (
 
         <main className={style.all}>
@@ -62,17 +45,19 @@ function QnASearchBoard() {
             <div className={style.search}>
                 <select className={style.dropdownbox}>
                     <option>카테고리</option>
+                    <option>건의</option>
+                    <option>랠리</option>
+
                 </select>
-                <form className={style.input}>
+                <form className={style.input} action={"/qna/search"}>
                     <input
                         className={style.searchfield}
                         type="text"
-                        size="50"
-                        name="search"
+                        name="qnaTitle"
                         value={searchValue}
-                        onChange={e => setSearchValue(e.target.value)}
+                        onChange={(e) => setSearchValue(e.target.value)}
                     />
-                    <input onClick={onClickhandler} className={style.searchbtn} type="submit" value="검색" />
+                    <input className={style.searchbtn} type="submit" value="검색" />
                 </form>
             </div>
 
@@ -84,6 +69,8 @@ function QnASearchBoard() {
                     <div className={style.d1}>
                         <select className={style.cgselect}>
                             <option>카테고리</option>
+                            <option>건의</option>
+                            <option>랠리</option>
                         </select>
 
                         <h6 className={style.postname}>제목</h6>
@@ -97,31 +84,35 @@ function QnASearchBoard() {
                 </div>
 
                 <article className={style.list}>
-                    <QnAList qnaPosts={qnaPostList} />
+                    {Array.isArray(qnaList) && <QnAList qnaList={qnaList} />}
                 </article>
-
             </div>
 
             <article className={style.btn}>
                 <Link to='/qna/write'><button>작성</button></Link>
             </article>
 
-            <div className={style.pageNumber}>
-                <PaginationBox>
-                    <Pagination
-                        activePage={page}
-                        itemsCountPerPage={10}
-                        // totalItemsCount={getQnAList().length}
-                        pageRangeDisplayed={5}
-                        firstPageText={<HiChevronDoubleLeft />}
-                        prevPageText={<HiChevronLeft />}
-                        nextPageText={<HiChevronRight />}
-                        lastPageText={<HiChevronDoubleRight />}
-                        onChange={handlePageChange}
-                    />
-                </PaginationBox>
-
-            </div>
+            <article className={style.pagination}>
+                <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
+                    <HiChevronDoubleLeft />
+                </button>
+                <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} >
+                    <HiChevronLeft />
+                </button>
+                {pageNumber.map((num) => (
+                    <li key={num} onClick={() => setCurrentPage(num)}>
+                        <button style={currentPage == num ? { color: '#003ACE' } : null}>
+                            {num}
+                        </button>
+                    </li>
+                ))}
+                <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === pageInfo?.endPage || pageInfo?.endPage == 1}>
+                    <HiChevronRight />
+                </button>
+                <button onClick={() => setCurrentPage(pageInfo?.endPage)} disabled={currentPage === pageInfo?.endPage || pageInfo?.endPage == 1}>
+                    <HiChevronDoubleRight />
+                </button>
+            </article>
             <br />
             <hr />
 
@@ -130,24 +121,4 @@ function QnASearchBoard() {
     );
 }
 
-const PaginationBox = styled.div`
-  .pagination { display: flex; justify-content: center; margin-top: 15px;}
-  ul { list-style: none; padding: 0; }
-  ul.pagination li {
-    display: inline-block;
-    width: 30px;
-    height: 20px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem; 
-  }
-  ul.pagination li a { text-decoration: none; color: #A5A5A5; font-size: 12pt; }
-  ul.pagination li.active a { color: #202020; }
-  ul.pagination li a:hover,
-  ul.pagination li a.active { color: #202020; }
-  `
-
 export default QnASearchBoard;
-
