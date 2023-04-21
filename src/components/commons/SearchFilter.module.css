@@ -129,11 +129,13 @@
     border-top: 1.5px solid #202020;
 }
 
-.recruit p {
+.recruit > p {
+    width: 150px;
     font-size: 10pt;
+    padding: 3px 0;
 }
 
-.recruit button {
+.recruit > * > button {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 16px;
     width: 150px;

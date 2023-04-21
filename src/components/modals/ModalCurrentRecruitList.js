@@ -4,7 +4,7 @@ import { closeModal } from "../../modules/ModalsModule";
 import MemberCardModal from '../items/MemberCardModal';
 import style from './ModalCurrentRecruitList.module.css';
 
-function CurrentRecruitListModal({ rally }) {
+function CurrentRecruitListModal() {
 
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.modalsReducer.recruitListState);
@@ -20,13 +20,13 @@ function CurrentRecruitListModal({ rally }) {
                     신청 회원 {mateList.length}명
                 </div>
                 <div className={style.group}>
-                    <div></div>
+                    <p></p>
                     <p>닉네임</p>
                     <p>신청 시각</p>
                     <p>승인처리</p>
                 </div>
                 <div>
-                    {Array.isArray(mateList) && mateList.map(mate => <MemberCardModal mate={mate} masterId={rally.masterId} />)}
+                    {Array.isArray(mateList) && mateList.map(mate => <MemberCardModal key={mate.id} mate={mate} />)}
                 </div>
             </section>
         </Modal>
