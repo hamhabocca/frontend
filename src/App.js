@@ -26,6 +26,7 @@ import EditQnA from './pages/EditQnA';
 // 브라우저별 기본 CSS 스타일 초기화
 import '../src/reset.css';
 import './App.css';
+import Oauth1 from './pages/Oauth1';
 
 function App() {
 	return (
@@ -60,6 +61,7 @@ function App() {
 					<Route path='mypage' element={<MyPage />} />
 					<Route path='login' element={<Login />} />
 					<Route path='oauth' element={<Oauth/>}/>
+					<Route path='oauth1' element={<Oauth1/>} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

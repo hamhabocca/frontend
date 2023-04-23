@@ -15,7 +15,6 @@ function Oauth1() {
 
     const NAVER_REDIRECT_URI = encodeURI('http://localhost:3000/oauth1');
 
-
     const navigate = useNavigate();
 
     const dispatch = useDispatch();

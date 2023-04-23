@@ -48,12 +48,15 @@ function MyPage() {
         }
     }
 
+    /* 레벨 */
+    const level = Math.floor(member?.mileage / 200) + 1;
+
     /* 달성 퍼센티지 구하는 함수 */
     function getPercent() {
 
         if (member?.mileage != null && member?.mileage > 0) {
             return (
-                (member?.mileage - ((member?.level - 1) * 200)) / 200
+                (member?.mileage - ((level - 1) * 200)) / 200
             )
         }
         return 0;
@@ -62,7 +65,7 @@ function MyPage() {
     /* 다음 단계까지 남은 km 수 구하는 함수 */
     function getRemainingKm() {
 
-        return (member?.level * 200) - member?.mileage;
+        return (level * 200) - member?.mileage;
     }
 
     /* 원형 프로그레스 바 용도 */
