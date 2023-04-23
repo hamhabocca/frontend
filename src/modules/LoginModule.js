@@ -2,14 +2,14 @@ import { createActions, handleActions } from 'redux-actions';
 
 const initialState = false;
 
-export const IS_LOGIN = 'IS_LOGIN';
+export const IS_SIGNUP = 'IS_SIGNUP';
 
 const actions = createActions({
-    [IS_LOGIN]: () => { }
+    [IS_SIGNUP]: () => { }
 });
 
 const loginReducer = handleActions({
-    [IS_LOGIN]: () => { 
+    [IS_SIGNUP]: () => { 
         return !initialState; 
     }}, initialState
 );
