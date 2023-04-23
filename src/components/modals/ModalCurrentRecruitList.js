@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModal } from "../../modules/ModalsModule";
+import { CLOSE_MODAL } from "../../modules/ModalsModule";
 import MemberCardModal from '../items/MemberCardModal';
 import style from './ModalCurrentRecruitList.module.css';
 
@@ -11,7 +11,7 @@ function CurrentRecruitListModal() {
     const mateList = useSelector(state => state.participateReducer);
 
     return (
-        <Modal isOpen={isOpen} onRequestClose={() => dispatch(closeModal())} ariaHideApp={false} className={style.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>
+        <Modal isOpen={isOpen} onRequestClose={() => dispatch({type: CLOSE_MODAL})} ariaHideApp={false} className={style.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>
             <section>
                 <div className={style.header}>
                     <h1>신청 현황</h1>
