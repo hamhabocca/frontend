@@ -17,13 +17,15 @@ function Oauth() {
 
     useEffect(
         () => {
-            console.log('로그인시작할거임')
+
             dispatch(callKakaoLoginAPI(code));
-            console.log('로그인끝')
+
             if(loginStatus) {
-                console.log("로그인되어있다네~~")
 
                 
+                if(isSignUp) {
+
+                }
             } else {
                 alert("로그인에 실패하였습니다.")
             }
