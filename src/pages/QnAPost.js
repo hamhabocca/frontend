@@ -8,36 +8,31 @@ import { callQnaDetailAPI } from "../apis/QnAAPICalls";
 
 function QnAPost() {
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const deletePostState = useSelector(state => state.modalsReducer.deletePostState);
-
-    const { qnaId } = useParams();
-
-    const qna = useSelector(state => state.qnaReducer)
-
     /* 현재 사용자 */
     const token = window.localStorage.getItem("jwtToken");
     const MEMBER_ID = JSON.parse(token)?.memberId;
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { qnaId } = useParams();
+    const qna = useSelector(state => state.qnaReducer)
+    const deletePostState = useSelector(state => state.modalsReducer.deletePostState);
+
     /* QNA 아이디 */
     const QNA_ID = qnaId;
-
     /* QNA 카테고리 */
     const QNA_CATEGORY = qna.qnaCategory;
-
     /* QNA 제목 */
     const QNA_TITLE = qna.qnaTitle;
-
     /* QNA 내용 */
     const QNA_DETAIL = qna.qnaDetail;
-
     /* QNA 작성자 */
-    const QNA_WRITER = qna.qnaWriter;
-
+    const QNA_WRITER = qna.memberId;
     /* 작성일 */
     const qnawritedate = new Date(qna.qnaWriteDate);
+    
+    const NICKNAME = qna.member?.nickname;
+    console.log('닉네임' + NICKNAME);
 
     /* 게시글 상단 버튼 */
     function PostSet() {
@@ -87,7 +82,7 @@ function QnAPost() {
                     </div>
 
                     <div className={style.d2}>
-                        <h6 className={style.writer}>{QNA_WRITER}</h6>
+                        <h6 className={style.writer}>{NICKNAME}</h6>
 
                         <h6 className={style.date}>{qnawritedate.toLocaleDateString().slice(0, -1)}</h6>
                     </div>
@@ -98,31 +93,39 @@ function QnAPost() {
                 </div>
                 <div className={style.contants}>
                     <div>
-                        <div className={style.img}>이미지</div>
-                        <br />
+                        {/* <div className={style.img}>이미지</div>
+                        <br /> */}
+                        <br/>
+                        <br/>
                         <h4>{QNA_DETAIL}</h4>
                     </div>
                 </div>
             </div>
             <hr />
+            <br/>
+            
             <div className={style.writer2}>
-                <h3 className={style.nick}>닉네임</h3>
-                <h4 className={style.date2}>등록일</h4>
+            
             </div>
             <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <div className={style.comment1}>
-                <h2>댓글</h2>
+            
             </div>
             <br />
             <div className={style.writer3}>
-                <h3 className={style.nick2}>ㄴ 닉네임</h3>
-                <h4 className={style.date3}>등록일</h4>
+            
+            
             </div>
             <br />
             <div className={style.comment2}>
-                <h2>댓글</h2>
+            
             </div>
             <hr />
+            <h3>{NICKNAME}</h3>
             <br />
             <div className={style.container}>
                 <textarea className={style.comment3} cols='10' rows='5' />

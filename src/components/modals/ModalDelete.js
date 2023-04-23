@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { OPEN_DELETE_OK_POST, closeModal } from "../../modules/ModalsModule";
 import styles from './Modal.module.css';
 import { callQnaDeleteAPI } from '../../apis/QnAAPICalls';
+import { useNavigate } from 'react-router-dom';
 
 function DeleteModal({qnaId}) {
 
