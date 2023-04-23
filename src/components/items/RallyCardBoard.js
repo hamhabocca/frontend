@@ -15,7 +15,7 @@ function RallyCardBoard({ rally }) {
     const rallyStatus = () => {
         switch (RALLY_STATUS) {
             case "모집완료":
-                return <div style={{ background: '#FF7A00' }}>모집마감</div>;
+                return <div style={{ background: '#FF7A00' }}>모집완료</div>;
             case "완주!":
                 return <div style={{ background: '#056DFA' }}>완주!</div>;
             case "취소됨":
