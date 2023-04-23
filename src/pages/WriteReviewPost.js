@@ -15,7 +15,6 @@ function WriteReviewPost() {
     const test = new Date().toLocaleString();
     console.log(test)
 
-
     /* 이 리뷰의 랠리의 id */
     const rallyId = searchParams.get("rallyid");
     const imageInput = useRef();
@@ -49,13 +48,6 @@ function WriteReviewPost() {
         });
     };
 
-    const onImageChangeHandler = (e) => {
-        setForm({
-            ...form,
-            reviewImage: e.target.files[0],
-        });
-        
-    };
 
     const onClickReviewPostHandler = () => {
 
@@ -94,7 +86,7 @@ function WriteReviewPost() {
                         <h1>랠리 후기 작성</h1>
                     </div>
                     <div className={style.report}>
-                    <button onClick={onImageChangeHandler}>등록</button>
+                    <button onClick={onClickReviewPostHandler}>등록</button>
                     </div>
                 </article>
                 <div className={style.MainContainer}>
