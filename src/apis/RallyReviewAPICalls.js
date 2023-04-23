@@ -80,12 +80,12 @@ export const callReviewRallyListAPI = () => {
             const reviewList = result.results.reviews;
 
             if (reviewList.length > 0) {
-                const memberIdList = reviewList.map((review) => parseInt(review.memberId));
-                const rallyIdList = reviewList.map((review) => parseInt(review.rallyId));
+                const memberIdList = reviewList.map((review) => review.memberId);
+                const rallyIdList = reviewList.map((review) => review.rallyId);
 
                 // member 데이터와 rally 데이터를 가져오는 API endpoint를 호출
                 const memberResult = await fetch(
-                    `http://localhost:8000/api/v1/members/${memberIdList
+                    `http://localhost:8000/api/v1/members?${memberIdList
                         .map((id) => `id=${id}`)
                         .join("&")}`,
                     {
@@ -100,7 +100,6 @@ export const callReviewRallyListAPI = () => {
 
                 const rallyResult = await fetch(
                     `http://localhost:8000/api/v1/rallies?${rallyIdList
-                        .filter((id) => id !== undefined)
                         .map((id) => `id=${id}`)
                         .join("&")}`,
                     {
