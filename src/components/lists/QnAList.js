@@ -4,7 +4,7 @@ function QnAList({ qnaList }) {
 
   return (
     <>
-      {qnaList && qnaList.map(qna => <QnACardBoard key={qna.qnaId} qna={qna} />)}
+      {qnaList.map(qna => <QnACardBoard key={qna.qnaId} qna={qna} />)}
     </>
   );
 }
