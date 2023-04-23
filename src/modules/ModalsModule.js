@@ -15,6 +15,8 @@ export const OPEN_REGISTER = 'modal/OPEN_REGISTER';
 export const OPEN_DELETE_ACCOUNT = 'modal/OPEN_DELETE_ACCOUNT';
 export const OPEN_DELETE_OK_ACCOUNT = 'modal/OPEN_DELETE_OK_ACCOUNT';
 export const OPEN_DELETE_POST = 'modal/OPEN_DELETE_POST';
+export const OPEN_DELETE_REVIEW = 'modal/OPEN_DELETE_REVIEW';
+
 export const OPEN_DELETE_OK_POST = 'modal/OPEN_DELETE_OK_POST';
 
 export const closeModal = () => ({
@@ -81,6 +83,12 @@ const modalsReducer = handleActions({
     [OPEN_DELETE_POST]: () => {
         return {
             deletePostState: true
+        };
+    },
+
+    [OPEN_DELETE_REVIEW]: () => {
+        return {
+            deleteReviewState: true
         };
     },
     [OPEN_DELETE_OK_POST]: () => {

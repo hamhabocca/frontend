@@ -42,7 +42,7 @@ function ReviewCardBoard({review}) {
                 </div>
                 <div>{RALLY_NAME}</div>
                 <div>{review.reviewTitle}</div>
-                <div>{review.reviewWriter}</div>
+                <div>{review.member.nickname}</div>
                 <div>{REVIEW_DATE}</div>
             </section>
         </Link>
