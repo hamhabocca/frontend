@@ -86,6 +86,10 @@
     align-items: center;
 }
 
+.RiderProfile h4 {
+    font-weight: 700;
+}
+
 .circle_progress_wrap {
     width: 120px;
     height: 120px;

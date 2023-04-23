@@ -3,7 +3,7 @@ import { GET_PARTICIPATE, POST_PARTICIPATE, PUT_PARTICIPATE, CANCEL_PARTICIPATE 
 // 랠리 신청 현황
 export const callParticipateListAPI = ({ rallyId }) => {
 
-    // console.log("[ParticipateAPICalls] ParticipateListAPI Call...");
+    console.log("rallyId : " + rallyId);
 
     const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list`;
 

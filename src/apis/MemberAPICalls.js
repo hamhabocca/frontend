@@ -148,6 +148,7 @@ export const getParticipatedRallies = () => {
 
         console.log('[MemberAPICalls] getParticipatedRallies RESULT : ', result);
         if (result.httpStatus === 200) {
+
             dispatch({ type: GET_PARTICIPATE, payload: result.results });
         }
     };
@@ -171,10 +172,10 @@ export const callSimpleMemberAPI = (memberId) => {
                 "Auth": token
             }
         }).then(res => res.json());
-    
+
         console.log('[MemberAPICalls] callSimpleMemberAPI RESULT : ', result);
-        if(result.httpStatus === 200){
-            dispatch({ type: GET_MEMBER,  payload: result.results?.member });
+        if (result.httpStatus === 200) {
+            dispatch({ type: GET_MEMBER, payload: result.results?.member });
         }
     };
 }
@@ -185,7 +186,7 @@ export const checkNickname = (nickname) => {
     const token = window.localStorage.getItem('jwtToken');
 
     const requestURL = `http://localhost:8000/api/v1/members/duplicate/${nickname}`;
-    
+
     return async (dispatch, getState) => {
 
         const result = await fetch(requestURL, {
@@ -239,3 +240,4 @@ export const modifyProfile = ({ form }) => {
         console.log('[MemberAPICalls] modifyProfile RESULT : ', result);
     }
 }
+

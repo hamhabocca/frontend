@@ -9,12 +9,16 @@ function Home() {
 
     const dispatch = useDispatch();
     const rallies = useSelector((state) => state.rallyReducer);
-    const rallyList = rallies?.rallyList?.content.filter(rally => rally.rallyStatus != '취소됨').slice(0, 6);
+    const rallyList = rallies?.rallyList?.content?.filter(rally => rally.rallyStatus != '취소됨').slice(0, 6);
     const pageInfo = rallies?.paging;
 
     const [currentPage, setCurrentPage] = useState(1);
 
     console.log(rallyList);
+
+    function toNotice() {
+        window.location.replace("/notice");
+    }
 
     useEffect(
         () => {
@@ -26,7 +30,7 @@ function Home() {
     return (
         <>
             <main>
-                <label className={style.Notice}>공지사항일듯</label>
+                <label className={style.Notice} onClick={toNotice}>공지사항일듯</label>
                 <div className={style.NewestRallyAndMore}>
                     <h4>&gt; 최신 랠리 모집</h4>
                     <button><Link to='/rally'>더보기&nbsp;&nbsp; &gt;</Link></button>

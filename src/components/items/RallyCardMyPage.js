@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
 import style from './RallyCardMyPage.module.css';
 import { BiCalendarCheck } from 'react-icons/bi';
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { callApprovalAPI } from '../../apis/MemberAPICalls';
 
 function RallyCardMyPage({ rally, typeOfList }) {
 
@@ -11,44 +14,60 @@ function RallyCardMyPage({ rally, typeOfList }) {
 
     const rallyStatus = rally.rallyStatus;
 
-    const myId = JSON.parse(window.localStorage.getItem('jwtToken')).memberId;
+    const rallyId = rally.rallyId
 
-    const navigate = useNavigate();
+    const myId = JSON.parse(window.localStorage.getItem('jwtToken')).memberId;
 
     // const isReviewWritten = checkReviewStatus(rally.rallyId, myId);
 
-    function goWriteReview() {
-        navigate("/review/write");
-    }
+    const isAccepted = rally.isAccepted;
 
     const availableOptions = () => {
 
-        if(typeOfList == '과거' || typeOfList == '모집') {
+        let approval = "모집중";
 
-            switch (rallyStatus) {
-                case "완주!":
-                    return <Link to={`/review/write?rallyid=${rally.rallyId}`} style={{ color: 'white', textDecoration: 'none' }}><button className={style.button} style={{ background: '#7D7D7D' }}>
-                        후기 작성
-                        </button></Link>;
-                case "모집중":
-                    return <button className={style.button} style={{ background: '#D9D9D9' }}>
-                        모집중
-                    </button>;
-                case "모집완료":
-                    return <button className={style.button} style={{ background: '#D9D9D9' }}>
-                        모집완료
-                    </button>;
-                case "취소됨":
-                    return <button className={style.button} style={{ background: '#D9D9D9' }}>
-                        취소됨
-                    </button>;
+        let rallyFinished =
+            <Link to={`/review/write?rallyid=${rally.rallyId}`} style={{ color: 'white', textDecoration: 'none' }}>
+                <button className={style.button} style={{ background: '#7D7D7D' }}>
+                    후기 작성
+                </button>
+            </Link>;
+
+        if (typeOfList == '과거' || typeOfList == '모집') {
+
+        }
+
+        if (typeOfList == '참여') {
+
+            if (isAccepted == "Y") {
+                approval = "승인됨";
+            } else {
+                approval = "미승인";
+                rallyFinished =
+                    <button className={style.button} style={{ background: '#D9D9D9' }}>
+                        종료됨
+                    </button>
+
             }
         }
 
-        if(typeOfList == '참여') {
 
+        switch (rallyStatus) {
+            case "완주!":
+                return rallyFinished;
+            case "모집중":
+                return <button className={style.button} style={{ background: '#D9D9D9' }}>
+                    {approval}
+                </button>;
+            case "모집완료":
+                return <button className={style.button} style={{ background: '#D9D9D9' }}>
+                    모집완료
+                </button>;
+            case "취소됨":
+                return <button className={style.button} style={{ background: '#D9D9D9' }}>
+                    취소됨
+                </button>;
         }
-
     }
 
     const rallytype = () => {

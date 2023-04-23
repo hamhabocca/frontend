@@ -12,7 +12,7 @@ function MyPageList({ typeOfList, rallyList }) {
     const participatedSizeState = useSelector(state => state.listSizeReducer.participatedSizeState);
 
     /* 모집중/지난 랠리 리스트 */
-    const currentList = Array.isArray(rallyList) && rallyList.filter(rally => rally.rallyStatus == '모집중');
+    const currentList = Array.isArray(rallyList) && rallyList.filter(rally => rally.rallyStatus == '모집중' || rally.rallyStatus == '모집완료');
     const originalPastList =
         Array.isArray(rallyList) &&
         rallyList.filter(rally => rally.rallyStatus != '모집중')
