@@ -1,6 +1,20 @@
 import { createActions, handleActions } from "redux-actions";
 
-const initialState = false;
+const initialState = {
+    recruitListState: false,
+    participateState: false,
+    cancelParticipateState: false,
+    cancelRallyState: false,
+    reportState: false,
+    profileState: false,
+    registerState: false,
+    deleteAccountState: false,
+    deletePostState: false,
+    deleteOkPostState: false,
+    nicknameState: false,
+    nicknameOkState: false,
+    okState: false
+};
 
 export const OPEN_RECRUIT_LIST = 'modal/OPEN_RECRUIT_LIST';
 export const OPEN_PARTICIPATE = 'modal/OPEN_PARTICIPATE';
@@ -16,80 +30,104 @@ export const OPEN_DELETE_ACCOUNT = 'modal/OPEN_DELETE_ACCOUNT';
 export const OPEN_DELETE_OK_ACCOUNT = 'modal/OPEN_DELETE_OK_ACCOUNT';
 export const OPEN_DELETE_POST = 'modal/OPEN_DELETE_POST';
 export const OPEN_DELETE_OK_POST = 'modal/OPEN_DELETE_OK_POST';
+export const OPEN_NICKNAME = 'modal/OPEN_NICKNAME';
+export const OPEN_NICKNAME_OK = 'modal/OPEN_NICKNAME_OK';
+export const CLOSE_MODAL = 'modal/CLOSE_MODAL';
 
 export const closeModal = () => ({
-    type: 'CLOSE_MODAL',
+    type: CLOSE_MODAL,
     payload: { ...initialState }
 });
 
 const modalsReducer = handleActions({
-    [OPEN_RECRUIT_LIST]: () => {
+    [OPEN_RECRUIT_LIST]: (state, payload) => {
         return {
+            ...state,
             recruitListState: true
         };
     },
-    [OPEN_PARTICIPATE]: () => {
+    [OPEN_PARTICIPATE]: (state, payload) => {
         return {
+            ...state,
             participateState: true
         };
     },
-    [OPEN_PARTICIPATE_OK]: () => {
+    [OPEN_CANCEL_PARTICIPATE]: (state, payload) => {
         return {
-            participateOkState: true
-        };
-    },
-    [OPEN_CANCEL_PARTICIPATE]: () => {
-        return {
+            ...state,
             cancelParticipateState: true
         };
     },
-    [OPEN_CANCEL_RALLY]: () => {
+    [OPEN_CANCEL_RALLY]: (state, payload) => {
         return {
+            ...state,
             cancelRallyState: true
         };
     },
-    [OPEN_OK]: () => {
+    [OPEN_OK]: (state, payload) => {
         return {
+            ...state,
             okState: true
         };
     },
-    [OPEN_REPORT]: () => {
+    [OPEN_REPORT]: (state, payload) => {
         return {
+            ...state,
             reportState: true
         };
     },
-    [OPEN_PROFILE]: () => {
+    [OPEN_PROFILE]: (state, payload) => {
         return {
+            ...state,
             profileState: true
         };
     },
-    [OPEN_REGISTER]: () => {
+    [OPEN_REGISTER]: (state, payload) => {
         return {
+            ...state,
             registerState: true
         };
     },
-    [OPEN_DELETE_ACCOUNT]: () => {
+    [OPEN_DELETE_ACCOUNT]: (state, payload) => {
         return {
+            ...state,
             deleteAccountState: true
         };
     },
-    [OPEN_DELETE_OK_ACCOUNT]: () => {
+    [OPEN_DELETE_OK_ACCOUNT]: (state, payload) => {
         return {
+            ...state,
             deleteOkAccountState: true
         };
     },
-    [OPEN_DELETE_POST]: () => {
+    [OPEN_DELETE_POST]: (state, payload) => {
         return {
+            ...state,
             deletePostState: true
         };
     },
-    [OPEN_DELETE_OK_POST]: () => {
+    [OPEN_DELETE_OK_POST]: (state, payload) => {
         return {
+            ...state,
             deleteOkPostState: true
         };
     },
-    'CLOSE_MODAL': (state, payload) => {
-        return payload;
+    [OPEN_NICKNAME]: (state, payload) => {
+        return {
+            ...state,
+            nicknameState: true
+        };
+    },
+    [OPEN_NICKNAME_OK]: (state, payload) => {
+        return {
+            ...state,
+            nicknameOkState: true
+        };
+    },
+    [CLOSE_MODAL]: () => {
+        return {
+            ...initialState
+        };
     }
 }, initialState);
 

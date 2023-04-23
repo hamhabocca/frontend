@@ -65,17 +65,14 @@ function WriteRallyPost() {
 
         dispatch(callPostRallyAPI({ form: formData }));
         dispatch(reset_state());
-
-        alert('랠리게시판으로 이동합니다.');
         navigate('/rally', { replace: true });
-        window.location.reload();
     };
 
     const onClickPostHandler = () => {
 
         const formList = Object.entries(form).slice(0, 8);
 
-        if (formList.filter(value => value[1] == '').length == 0) {
+        if (formList.filter(value => value[1] === '').length == 0) {
             return onClickRallyPost();
         }
 

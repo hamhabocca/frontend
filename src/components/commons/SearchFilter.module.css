@@ -12,6 +12,7 @@
     height: 60px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-size: 16pt;
     font-weight: 700;
     border-bottom: 1.5px solid #202020;
@@ -20,6 +21,15 @@
 .title h1 {
     font-weight: 700;
     font-size: 20px;
+}
+
+.refresh {
+    border: none;
+    background: none;
+    height: 100%;
+    color: #202020;
+    font-size: 24px;
+    padding: 0;
 }
 
 .form {

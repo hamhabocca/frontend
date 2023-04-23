@@ -4,7 +4,8 @@ import sigunguList from '../../data/sigungu.json';
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } from '../../modules/CountModule';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { IoMdRefresh } from "react-icons/io";
 
 function searchSig(sido) {
 
@@ -19,10 +20,10 @@ function Sigoon({ sig }) {
 function SearchFilter() {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     /* 회원 확인 */
     const token = window.localStorage.getItem("jwtToken");
-
 
     /* state값 가져오기 */
     const distanceCount = useSelector(state => state.countReducer.distanceState);
@@ -72,6 +73,7 @@ function SearchFilter() {
         <div className={style.filter}>
             <article className={style.title}>
                 <h1>Filter</h1>
+                <button className={style.refresh} onClick={()=> { navigate('/rally'); }}><IoMdRefresh/></button>
             </article>
 
             <form className={style.form} action={"/rally/search"}>
