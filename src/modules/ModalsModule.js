@@ -31,7 +31,6 @@ export const OPEN_DELETE_ACCOUNT = 'modal/OPEN_DELETE_ACCOUNT';
 export const OPEN_DELETE_OK_ACCOUNT = 'modal/OPEN_DELETE_OK_ACCOUNT';
 export const OPEN_DELETE_POST = 'modal/OPEN_DELETE_POST';
 export const OPEN_DELETE_REVIEW = 'modal/OPEN_DELETE_REVIEW';
-
 export const OPEN_DELETE_OK_POST = 'modal/OPEN_DELETE_OK_POST';
 export const OPEN_NICKNAME = 'modal/OPEN_NICKNAME';
 export const OPEN_NICKNAME_OK = 'modal/OPEN_NICKNAME_OK';
@@ -109,12 +108,13 @@ const modalsReducer = handleActions({
             deletePostState: true
         };
     },
-    [OPEN_DELETE_REVIEW]: () => {
+    [OPEN_DELETE_REVIEW]: (state, payload) => {
         return {
+            ...state,
             deleteReviewState: true
         };
     },
-    [OPEN_DELETE_OK_POST]: () => {
+    [OPEN_DELETE_OK_POST]: (state, payload) => {
         return {
             ...state,
             deleteOkPostState: true
