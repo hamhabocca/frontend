@@ -12,9 +12,12 @@ function WriteReviewPost() {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const test = new Date().toLocaleString();
+    console.log(test)
+
+
     /* 이 리뷰의 랠리의 id */
     const rallyId = searchParams.get("rallyid");
-
     const imageInput = useRef();
     const onCickImageUpload = () => {
         imageInput.current.click();
@@ -25,8 +28,12 @@ function WriteReviewPost() {
 
     const [form, setForm] = useState({
         reviewTitle: '',
-        reviewDetail:''
+        reviewDetail:'',
+        rallyId: `${rallyId}`,
+        reviewWriteDate: new Date(),
+        reviewImage: null
     });
+
     useEffect(
         () => {
             setForm({
@@ -35,12 +42,19 @@ function WriteReviewPost() {
         }, []
     );
 
-    
     const onChangeHandler = (e) => {
         setForm({
             ...form,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
+    };
+
+    const onImageChangeHandler = (e) => {
+        setForm({
+            ...form,
+            reviewImage: e.target.files[0],
+        });
+        
     };
 
     const onClickReviewPostHandler = () => {
@@ -51,17 +65,21 @@ function WriteReviewPost() {
 
         formData.append("reviewTitle", form.reviewTitle);
         formData.append("reviewDetail", form.reviewDetail);
+        formData.append("rallyId", form.rallyId);
+        formData.append("reviewWriteDate", form.reviewWriteDate); // 현재 시간 추가
         
-
-        dispatch(callPostReviewAPI({ form: formData }));
+        if (form.reviewImage) {
+            formData.append("reviewImage", form.reviewImage);
+        }
+        
+        dispatch(callPostReviewAPI({ form : formData }));
         // dispatch(reset_state());
 
-        // alert('리뷰 게시판으로 이동합니다.');
-        // navigate('/review', { replace : true });
-        // window.location.reload();
+        alert('리뷰 게시판으로 이동합니다.');
+        navigate('/review', { replace : true });
+        window.location.reload();
     };
-
-
+    
 
     return (
         <main className={style.container}>
@@ -76,7 +94,7 @@ function WriteReviewPost() {
                         <h1>랠리 후기 작성</h1>
                     </div>
                     <div className={style.report}>
-                    <button onClick={onClickReviewPostHandler}>등록</button>
+                    <button onClick={onImageChangeHandler}>등록</button>
                     </div>
                 </article>
                 <div className={style.MainContainer}>
@@ -98,8 +116,7 @@ function WriteReviewPost() {
                             <input style={{ display: 'none' }} type="file" ref={imageInput} />
                             <button className={style.imageGo} onClick={onCickImageUpload}>이미지업로드</button>
                         </div>
-                        <input
-                            type="text"
+                        <textarea
                             onChange={onChangeHandler}
                             defaultValue={ form.reviewDetail}
                             style={{ margin: '10px', width: '96%', height: '520px', border: 'none' }}
