@@ -12,8 +12,6 @@ function QnABoard() {
     // 리덕스
     const dispatch = useDispatch();
     const qnas = useSelector((state) => state.qnaReducer);
-    
-    console.log('qnas', qnas);
     const qnaList = qnas.qnaDataList;
     const pageInfo = qnas?.paging;
     const { search } = useLocation();

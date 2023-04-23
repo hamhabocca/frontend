@@ -217,7 +217,50 @@ export const callSearchQnaAPI = ({ criteria }) => {
 
         console.log('[QnaAPICalls] callSearchQnaAPI RESULT : ', result);
 
-        dispatch({ type: GET_QNALIST, payload: result.results })
+        // dispatch({ type: GET_QNALIST, payload: result.results })
+
+        if (result.httpStatus === 200) {
+            
+            const qnaList = result.results.qnaList;
+            const paging = result.results.paging;
+
+            if (qnaList.length > 0) {
+                const memberIdList = qnaList.map((qna) => qna.memberId);
+
+                // member 데이터와 qna 데이터를 가져오는 API endpoint를 호출
+                const memberResult = await fetch(
+                    `http://localhost:8000/api/v1/members?${memberIdList
+                        .map((id) => `id=${id}`)
+                        .join("&")}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: "*/*",
+                            Auth: token
+                        },
+                    }
+                ).then((response) => response.json());
+
+                console.log("[QnaMemberAPICalls] memberResult: ", memberResult);
+
+                if (memberResult.httpStatus === 200) {
+                    // member 엔티티 정보와 함께 qna 엔티티 정보를 dispatch
+                    const memberMap = new Map(
+                        memberResult.results.members.content.map((member) => [
+                            member.memberId,
+                            member,
+                        ])
+                    );
+                    const qnaDataList = qnaList.map((qna) => ({
+                        ...qna,
+                        member: memberMap.get(qna.memberId)
+                    }));
+                    
+                    dispatch({ type: GET_QNALIST, payload: {qnaDataList,paging} });
+                }
+            }
+        }
     }
 }
 

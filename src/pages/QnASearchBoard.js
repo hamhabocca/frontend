@@ -12,7 +12,7 @@ function QnASearchBoard() {
     // 리덕스
     const dispatch = useDispatch();
     const qnas = useSelector((state) => state.qnaReducer);
-    const qnaList = qnas?.qnaList;
+    const qnaList = qnas?.qnaDataList;
     const pageInfo = qnas?.paging;
     const { search } = useLocation();
     const query = decodeURI(search).replace('?', '');
