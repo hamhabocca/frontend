@@ -10,6 +10,7 @@ const initialState = {
     registerState: false,
     deleteAccountState: false,
     deletePostState: false,
+    deleteReviewState: false,
     deleteOkPostState: false,
     nicknameState: false,
     nicknameOkState: false,
@@ -29,6 +30,8 @@ export const OPEN_REGISTER = 'modal/OPEN_REGISTER';
 export const OPEN_DELETE_ACCOUNT = 'modal/OPEN_DELETE_ACCOUNT';
 export const OPEN_DELETE_OK_ACCOUNT = 'modal/OPEN_DELETE_OK_ACCOUNT';
 export const OPEN_DELETE_POST = 'modal/OPEN_DELETE_POST';
+export const OPEN_DELETE_REVIEW = 'modal/OPEN_DELETE_REVIEW';
+
 export const OPEN_DELETE_OK_POST = 'modal/OPEN_DELETE_OK_POST';
 export const OPEN_NICKNAME = 'modal/OPEN_NICKNAME';
 export const OPEN_NICKNAME_OK = 'modal/OPEN_NICKNAME_OK';
@@ -106,7 +109,12 @@ const modalsReducer = handleActions({
             deletePostState: true
         };
     },
-    [OPEN_DELETE_OK_POST]: (state, payload) => {
+    [OPEN_DELETE_REVIEW]: () => {
+        return {
+            deleteReviewState: true
+        };
+    },
+    [OPEN_DELETE_OK_POST]: () => {
         return {
             ...state,
             deleteOkPostState: true

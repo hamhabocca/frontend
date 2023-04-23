@@ -2,17 +2,17 @@ import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { OPEN_DELETE_OK_POST, closeModal } from "../../modules/ModalsModule";
 import styles from './Modal.module.css';
-import { callQnaDeleteAPI } from '../../apis/QnAAPICalls';
+import { callReviewDeleteAPI } from '../../apis/ReviewAPICalls';
 import { useNavigate } from 'react-router-dom';
 
-function DeleteModal({qnaId}) {
+function DeleteModalReview({reviewId}) {
 
     const dispatch = useDispatch();
-    const isOpen = useSelector(state => state.modalsReducer.deletePostState);
+    const isOpen = useSelector(state => state.modalsReducer.deleteReviewState);
+
 
     return (
         <Modal isOpen={isOpen} ariaHideApp={false} className={styles.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>
-
             <div>
                 <div className={styles.header}>
                     <h3>삭제 확인</h3>
@@ -26,8 +26,8 @@ function DeleteModal({qnaId}) {
                         type='button' 
                         className={styles.ok} 
                         onClick={() => { 
-                            dispatch({type: OPEN_DELETE_OK_POST});
-                            dispatch(callQnaDeleteAPI({qnaId: qnaId}));
+                            // dispatch({type: OPEN_DELETE_OK_POST});
+                            dispatch(callReviewDeleteAPI({reviewId: reviewId}));
                     }} value='확인' />
                     <input type='button' className={styles.close} onClick={() => dispatch(closeModal())} value='취소' />
                 </div>
@@ -36,4 +36,4 @@ function DeleteModal({qnaId}) {
         </Modal>
     );
 }
-export default DeleteModal;
+export default DeleteModalReview;

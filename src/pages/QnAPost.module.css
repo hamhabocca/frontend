@@ -61,10 +61,10 @@
     background-color: gray;
 }
 
-.writer2 {
+/* .writer2 {
     display: flex;
     justify-self: start;
-}
+} */
 
 .nick {
     display: flex;
@@ -76,18 +76,18 @@
     color: gray;
 }
 
-.comment1 {
+/* .comment1 {
     width: 90%;
     height: 80px;
     border: 2px solid lightgray;
     border-radius: 5px;   
     margin-right: 10px;
-}
+} */
 
-.writer3 {
+/* .writer3 {
     display: flex;
     justify-self: start;
-}
+} */
 
 .nick2 {
     display: flex;
@@ -99,14 +99,14 @@
     color: gray;
 }
 
-.comment2 {
+/* .comment2 {
     width: 90%;
     height: 50px;
     border: 2px solid lightgray;
     border-radius: 5px;   
     margin-right: 10px;
     margin-left: 30px;
-}
+} */
 
 .comment3 {
     width: 85%;

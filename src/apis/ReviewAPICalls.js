@@ -1,4 +1,4 @@
-import { GET_REVIEW, GET_REVIEWLIST, PUT_REVIEW, POST_REVIEW } from '../modules/ReviewModule';
+import { GET_REVIEW, GET_REVIEWLIST, PUT_REVIEW, POST_REVIEW, DELETE_REVIEW } from '../modules/ReviewModule';
 import { useSelector } from 'react-redux';
 
 // 전체 리뷰 리스트 조회
@@ -114,17 +114,54 @@ export const callPostReviewAPI = ({ form }) => {
             method: "POST",
             headers: {
                 "Accept": "*/*",
-                "Auth": window.localStorage.getItem("jwtToken")
+                "Auth": token
             },
             body: form
         })
-            // .then(response => response.json());
+        .then(response => response.json());
 
         console.log("[ReviewAPICalls] callPostReviewAPi Result : ", result);
 
         dispatch({ type: POST_REVIEW, payload: result });
     };
 }
+
+
+// 삭제
+export const callReviewDeleteAPI = ({ reviewId }) => {
+
+    const URL = `http://localhost:8000/api/v1/reviews/${reviewId}`;
+
+    console.log(URL)
+
+    const token = window.localStorage.getItem('jwtToken');
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(URL, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+                "Auth": token
+            }
+        })
+        console.log(result);
+
+        if (result.status === 204) {
+            
+            console.log('[ReviewAPICalls] callReviewDeleteAPI SUCCESS', result);
+            window.location.replace('http://localhost:3000/review');
+        }
+    };
+}
+
+
+
+
+
+
+
 
 
 // export function getRallyReviewDetail(rallyCode){

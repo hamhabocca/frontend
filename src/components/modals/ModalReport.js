@@ -2,11 +2,52 @@ import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../modules/ModalsModule';
 import styles from './ModalReport.module.css';
+import { callPostRallyReportAPI } from '../../apis/RallyReportAPICalls';
+import { useEffect, useState } from 'react';
 
 function ModalReport() {
 
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.modalsReducer.reportState);
+
+    const [form, setForm] = useState({
+        // reportId: '',
+        // reportWriter: '',
+        // reportTarget: '',
+        reportReason: '',
+        reportReasonDetail: ''
+        // reportDate: '',
+        // isProcessed: ''
+    });
+
+    useEffect(
+        () => {
+            setForm({
+                ...form,
+            })
+        }, []
+    );
+
+    const onChangeHandler = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    const onClickRallyReportHandler = () => {
+
+        console.log('[RallyReport 등록] onClickRallyReportHandler');
+
+        const formData = new FormData();
+
+        formData.append("reportReason", form.reportReason);
+        formData.append("reportReasonDetail", form.reportReasonDetail);
+
+        dispatch(callPostRallyReportAPI({ form: formData }));
+
+        window.location.reload();
+    };
 
     return (
         <Modal isOpen={isOpen} ariaHideApp={false} className={styles.modal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: '98' } }}>
@@ -23,11 +64,11 @@ function ModalReport() {
                         </div>
                         <div className={styles.radio}>
                             <form className={styles.form}>
-                                <input type="radio" name="report" value="ad" id="ad" /><label for="ad">광고(부적절한 홍보 및 음란성 게시글 및 댓글)</label><br />
-                                <input type="radio" name="report" value="word" id="word" /><label for="word">욕설/반말/부적절한 언어 사용</label><br />
-                                <input type="radio" name="report" value="member" id="member" /><label for="member">회원 비방</label><br />
-                                <input type="radio" name="report" value="comment" id="comment" /><label for="comment">도배성 댓글</label><br />
-                                <input type="radio" name="report" value="etc" id="etc" /><label for="etc">기타(상세 사유에 내용을 꼭 적어주세요.)</label>
+                                <input type="radio" name="reportReason" value="ad" id="ad" onChange={onChangeHandler} /><label for="ad">광고(부적절한 홍보 및 음란성 게시글 및 댓글)</label><br />
+                                <input type="radio" name="reportReason" value="word" id="word" onChange={onChangeHandler} /><label for="word">욕설/반말/부적절한 언어 사용</label><br />
+                                <input type="radio" name="reportReason" value="member" id="member" onChange={onChangeHandler} /><label for="member">회원 비방</label><br />
+                                <input type="radio" name="reportReason" value="comment" id="comment" onChange={onChangeHandler} /><label for="comment">도배성 댓글</label><br />
+                                <input type="radio" name="reportReason" value="etc" id="etc" onChange={onChangeHandler} /><label for="etc">기타(상세 사유에 내용을 꼭 적어주세요.)</label>
                             </form>
                         </div>
                     </div>
@@ -41,7 +82,7 @@ function ModalReport() {
                             </div>
                             <div className={styles.textarea}>
                                 <form>
-                                    <textarea cols="30" rows="5"></textarea>
+                                    <textarea cols="30" rows="5" name="reportReasonDetail" onChange={onChangeHandler}></textarea>
                                 </form>
                             </div>
                         </div>
@@ -54,7 +95,7 @@ function ModalReport() {
                     * 신중하게 신고해주세요.
                 </h6>
                 <div className={styles.button}>
-                    <input type='button' className={styles.ok} value='신고하기' />
+                    <input type='button' className={styles.ok} onClick={() => onClickRallyReportHandler()} value='신고하기' />
                     <input type='button' className={styles.close} onClick={() => dispatch(closeModal())} value='취소' />
                 </div>
             </div>

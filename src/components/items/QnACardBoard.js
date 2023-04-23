@@ -13,7 +13,7 @@ function QnACardBoard({ qna }) {
     const QNA_TITLE = qna.qnaTitle;
 
     /* QNA 작성자 */
-    const QNA_WRITER = qna.qnaWriter;
+    const QNA_WRITER = qna.member.nickname;
     /* 작성일 */
     const qnawritedate = new Date(qna.qnaWriteDate);
 

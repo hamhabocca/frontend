@@ -6,7 +6,7 @@ import Pagination from "react-js-pagination";
 import styled from "styled-components";
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
 
-import {  callReviewRallyListAPI } from "../apis/RallyReviewAPICalls";
+import { callReviewRallyListAPI } from "../apis/RallyReviewAPICalls";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -15,15 +15,23 @@ function ReviewBoard() {
     //리덕스
     const dispatch = useDispatch();
     const reviewList = useSelector(state => state.reviewReducer);
-    const [page, setPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageInfo = reviewList?.paging;
 
-    const handlePageChange = (page) => { setPage(page) };
+    const pageNumber = [1];
+
+    if (pageInfo) {
+        for (let i = pageInfo.startPage + 1; i <= pageInfo.endPage; i++) {
+            pageNumber.push(i);
+        }
+    }
+
 
     useEffect(() => {
-        dispatch(callReviewRallyListAPI({currentPage: 1 }));
-        
-    }, [page]);
+        dispatch(callReviewRallyListAPI({ currentPage: currentPage }));
 
+    }, [currentPage]);
+    
     return (
         <main className={style.container}>
 
@@ -45,27 +53,34 @@ function ReviewBoard() {
                     {Array.isArray(reviewList) && <ReviewList reviewList={reviewList} />}
                 </article>
 
-                <PaginationBox>
-                    <Pagination
-                        activePage={page}
-                        itemsCountPerPage={15}
-                        //totalItemsCount={getReviewList().length}
-                        pageRangeDisplayed={5}
-                        firstPageText={<HiChevronDoubleLeft />}
-                        prevPageText={<HiChevronLeft />}
-                        nextPageText={<HiChevronRight />}
-                        lastPageText={<HiChevronDoubleRight />}
-                        onChange={handlePageChange}
-                    />
-                </PaginationBox>
-
+                <article className={style.pagination}>
+                    <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
+                        <HiChevronDoubleLeft />
+                    </button>
+                    <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} >
+                        <HiChevronLeft />
+                    </button>
+                    {pageNumber.map((num) => (
+                        <li key={num} onClick={() => setCurrentPage(num)}>
+                            <button style={currentPage == num ? { color: '#003ACE' } : null}>
+                                {num}
+                            </button>
+                        </li>
+                    ))}
+                    <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === pageInfo?.endPage || pageInfo?.endPage == 1}>
+                        <HiChevronRight />
+                    </button>
+                    <button onClick={() => setCurrentPage(pageInfo?.endPage)} disabled={currentPage === pageInfo?.endPage || pageInfo?.endPage == 1}>
+                        <HiChevronDoubleRight />
+                    </button>
+                </article>
             </section>
         </main>
     );
 }
 
 const PaginationBox = styled.div
-`
+    `
   .pagination { display: flex; justify-content: center; margin-top: 15px;}
   ul { list-style: none; padding: 0; }
   ul.pagination li {

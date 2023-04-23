@@ -14,18 +14,19 @@ function WriteReviewPost() {
         imageInput.current.click();
     };
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { reviewId } = useParams();
 
     const review = useSelector(state => state.reviewReducer);
 
-    console.log("review : " + JSON.stringify(review));
+    // console.log("review : " + JSON.stringify(review));
 
     const testDetail = review.data;
     const [form, setForm] = useState({
         reviewId: review.reviewId,
         reviewTitle: review.reviewTitle,
-        reviewDetail: review.reviewDetail
+        reviewDetail: review.reviewDetail,
     });
 
     useEffect(
@@ -57,6 +58,10 @@ function WriteReviewPost() {
             form: formData,
             reviewId: form.reviewId
         }));
+
+        alert('수정이 완료되었습니다.')
+        navigate(`/review/${reviewId}`, { replace : true });
+        window.location.reload();
     }
 
     /* 리뷰 작성자 */
@@ -81,10 +86,8 @@ function WriteReviewPost() {
                         <h1>랠리 후기 수정</h1>
                     </div>
                     <div className={style.report}>
-                        <Link to={`/review/${review.reviewId}`} style={{ textDecoration: 'none', color: '#202020' }}>
                             <button
                                 onClick={onClickReviewUpdateHandler}>수정완료</button>
-                        </Link>
                     </div>
                 </article>
                 <div className={style.MainContainer}>
@@ -101,8 +104,7 @@ function WriteReviewPost() {
                             <input style={{ display: 'none' }} type="file" ref={imageInput} />
                             <button className={style.imageGo} onClick={onCickImageUpload}>이미지업로드</button>
                         </div>
-                        <input
-                            type="text"
+                        <textarea
                             onChange={onChangeHandler}
                             defaultValue={ form.reviewDetail}
                             style={{ margin: '10px', width: '96%', height: '520px', border: 'none' }}
