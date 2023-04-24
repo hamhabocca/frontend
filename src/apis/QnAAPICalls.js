@@ -64,8 +64,8 @@ export const callQnaListAPI = ({ currentPage }) => {
                         ...qna,
                         member: memberMap.get(qna.memberId)
                     }));
-                    
-                    dispatch({ type: GET_QNALIST, payload: {qnaDataList,paging} });
+
+                    dispatch({ type: GET_QNALIST, payload: { qnaDataList, paging } });
                 }
             }
         }
@@ -196,6 +196,8 @@ export const callSearchQnaAPI = ({ criteria }) => {
 
     console.log('[QnaAPICalls] callSearchQnaAPI Call');
 
+    console.log('뭐가 담겼나...:' + criteria);
+
     const URL = `http://localhost:8000/api/v1/qnas/search?${criteria}`;
 
     const token = window.localStorage.getItem('jwtToken');
@@ -220,7 +222,7 @@ export const callSearchQnaAPI = ({ criteria }) => {
         // dispatch({ type: GET_QNALIST, payload: result.results })
 
         if (result.httpStatus === 200) {
-            
+
             const qnaList = result.results.qnaList;
             const paging = result.results.paging;
 
@@ -256,8 +258,8 @@ export const callSearchQnaAPI = ({ criteria }) => {
                         ...qna,
                         member: memberMap.get(qna.memberId)
                     }));
-                    
-                    dispatch({ type: GET_QNALIST, payload: {qnaDataList,paging} });
+
+                    dispatch({ type: GET_QNALIST, payload: { qnaDataList, paging } });
                 }
             }
         }
