@@ -87,7 +87,7 @@ function HomeSearchFilter() {
                         <input type={'radio'} id="legend" name='type' value={'전설'} />
                         <label htmlFor='legend'>전설</label>
                     </div>
-                    <button className={style.QuestionButton}>?</button>
+                    {/* <button className={style.QuestionButton}>?</button> */}
                 </fieldset>
                 <fieldset className={style.RallyLocation}>
                     <select name='sido' id="sido" onChange={onChangeSidoHandler}>
@@ -131,7 +131,7 @@ function HomeSearchFilter() {
                     </fieldset>
                 </fieldset>
                 <input type="hidden" id="location" name="location" value={location.SIDO + " " + location.SIGUNGU} />
-                <input type={'submit'} value='랠리 검색' className={style.Submit} />
+                <input type={'submit'} value='랠리 검색' className={style.Submit} style={{cursor: "pointer"}}/>
             </form>
         </div>
     )

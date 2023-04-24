@@ -19,19 +19,20 @@
     color: white;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
 .Container h3 {
     display: inline-block;
-    width: 180px;
+    width: 100%;
     height: 30px;
     font-size: 20px;
-    line-height: 30px;
+    line-height: 20px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     text-align: right;
+    font-weight: bold;
 }
 
 .RallyMaster {
