@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
-import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
-import style from './ReviewPost.module.css';
-import { OPEN_REVIEW_REPORT, OPEN_DELETE_REVIEW} from '../modules/ModalsModule
-import { useDispatch, useSelector } from "react-redux";
-import ModalReviewReport from "../components/modals/ModalReviewReport";
 import { Link } from 'react-router-dom';
+import { OPEN_REVIEW_REPORT, OPEN_DELETE_REVIEW} from '../modules/ModalsModule';
+import { useDispatch, useSelector } from "react-redux";
 import { callReviewRallyAPI } from '../apis/RallyReviewAPICalls';
+import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
+import ModalReviewReport from "../components/modals/ModalReviewReport";
 import ModalDeleteReview from "../components/modals/ModalDeleteReview";
 import Kakaomap from '../components/items/Kakaomap';
 import Loading from '../components/commons/Loading';
+import style from './ReviewPost.module.css';
 
 function ReviewPost() {
 
