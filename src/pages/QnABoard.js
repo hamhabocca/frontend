@@ -10,7 +10,7 @@ import { checkLoginStatusAPICalls } from "../apis/CheckLoginStatusAPICalls";
 
 function QnABoard() {
 
-    
+
     // 리덕스
     const dispatch = useDispatch();
     const qnas = useSelector((state) => state.qnaReducer);
@@ -18,52 +18,57 @@ function QnABoard() {
     const pageInfo = qnas?.paging;
     const { search } = useLocation();
     const query = decodeURI(search).replace('?', '');
-    
+
     const [searchValue, setSearchValue] = useState("");
-    
+    const [categoryValue, setCategoryValue] = useState("");
+
     // 현재 페이지
     const [currentPage, setCurrentPage] = useState(1);
-    
+
     // 페이지 변경될 때마다 리렌더링
     useEffect(() => {
-        
+
         dispatch(callQnaListAPI({ currentPage: currentPage }));
-        
+
     }, [currentPage]);
-    
+
     // 총 페이지의 모음
     const pageNumber = [1];
-    
+
     if (pageInfo) {
         for (let i = pageInfo.startPage + 1; i <= pageInfo.endPage; i++) {
             pageNumber.push(i);
         }
     }
-    
-    if(checkLoginStatusAPICalls()) {
+
+    if (checkLoginStatusAPICalls()) {
 
         alert("로그인 후 이용해주시길 바랍니다.");
 
-        return <Navigate replace to={"/login"}/>
+        return <Navigate replace to={"/login"} />
     }
-    
+
     // 렌더링 성공적으로 될때만 리스트 조회 노출
     return (
-        
+
         <main className={style.all}>
 
             <div className={style.search}>
-                <select className={style.dropdownbox}>
-                    <option>카테고리</option>
-                    <option>건의</option>
-                    <option>랠리</option>
-
-                </select>
                 <form className={style.input} action={"/qna/search"}>
+
+                    <select
+                        className={style.dropdownbox}
+                        name="category"
+                        value={categoryValue}
+                        onChange={(e) => setCategoryValue(e.target.value)}>
+                        <option value="">카테고리</option>
+                        <option value="건의">건의</option>
+                        <option value="랠리">랠리</option>
+                    </select>
                     <input
                         className={style.searchfield}
                         type="text"
-                        name="qnaTitle"
+                        name="title"
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
                     />
