@@ -18,6 +18,8 @@ function Home() {
 
     const [currentPage, setCurrentPage] = useState(1);
 
+    const HAS_VISITED_BEFORE = localStorage.getItem('hasVisitedBefore');
+
     console.log(rallyList);
 
     function toNotice() {
@@ -30,9 +32,19 @@ function Home() {
                 dispatch(getCurrentMember());
             }
             dispatch(callRallyListAPI({currentPage : currentPage}));
+
+
+            if (!HAS_VISITED_BEFORE || HAS_VISITED_BEFORE < new Date()) {
+                
+                popUp();
+            }
         },
         []
     );
+
+    const popUp = () => {
+        window.open("/popup/initial", "_blank", "popup,width=520,height=860");
+    }
 
     return (
         <>

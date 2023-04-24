@@ -22,6 +22,7 @@ import MyPage from './pages/MyPage';
 import Login from './pages/Login';
 import Oauth from './pages/Oauth';
 import EditQnA from './pages/EditQnA';
+import InitialPopUp from './components/popups/InitialPopUp';
 
 // 브라우저별 기본 CSS 스타일 초기화
 import '../src/reset.css';
@@ -62,6 +63,9 @@ function App() {
 					<Route path='login' element={<Login />} />
 					<Route path='oauth' element={<Oauth/>}/>
 					<Route path='oauth1' element={<Oauth1/>} />
+				</Route>
+				<Route path='/popup'>
+					<Route path='initial' element={<InitialPopUp/>}/>
 				</Route>
 			</Routes>
 		</BrowserRouter>
