@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { CLOSE_MODAL, OPEN_NICKNAME_OK } from '../../modules/ModalsModule';
-import { checkNickname } from '../../apis/MemberAPICalls';
+import { checkNickname, modifyProfile } from '../../apis/MemberAPICalls';
 import { RESET_NICKNAME } from '../../modules/NicknameModule';
 import styles from './ModalNickname.module.css';
 
@@ -53,10 +53,23 @@ function ModalNickname() {
     const onClickHandler = () => {
         if (checkResultView === "사용 가능한 닉네임입니다!") {
             dispatch({ type: OPEN_NICKNAME_OK })
+
+            sendNewNickname();
         } else {
             alert("닉네임을 확인해주세요!");
         }
     };
+
+    function sendNewNickname() {
+
+        const formData = new FormData();
+
+        formData.append("nickname", nickname);
+        formData.append("preferredLocation", "");
+        formData.append("preferredType", "");
+
+        dispatch(modifyProfile({ form: formData }));
+    }
 
     useEffect(() => {
 

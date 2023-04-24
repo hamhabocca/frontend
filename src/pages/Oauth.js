@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { callKakaoLoginAPI } from "../apis/LoginAPICalls";
 import { useDispatch, useSelector } from "react-redux";
+import { getCurrentMember } from "../apis/MemberAPICalls";
+import ModalNickname from "../components/modals/ModalNickname";
 
 function Oauth() {
 
@@ -12,15 +14,17 @@ function Oauth() {
 
     const dispatch = useDispatch();
 
-    const loginStatus = useSelector(state => state.memberReducer)            
+    const loginStatus = useSelector(state => state.memberReducer);
 
     useEffect(
         () => {
-            console.log('로그인시작할거임')
+
             dispatch(callKakaoLoginAPI(code));
-            console.log('로그인끝')
+
             if(loginStatus) {
-                console.log("로그인되어있다네~~")
+
+                console.log(loginStatus)
+                
             } else {
                 alert("로그인에 실패하였습니다.")
             }
@@ -29,7 +33,8 @@ function Oauth() {
     )
 
 return (
-    <></>
+    <>
+    </>
 )
 
 }

@@ -1,4 +1,6 @@
-import { IS_LOGIN } from "../modules/LoginModule";
+import { useSelector } from "react-redux";
+import { IS_SIGNUP } from "../modules/LoginModule";
+import { getCurrentMember } from "./MemberAPICalls";
 
 export const callKakaoLoginAPI = (code) => {
 
@@ -21,8 +23,10 @@ export const callKakaoLoginAPI = (code) => {
 
         console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
         if(result.httpStatus === 200){
+            
             window.localStorage.setItem('jwtToken', JSON.stringify(result.results.token));
-            dispatch({type: IS_LOGIN})            
+            dispatch({type: IS_SIGNUP})
+                        
         } else if(result.httpStatus === 401) {
             console.log("만료됨...")
         }
@@ -53,6 +57,9 @@ export const callNaverLoginAPI = (code, state) => {
         console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
         if(result.httpStatus === 200){
             window.localStorage.setItem('jwtToken', JSON.stringify(result.results.token));            
+
+            dispatch(getCurrentMember());
+
         } else if(result.httpStatus === 401) {
             
             console.log("만료됨...")

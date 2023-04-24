@@ -1,15 +1,14 @@
 import { Navigate } from 'react-router-dom';
 import { checkLoginStatusAPICalls } from '../apis/CheckLoginStatusAPICalls';
-import { getMembers } from '../apis/MemberAPICalls';
 import style from './Notice.module.css';
 
 function Notice() {
 
     if(checkLoginStatusAPICalls()) {
 
-        alert("test");
+        alert("로그인 후 이용해주시길 바랍니다.");
 
-        return <Navigate replace to={"/"}/>
+        return <Navigate replace to={"/login"}/>
     }
 
     return (

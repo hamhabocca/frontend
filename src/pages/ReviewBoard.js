@@ -8,29 +8,38 @@ import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRigh
 
 import { callReviewRallyListAPI } from "../apis/RallyReviewAPICalls";
 import { useDispatch, useSelector } from "react-redux";
-
+import { checkLoginStatusAPICalls } from "../apis/CheckLoginStatusAPICalls";
+import { Navigate } from "react-router-dom";
 
 function ReviewBoard() {
 
+    
     //리덕스
     const dispatch = useDispatch();
     const reviewList = useSelector(state => state.reviewReducer);
     const [currentPage, setCurrentPage] = useState(1);
     const pageInfo = reviewList?.paging;
-
+    
     const pageNumber = [1];
-
+    
     if (pageInfo) {
         for (let i = pageInfo.startPage + 1; i <= pageInfo.endPage; i++) {
             pageNumber.push(i);
         }
     }
-
-
+    
+    
     useEffect(() => {
         dispatch(callReviewRallyListAPI({ currentPage: currentPage }));
-
+        
     }, [currentPage]);
+    
+    if(checkLoginStatusAPICalls()) {
+
+        alert("로그인 후 이용해주시길 바랍니다.");
+
+        return <Navigate replace to={"/login"}/>
+    }
     
     return (
         <main className={style.container}>
