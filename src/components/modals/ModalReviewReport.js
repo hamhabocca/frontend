@@ -2,13 +2,13 @@ import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../modules/ModalsModule';
 import styles from './ModalReport.module.css';
-import { callPostRallyReportAPI } from '../../apis/RallyReportAPICalls';
+import { callPostReviewReportAPI } from '../../apis/ReviewReportAPICalls';
 import { useEffect, useState } from 'react';
 
-function ModalReport() {
+function ModalReviewReport() {
 
     const dispatch = useDispatch();
-    const isOpen = useSelector(state => state.modalsReducer.reportState);
+    const isOpen = useSelector(state => state.modalsReducer.reportReviewState);
 
     const [form, setForm] = useState({
         reportReason: '',
@@ -30,16 +30,14 @@ function ModalReport() {
         });
     }
 
-    const onClickRallyReportHandler = () => {
-
-        console.log('[RallyReport 등록] onClickRallyReportHandler');
+    const onClickReviewReportHandler = () => {
 
         const formData = new FormData();
 
         formData.append("reportReason", form.reportReason);
         formData.append("reportReasonDetail", form.reportReasonDetail);
 
-        dispatch(callPostRallyReportAPI({ form: formData }));
+        dispatch(callPostReviewReportAPI({ form: formData }));
 
         window.location.reload();
     };
@@ -90,11 +88,11 @@ function ModalReport() {
                     * 신중하게 신고해주세요.
                 </h6>
                 <div className={styles.button}>
-                    <input type='button' className={styles.ok} onClick={() => onClickRallyReportHandler()} value='신고하기' />
+                    <input type='button' className={styles.ok} onClick={() => onClickReviewReportHandler()} value='신고하기' />
                     <input type='button' className={styles.close} onClick={() => dispatch(closeModal())} value='취소' />
                 </div>
             </div>
         </Modal>
     );
 }
-export default ModalReport;
+export default ModalReviewReport;

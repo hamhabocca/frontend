@@ -1,16 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
 import style from './ReviewPost.module.css';
-import { OPEN_REPORT, OPEN_DELETE_REVIEW } from '../modules/ModalsModule';
+import { OPEN_REVIEW_REPORT, OPEN_DELETE_REVIEW} from '../modules/ModalsModule
 import { useDispatch, useSelector } from "react-redux";
-import ModalReport from "../components/modals/ModalReport";
+import ModalReviewReport from "../components/modals/ModalReviewReport";
 import { Link } from 'react-router-dom';
 import { callReviewRallyAPI } from '../apis/RallyReviewAPICalls';
 import ModalDeleteReview from "../components/modals/ModalDeleteReview";
 import Kakaomap from '../components/items/Kakaomap';
 import Loading from '../components/commons/Loading';
-
 
 function ReviewPost() {
 
@@ -30,7 +29,7 @@ function ReviewPost() {
     const RALLY_NAME = review.rally?.rallyName;
 
     /*모달*/
-    const reportState = useSelector(state => state.modalsReducer.reportState);
+    const reportReviewState = useSelector(state => state.modalsReducer.reportReviewState);
     const deleteReviewState = useSelector(state => state.modalsReducer.deleteReviewState);
 
     useEffect(
@@ -88,8 +87,6 @@ function ReviewPost() {
         }
     };
 
-
-
     /* 작성자일 때 */
     const postSet = () => {
 
@@ -105,15 +102,13 @@ function ReviewPost() {
                     </Link>
                 </>
             )
-            // } else if (review.reivewId === 2 && rally.rallystatus === 'in_process') {
-
             /* 작성자가 아닐 때 */
-        } else if (!(review.reviewId === 1)) {
+        } else if (!(review.reviewId === review.memberId)) {
 
             return (
                 <div className={style.postStatus}>
-                    <button className={style.edit} onClick={() => { dispatch({ type: OPEN_REPORT }) }}>신고</button>
-                    {reportState && <ModalReport />}
+                    <button className={style.edit} onClick={() => { dispatch({ type: OPEN_REVIEW_REPORT }) }}>신고</button>
+                    {reportReviewState && <ModalReviewReport />}
                 </div>
             );
         }
@@ -193,6 +188,7 @@ function ReviewPost() {
                             </div>
                         </div>
                     }
+
                 </div>
             </main>
         </>

@@ -156,30 +156,5 @@ export const callReviewDeleteAPI = ({ reviewId }) => {
     };
 }
 
-
-
-
-
-
-
-
-
-// export function getRallyReviewDetail(rallyCode){
-//     return rallys.filter(rally => rally.rallycode === review.rallyCode)[0];
-// }
-
-
-// export function getReviewDetail(reviewId){
-//     return reviews.filter(review => review.reviewId === parseInt(reviewId))[0];
-// }
-
 export function searchReview(reviewTitle) {
-    // return reviews.filter(review => review.reviewname.match(reviewTitle));
 }
-
-// export function getReviewList() {
-
-//     // const result = [...reviews].reverse();
-
-//     // return result;
-// }

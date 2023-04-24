@@ -1,8 +1,6 @@
 import style from './ReviewSearchFilter.module.css';
 import sigunguList from '../../data/sigungu.json';
 import { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } from '../../modules/CountModule';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoMdRefresh } from "react-icons/io";
 
@@ -18,22 +16,10 @@ function Sigoon({ sig }) {
 
 function ReviewSearchFilter() {
 
-    // const dispatch = useDispatch();
     const navigate = useNavigate();
 
     /* 회원 확인 */
     const token = window.localStorage.getItem("jwtToken");
-    /* state값 가져오기 */
-    // const distanceCount = useSelector(state => state.countReducer.distanceState);
-    // const peopleCount = useSelector(state => state.countReducer.peopleState);
-
-    // /* 증감버튼 클릭이벤트핸들러 */
-    // const distanceCountIncrease = () => dispatch(distanceIncrease());
-    // const distanceCountDecrease = () => { distanceCount > 0 && dispatch(distanceDecrease()) };
-    // const peopleCountIncrease = () => dispatch(peopleIncrease());
-    // const peopleCountDecrease = () => { peopleCount > 0 && dispatch(peopleDecrease()) };
-
-
 
     // 시도 선택시 시군구 리스트 담음
     const [sigList, setSigList] = useState([]);
@@ -129,12 +115,10 @@ function ReviewSearchFilter() {
                             {sigList.map(sig => <Sigoon key={sig.id} sig={sig} />)}
                         </select>
                     </article>
-
                     <article className={style.rallydate}>
                         <h2>랠리 일정</h2>
                         <input type="month" min="2023-01" max="2023-12" name='date' />
                     </article>
-
                 </section>
                 <input type="hidden" id="location" name="location" value={location.SIDO + " " + location.SIGUNGU} />
                 <input type='submit' value='랠리 검색' className={style.search} />

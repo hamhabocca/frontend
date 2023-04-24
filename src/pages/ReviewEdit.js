@@ -5,7 +5,6 @@ import { callReviewDetailAPI, callReviewUpdateAPI } from "../apis/ReviewAPICalls
 import { useDispatch, useSelector } from "react-redux"
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Link } from "react-router-dom";
 
 
 function WriteReviewPost() {
@@ -20,8 +19,6 @@ function WriteReviewPost() {
 
     const review = useSelector(state => state.reviewReducer);
 
-    // console.log("review : " + JSON.stringify(review));
-
     const testDetail = review.data;
     const [form, setForm] = useState({
         reviewId: review.reviewId,
@@ -32,7 +29,6 @@ function WriteReviewPost() {
     useEffect(
         () => {
             console.log('[testDetail] reviewId :', testDetail);
-            console.log("리뷰 디테일");
             dispatch(callReviewDetailAPI({ reviewId: reviewId }));
         }
         , []
@@ -92,17 +88,17 @@ function WriteReviewPost() {
                 </article>
                 <div className={style.MainContainer}>
                     <article className={style.rallydate2}>
-                        <div className={style.container}>
-                            <h4>리뷰 제목</h4>
-                            {/* {REVIEW_TITLE} */}
-                            <input type="text" onChange={onChangeHandler} defaultValue={form.reviewTitle} style={{ marginLeft: '15px', backgroundColor: 'lightgray', width: '630px' }} name="reviewTitle"/>
+                    <div className={style.container}>
+                            <div style={{fontWeight : 'bold', marginRight:'10px'}}>제목</div>
+                            <input type="text" onChange={onChangeHandler} defaultValue={form.reviewTitle} style={{ marginLeft: '15px', backgroundColor: 'lightgray', width: '660px' }} name="reviewTitle"/>
                         </div>
                     </article>
                     <br />
                     <div className={style.textBoard}>
-                        <div className={style.imageBoard}>
+                    <div className={style.imageBoard}>
+                            <div className={style.imageGo} style={{float: 'left', marginLeft: '10px'}}>리뷰 내용</div>
                             <input style={{ display: 'none' }} type="file" ref={imageInput} />
-                            <button className={style.imageGo} onClick={onCickImageUpload}>이미지업로드</button>
+                            {/* <button className={style.imageGo} onClick={onCickImageUpload}>이미지업로드</button> */}
                         </div>
                         <textarea
                             onChange={onChangeHandler}
