@@ -15,9 +15,12 @@ function QnASearchBoard() {
     const qnaList = qnas?.qnaDataList;
     const pageInfo = qnas?.paging;
     const { search } = useLocation();
+
     const query = decodeURI(search).replace('?', '');
+    console.log("쿼리" + query);
 
     const [searchValue, setSearchValue] = useState("");
+    const [categoryValue, setCategoryValue] = useState("");
 
     // 현재 페이지
     const [currentPage, setCurrentPage] = useState(1);
@@ -43,17 +46,21 @@ function QnASearchBoard() {
         <main className={style.all}>
 
             <div className={style.search}>
-                <select className={style.dropdownbox}>
-                    <option>카테고리</option>
-                    <option>건의</option>
-                    <option>랠리</option>
-
-                </select>
                 <form className={style.input} action={"/qna/search"}>
+
+                    <select
+                        className={style.dropdownbox}
+                        name="category"
+                        value={categoryValue}
+                        onChange={(e) => setCategoryValue(e.target.value)}>
+                        <option value="">카테고리</option>
+                        <option value="건의">건의</option>
+                        <option value="랠리">랠리</option>
+                    </select>
                     <input
                         className={style.searchfield}
                         type="text"
-                        name="qnaTitle"
+                        name="title"
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
                     />

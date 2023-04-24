@@ -39,9 +39,9 @@ function App() {
 					<Route path='rally'>
 						<Route index element={<RallyBoard />} />
 						<Route path=':rallyId' element={<RallyPost />} />
-						<Route path=':rallyId/write' element={<ModifyRallyPost/>} />
 						<Route path='search' element={<RallySearchBoard />} />
 						<Route path='write' element={<WriteRallyPost />} />
+						<Route path=':rallyId/edit' element={<ModifyRallyPost/>} />
 					</Route>
 					<Route path='review'>
 						<Route index element={<ReviewBoard />} />
@@ -56,7 +56,7 @@ function App() {
 						<Route path=':qnaId' element={<QnAPost />} />
 						<Route path='search' element={<QnASearchBoard />} />
 						<Route path='write' element={<WriteQnA />} />
-						<Route path='edit' element={< EditQnA />} />
+						<Route path=':qnaId/edit' element={< EditQnA />} />
 					</Route>
 					<Route path='mypage' element={<MyPage />} />
 					<Route path='login' element={<Login />} />

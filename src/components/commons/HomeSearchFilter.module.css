@@ -4,8 +4,6 @@
     border-radius: 5px;
     width: 660px;
     height: 250px;
-    position: absolute;
-    top: 260px;
     display: flex;
     flex-direction: column;
     justify-content: center;

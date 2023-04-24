@@ -17,7 +17,7 @@ function MemberCardModal({ mate }) {
     const MATE_ID = mate.memberId;
     const ACCEPT = mate.isAccepted;
     const NICKNAME = mate.member?.nickname;
-    const PROFILE_IMG = mate.member?.imageSource
+    const PROFILE_IMG = mate.member?.imageSource;
 
     if (MEMBER_ID === RALLY.master?.memberId) {
         return (

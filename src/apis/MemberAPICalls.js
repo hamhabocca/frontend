@@ -4,6 +4,7 @@ import { GET_PARTICIPATE } from "../modules/ParticipateModule";
 import { CHECK_NICKNAME } from "../modules/NicknameModule";
 import { OPEN_NICKNAME } from "../modules/ModalsModule";
 import ModalNickname from "../components/modals/ModalNickname";
+import { LOADING } from "../modules/LoadingModule";
 
 export const getMembers = async () => {
 
@@ -33,6 +34,8 @@ export const getCurrentMember = () => {
 
     return async (dispatch, getState) => {
 
+        dispatch({ type: LOADING, payload: true});
+
         const result = await fetch(requestURL, {
             method: 'GET',
             headers: {
@@ -47,10 +50,12 @@ export const getCurrentMember = () => {
             dispatch({ type: GET_MEMBER, payload: result.results.member });
             
             if(result.results.member.nickname.startsWith("새로운회원")) {
-                
                 dispatch({ type: OPEN_NICKNAME });
             }
 
+            setTimeout(function () {
+                dispatch({ type: LOADING, payload: false});
+            }, 300);
         }
     };
 }

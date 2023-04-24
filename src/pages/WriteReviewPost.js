@@ -11,11 +11,10 @@ import { callPostReviewAPI } from "../apis/ReviewAPICalls";
 function WriteReviewPost() {
 
     const [searchParams, setSearchParams] = useSearchParams();
-
+    
     /* 이 리뷰의 랠리의 id */
     const rallyId = searchParams.get("rallyid");
     const imageInput = useRef();
-
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -43,7 +42,6 @@ function WriteReviewPost() {
         });
     };
 
-
     const onClickReviewPostHandler = () => {
 
         const formData = new FormData();
@@ -64,7 +62,6 @@ function WriteReviewPost() {
         window.location.reload();
     };
     
-
     return (
         <main className={style.container}>
             <section className={style.filter}>

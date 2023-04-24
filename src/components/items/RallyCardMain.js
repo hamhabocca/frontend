@@ -31,9 +31,19 @@ function RallCardMain({ rally }) {
         }
     };
 
+    const token = window.localStorage.getItem("jwtToken");
+
+    const onClickHandler = () => {
+        
+        if(token === null) {
+            alert('비회원은 이용 불가합니다.\n로그인 후 이용해주시길 바랍니다.');
+        }
+    }
+
     return (
         <div className={style.Container}>
             {rallytype()}
+            <Link to={token? `/rally/${rally.rallyId}`: '/login'} onClick={() => {onClickHandler()}}><button><AiOutlineArrowRight /></button></Link>
             <h3>
                 {rally.rallyName}
             </h3>
@@ -42,7 +52,6 @@ function RallCardMain({ rally }) {
                 <label className={style.RallyLocation}>{rallylocation}</label>
             </div>
             <label className={style.RallyMaster}>{rally.masterId}</label>
-            <Link to={`/rally/${rally.rallyId}`}><button><AiOutlineArrowRight /></button></Link>
         </div>
     )
 }

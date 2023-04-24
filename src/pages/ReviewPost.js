@@ -1,16 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
 import style from './ReviewPost.module.css';
-import { OPEN_REVIEW_REPORT, OPEN_DELETE_REVIEW} from '../modules/ModalsModule';
+import { OPEN_REVIEW_REPORT, OPEN_DELETE_REVIEW} from '../modules/ModalsModule
 import { useDispatch, useSelector } from "react-redux";
 import ModalReviewReport from "../components/modals/ModalReviewReport";
 import { Link } from 'react-router-dom';
 import { callReviewRallyAPI } from '../apis/RallyReviewAPICalls';
 import ModalDeleteReview from "../components/modals/ModalDeleteReview";
 import Kakaomap from '../components/items/Kakaomap';
+import Loading from '../components/commons/Loading';
 
 function ReviewPost() {
+
+    const loading = useSelector(state => state.loadingReducer);
 
     const token = window.localStorage.getItem("jwtToken");
     const MEMBER_ID = JSON.parse(token)?.memberId;
@@ -19,16 +22,16 @@ function ReviewPost() {
     const dispatch = useDispatch();
     const { reviewId } = useParams();
     const review = useSelector(state => state.reviewReducer);
-    
+
     const REVIEW_TITLE = review.reviewTitle;
-    
+
     const RALLY = review.rally;
     const RALLY_NAME = review.rally?.rallyName;
-    
+
     /*모달*/
     const reportReviewState = useSelector(state => state.modalsReducer.reportReviewState);
     const deleteReviewState = useSelector(state => state.modalsReducer.deleteReviewState);
-    
+
     useEffect(
         () => {
             dispatch(callReviewRallyAPI({ reviewId: reviewId }));
@@ -62,7 +65,7 @@ function ReviewPost() {
 
     const MEMBER_IMAGE = review.member?.imageSource;
 
-/* 랠리 타입 구분 */
+    /* 랠리 타입 구분 */
     const rallytype = () => {
 
         const styleIpmun = {
@@ -91,7 +94,7 @@ function ReviewPost() {
             return (
                 <>
                     <button onClick={() => { dispatch({ type: OPEN_DELETE_REVIEW }) }}
-                    style={{marginLeft: '10px'}}>삭제</button>
+                        style={{ marginLeft: '10px' }}>삭제</button>
                     {deleteReviewState && <ModalDeleteReview reviewId={reviewId} />}
 
                     <Link to={`/review/${review.reviewId}/edit`}>
@@ -119,69 +122,73 @@ function ReviewPost() {
                     <ReviewSearchFilter />
                 </section>
                 <hr />
-
                 <div className={style.Main}>
-                    <div className={style.title} >
-                        <div className={style.labellabel}>
-                            <div className={style.mini2}>{rallytype()}</div>
-                            <h2>{REVIEW_TITLE}</h2>
-                        </div>
-                        <div className={style.postStatus}>
-                            <div className={style.report}>
-                                {postSet()}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={style.Context}>
-                        <article className={style.container2}>
-                            <div className={style.container2}>
-                                <img src ={MEMBER_IMAGE} className={style.picture}/>
-                                <h3 >{REVIEW_WRITER}</h3>
-                            </div>
-                            <div className={style.containerTime}>
-                                {REVIEW_WRITE_DATE.toLocaleString().slice(0, -3)}
-                            </div>
-                        </article>
-
-                        <div className={style.Review}>
-                            <h2 style={{ margin: '20px', marginBottom: '20px' }}>랠리명 : {RALLY_NAME}</h2>
-                            <div className={style.container3}>
-                            <div className={style.map}>
-                            {RALLY_LOCATION && RALLY_END_LOCATION ?
-                            <Kakaomap departureAddress={RALLY_LOCATION} arrivalAddress={RALLY_END_LOCATION} /> : null}
-                    </div>
-                                <div className={style.mainContext}>
-                                    <h1 className={style.Kmlabel}>{RALLY_DISTANCE}Km</h1>
-                                    <div className={style.info}>
-                                        <div className={style.location}>
-                                            <h4>출발지</h4>
-                                            <h3>{RALLY_LOCATION}</h3>
-                                            <h4>도착지</h4>
-                                            <h3>{RALLY_END_LOCATION}</h3>
-                                        </div>
-                                    </div>
-                                    <div className={style.container}>
-                                        <div className={style.startlabel}>출발 시각</div>
-                                        <h3 style={{ marginTop: '17px', marginLeft: '10px' }}>{RALLY_START_TIME.toLocaleString().slice(0, -3)}</h3>
+                    {loading ? <Loading /> :
+                        <div>
+                            <div className={style.title} >
+                                <div className={style.labellabel}>
+                                    <div className={style.mini2}>{rallytype()}</div>
+                                    <h2>{REVIEW_TITLE}</h2>
+                                </div>
+                                <div className={style.postStatus}>
+                                    <div className={style.report}>
+                                        {postSet()}
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr/>
-                        <div style={{ margin: '15px' ,  lineHeight : '25px', fontSize : '20px', backgroundColor : '#FF7A00', color: 'white', height: '30px'}}>[{RALLY_NAME}]의 랠리후기 </div>
-                        <h3 style={{ margin: '15px' ,  lineHeight : '25px', marginBottom : '50px', marginTop: '30px'}}>{REVIEW_DETAIL}</h3>
-                        <hr />
-                        <div style={{ margin: '15px', height: '300px' }}>댓글</div>
-                        <hr />
-                        <h3>{REVIEW_WRITER}</h3>
-                        <div className={style.container}>
-                            <textarea className={style.Comment} cols='30' rows='5' />
-                            <div>
-                                <button className={style.GoReview} >작성</button>
+                            <div className={style.Context}>
+                                <article className={style.container2}>
+                                    <div className={style.container2}>
+                                        <img src={MEMBER_IMAGE} className={style.picture} />
+                                        <h3 >{REVIEW_WRITER}</h3>
+                                    </div>
+                                    <div className={style.containerTime}>
+                                        {REVIEW_WRITE_DATE.toLocaleString().slice(0, -3)}
+                                    </div>
+                                </article>
+
+                                <div className={style.Review}>
+                                    <h2 style={{ margin: '20px', marginBottom: '20px' }}>랠리명 : {RALLY_NAME}</h2>
+                                    <div className={style.container3}>
+                                        <div className={style.map}>
+                                            {RALLY_LOCATION && RALLY_END_LOCATION ?
+                                                <Kakaomap departureAddress={RALLY_LOCATION} arrivalAddress={RALLY_END_LOCATION} /> : null}
+                                        </div>
+                                        <div className={style.mainContext}>
+                                            <h1 className={style.Kmlabel}>{RALLY_DISTANCE}Km</h1>
+                                            <div className={style.info}>
+                                                <div className={style.location}>
+                                                    <h4>출발지</h4>
+                                                    <h3>{RALLY_LOCATION}</h3>
+                                                    <h4>도착지</h4>
+                                                    <h3>{RALLY_END_LOCATION}</h3>
+                                                </div>
+                                            </div>
+                                            <div className={style.container}>
+                                                <div className={style.startlabel}>출발 시각</div>
+                                                <h3 style={{ marginTop: '17px', marginLeft: '10px' }}>{RALLY_START_TIME.toLocaleString().slice(0, -3)}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div style={{ margin: '15px', lineHeight: '25px', fontSize: '20px', backgroundColor: '#FF7A00', color: 'white', height: '30px' }}>[{RALLY_NAME}]의 랠리후기 </div>
+                                {/* <div className={style.mainPic}> 후기사진</div> */}
+                                <h3 style={{ margin: '15px', lineHeight: '25px', marginBottom: '50px', marginTop: '30px' }}>{REVIEW_DETAIL}</h3>
+                                <hr />
+                                {/* <div style={{ margin: '15px', height: '300px' }}>댓글</div>
+                                <hr />
+                                <h3>{REVIEW_WRITER}</h3>
+                                <div className={style.container}>
+                                    <textarea className={style.Comment} cols='30' rows='5' />
+                                    <div>
+                                        <button className={style.GoReview} >작성</button>
+                                    </div>
+                                </div> */}
                             </div>
                         </div>
-                    </div>
+                    }
+
                 </div>
             </main>
         </>

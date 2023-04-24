@@ -81,9 +81,9 @@ function WriteQnA() {
 
                 </div>
                 <div className={style.fileImg}>
-                    <label>파일첨부</label>
+                    {/* <label>파일첨부</label>
 
-                    <input className={style.filearea} type="file" name="uploadFile" onChange={onChangeHandler} />
+                    <input className={style.filearea} type="file" name="uploadFile" onChange={onChangeHandler} /> */}
 
 
                 </div>
