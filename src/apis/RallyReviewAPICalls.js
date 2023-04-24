@@ -147,3 +147,96 @@ export const callReviewRallyListAPI = () => {
         }
     };
 };
+
+
+//리뷰 검색
+export const callSearchReviewAPI = ({criteria }) => {
+    const URL = `http://localhost:8000/api/v1/reviews/search?${criteria}`;
+    const token = window.localStorage.getItem("jwtToken");
+
+    return async (dispatch, getState) => {
+        const result = await fetch(URL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "*/*",
+                Auth: token,
+            },
+        }).then((response) => response.json());
+
+        console.log("[ReviewDetailAPICalls] URL: ", result);
+
+        if (result.httpStatus === 200) {
+            const reviewList = result.results.reviews;
+
+            if (reviewList.length > 0) {
+                const memberIdList = reviewList.map((review) => review.memberId);
+                const rallyIdList = reviewList.map((review) => review.rallyId);
+
+                // member 데이터와 rally 데이터를 가져오는 API endpoint를 호출
+                const memberResult = await fetch(
+                    `http://localhost:8000/api/v1/members?${memberIdList
+                        .map((id) => `id=${id}`)
+                        .join("&")}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: "*/*",
+                            Auth: token,
+                        },
+                    }
+                ).then((response) => response.json());
+
+                const rallyResult = await fetch(
+                    `http://localhost:8000/api/v1/rallies?${rallyIdList
+                        .map((id) => `id=${id}`)
+                        .join("&")}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: "*/*",
+                            Auth: token,
+                        },
+                    }
+                ).then((response) => response.json());
+
+                console.log("[ReviewMemberAPICalls] memberResult: ", memberResult);
+                console.log("[ReviewRallyAPICalls] rallyResult: ", rallyResult);
+
+                if (memberResult.httpStatus === 200 && rallyResult.httpStatus === 200) {
+                    // member 엔티티 정보와 함께 review 엔티티 정보를 dispatch
+                    const memberMap = new Map(
+                        memberResult.results.members.content.map((member) => [
+                            member.memberId,
+                            member,
+                        ])
+                    );
+                    const rallyMap = new Map(
+                        rallyResult.results.rallyList.content.map((rally) => [
+                            rally.rallyId,
+                            rally,
+                        ])
+                    );
+                    const reviewDataList = reviewList.map((review) => ({
+                        ...review,
+                        member: memberMap.get(review.memberId),
+                        rally: rallyMap.get(review.rallyId),
+                    }));
+                    if((reviewDataList).length === 0 ){
+                        alert('조건에 맞는 리뷰를 찾을 수 없습니다. \n 다른 조건으로 검색해주세요');
+                    }
+                    dispatch({ type: GET_REVIEWLIST, payload: reviewDataList });
+                    console.log("reviewDataList : ", reviewDataList);
+                } else {
+                    console.log("member 데이터나 rally 데이터를 가져오지 못했습니다");
+                }
+            } else {
+                console.log("리뷰 데이터가 없습니다");
+            }
+        } else {
+            console.log("데이터를 가져오지 못했습니다");
+        }
+    };
+};

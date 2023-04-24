@@ -1,19 +1,18 @@
 import ReviewSearchFilter from "../components/commons/ReviewSearchFilter";
-import RallyList from "../components/lists/RallyList";
-import style from "./RallyBoard.module.css";
+import ReviewList from "../components/lists/ReviewList";
+import style from "./ReviewSearchBoard.module.css";
 import { useLocation } from "react-router";
 import { HiChevronDoubleLeft, HiChevronLeft, HiChevronRight, HiChevronDoubleRight } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { callSearchRallyAPI } from "../apis/RallyAPICalls";
+import { callSearchReviewAPI } from "../apis/RallyReviewAPICalls";
 
 
 function ReviewSearchBoard() {
 
     const dispatch = useDispatch();
-    const rallies = useSelector((state) => state.rallyReducer);
-    const rallyList = rallies?.rallyList;
-    const pageInfo = rallies?.paging;
+    const reviewList = useSelector((state) => state.reviewReducer);
+    const pageInfo = reviewList?.paging;
 
     const { search } = useLocation();
 
@@ -25,7 +24,7 @@ function ReviewSearchBoard() {
     // 페이지 변경될 때마다 리렌더링
     useEffect(() => {
 
-        dispatch(callSearchRallyAPI({
+        dispatch(callSearchReviewAPI({
             criteria : query
         }));
 
@@ -41,35 +40,24 @@ function ReviewSearchBoard() {
     //         pageNumber.push(i);
     //     }
     // }
-
     return (
         <main className={style.container}>
 
-            <ReviewSearchFilter />
-
+            <ReviewSearchFilter/>
             <section className={style.board}>
-
                 <article className={style.title}>
-                    <h1>랠리 모집</h1>
+                    <h1>랠리 후기</h1>
                 </article>
-
                 <article className={style.category}>
-                    <select className={style.select}>
-                        <option>전체</option>
-                        <option>모집중</option>
-                        <option>모집마감</option>
-                        <option>취소됨</option>
-                        <option>완주!</option>
-                    </select>
-                    <div>타입</div>
+                    <div>랠리 타입</div>
                     <div>랠리명</div>
-                    <div>랠리일정</div>
-                    <div>지역</div>
+                    <div>리뷰명</div>
+                    <div>작성자</div>
                     <div>작성일</div>
                 </article>
 
                 <article className={style.list}>
-                    {Array.isArray(rallyList) && <RallyList rallyList={rallyList} />}
+                    {Array.isArray(reviewList) && <ReviewList reviewList={reviewList} />}
                 </article>
 
                 <article className={style.pagination}>
@@ -81,19 +69,18 @@ function ReviewSearchBoard() {
                     </button>
                     {pageNumber.map((num) => (
                         <li key={num} onClick={() => setCurrentPage(num)}>
-                            <button style={currentPage === num ? { color: '#003ACE' } : null}>
+                            <button style={currentPage == num ? { color: '#003ACE' } : null}>
                                 {num}
                             </button>
                         </li>
                     ))}
-                    <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === lastPage || currentPage === 1}>
+                    <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === pageInfo?.endPage || pageInfo?.endPage == 1}>
                         <HiChevronRight />
                     </button>
-                    <button onClick={() => setCurrentPage(lastPage)} disabled={currentPage === lastPage || currentPage === 1}>
+                    <button onClick={() => setCurrentPage(pageInfo?.endPage)} disabled={currentPage === pageInfo?.endPage || pageInfo?.endPage == 1}>
                         <HiChevronDoubleRight />
                     </button>
                 </article>
-
             </section>
 
         </main>

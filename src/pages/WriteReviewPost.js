@@ -97,16 +97,16 @@ function WriteReviewPost() {
                             <input type="text" onChange={onChangeHandler} defaultValue={form.reviewTitle} style={{ marginLeft: '15px', backgroundColor: 'lightgray', width: '630px' }} name="reviewTitle"/>
                         </div>
                         <div className={style.container}>
-                            <h4>랠리 완주 일시</h4>
-                            <h4>2020-20202020</h4>
+
                         </div>
                         {/* <input type="date" min="2023-01" max="2023-12" name='rallydate' /> */}
                     </article>
                     <br />
                     <div className={style.textBoard}>
                         <div className={style.imageBoard}>
+                            <div className={style.imageGo} style={{float: 'left', marginLeft: '10px'}}>리뷰 내용</div>
                             <input style={{ display: 'none' }} type="file" ref={imageInput} />
-                            <button className={style.imageGo} onClick={onCickImageUpload}>이미지업로드</button>
+                            {/* <button className={style.imageGo} onClick={onCickImageUpload}>이미지업로드</button> */}
                         </div>
                         <textarea
                             onChange={onChangeHandler}
