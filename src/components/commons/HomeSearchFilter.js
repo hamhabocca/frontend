@@ -7,7 +7,7 @@ import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } fr
 
 function searchSig(sido) {
 
-    return sigunguList.filter(sig => sig.sig.sig_cd.startsWith(sido));
+    return sigunguList.filter(sig => sig.sig.sig_full_nm.startsWith(sido));
 }
 
 function Sigoon({ sig }) {
