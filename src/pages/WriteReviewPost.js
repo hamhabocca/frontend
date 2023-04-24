@@ -12,15 +12,10 @@ function WriteReviewPost() {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const test = new Date().toLocaleString();
-    console.log(test)
-
     /* 이 리뷰의 랠리의 id */
     const rallyId = searchParams.get("rallyid");
     const imageInput = useRef();
-    const onCickImageUpload = () => {
-        imageInput.current.click();
-    };
+
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -51,8 +46,6 @@ function WriteReviewPost() {
 
     const onClickReviewPostHandler = () => {
 
-        console.log('[랠리등록] onClickRallyPostHandler');
-
         const formData = new FormData();
 
         formData.append("reviewTitle", form.reviewTitle);
@@ -65,7 +58,6 @@ function WriteReviewPost() {
         }
         
         dispatch(callPostReviewAPI({ form : formData }));
-        // dispatch(reset_state());
 
         alert('리뷰 게시판으로 이동합니다.');
         navigate('/review', { replace : true });
@@ -92,14 +84,9 @@ function WriteReviewPost() {
                 <div className={style.MainContainer}>
                 <article className={style.rallydate2}>
                         <div className={style.container}>
-                            <h4>리뷰 제목</h4>
-                            {/* {REVIEW_TITLE} */}
-                            <input type="text" onChange={onChangeHandler} defaultValue={form.reviewTitle} style={{ marginLeft: '15px', backgroundColor: 'lightgray', width: '630px' }} name="reviewTitle"/>
+                            <div style={{fontWeight : 'bold', marginRight:'10px'}}>제목</div>
+                            <input type="text" onChange={onChangeHandler} defaultValue={form.reviewTitle} style={{ marginLeft: '15px', backgroundColor: 'lightgray', width: '660px' }} name="reviewTitle"/>
                         </div>
-                        <div className={style.container}>
-
-                        </div>
-                        {/* <input type="date" min="2023-01" max="2023-12" name='rallydate' /> */}
                     </article>
                     <br />
                     <div className={style.textBoard}>

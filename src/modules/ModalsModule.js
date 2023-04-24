@@ -7,6 +7,7 @@ const initialState = {
     cancelRallyState: false,
     cancelRallyOkState: false,
     reportState: false,
+    reportReviewState: false,
     profileState: false,
     registerState: false,
     deleteAccountState: false,
@@ -25,6 +26,7 @@ export const OPEN_CANCEL_RALLY = 'modal/OPEN_CANCEL_RALLY';
 export const OPEN_CANCEL_RALLY_OK = 'modal/OPEN_CANCEL_RALLY_OK';
 export const OPEN_OK = 'modal/OPEN_OK';
 export const OPEN_REPORT = 'modal/OPEN_REPORT';
+export const OPEN_REVIEW_REPORT = 'modal/OPEN_REVIEW_REPORT';
 export const OPEN_PROFILE = 'modal/OPEN_PROFILE';
 export const OPEN_REGISTER = 'modal/OPEN_REGISTER';
 export const OPEN_DELETE_ACCOUNT = 'modal/OPEN_DELETE_ACCOUNT';
@@ -82,6 +84,12 @@ const modalsReducer = handleActions({
         return {
             ...state,
             reportState: true
+        };
+    },
+    [OPEN_REVIEW_REPORT]: (state, payload) => {
+        return {
+            ...state,
+            reportReviewState: true
         };
     },
     [OPEN_PROFILE]: (state, payload) => {
