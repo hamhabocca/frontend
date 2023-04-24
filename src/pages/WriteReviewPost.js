@@ -13,7 +13,6 @@ function WriteReviewPost() {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const test = new Date().toLocaleString();
-    console.log(test)
 
     /* 이 리뷰의 랠리의 id */
     const rallyId = searchParams.get("rallyid");

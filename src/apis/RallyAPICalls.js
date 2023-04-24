@@ -1,3 +1,4 @@
+import { LOADING } from "../modules/LoadingModule";
 import { GET_RALLYLIST, GET_RALLY } from "../modules/RallyModule";
 
 // 전체 목록 조회 (페이징)
@@ -42,6 +43,8 @@ export const callRallyDetailAPI = ({ rallyId }) => {
 
     return async (dispatch, getState) => {
 
+        dispatch({ type: LOADING, payload: true});
+
         const result = await fetch(URL, {
             method: "GET",
             headers: {
@@ -71,6 +74,10 @@ export const callRallyDetailAPI = ({ rallyId }) => {
 
             const rallyInfo = { ...result.results?.rally, master: master.results?.member };
             dispatch({ type: GET_RALLY, payload: rallyInfo });
+            
+            setTimeout(function () {
+                dispatch({ type: LOADING, payload: false});
+            }, 300);
         }
     };
 }

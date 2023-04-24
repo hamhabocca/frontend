@@ -41,7 +41,7 @@ function Menubar() {
         <nav className={style.wrap}>
             <div className={style.container}>
                 <ul className={style.Rally}>
-                    <li className={style.ssibal}><NavLink to='/'><img src='./img/logo.png' className={style.logo}/></NavLink></li>
+                    <li className={style.ssibal}><NavLink to='/'><img src='/img/logo.png' className={style.logo}/></NavLink></li>
                     <li><NavLink to='/rally' style={ ({isActive}) => isActive? activeStyle: undefined }>랠리모집</NavLink></li>
                     <li><NavLink to='/review' style={ ({isActive}) => isActive? activeStyle: undefined }>랠리후기</NavLink></li>
                 </ul>

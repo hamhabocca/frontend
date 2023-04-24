@@ -1,4 +1,5 @@
-import { GET_REVIEW, GET_REVIEW_RALLY, GET_REVIEWLIST } from "../modules/ReviewModule";
+import { LOADING } from "../modules/LoadingModule";
+import { GET_REVIEW, GET_REVIEWLIST } from "../modules/ReviewModule";
 
 export const callReviewRallyAPI = ({ reviewId }) => {
 
@@ -7,6 +8,8 @@ export const callReviewRallyAPI = ({ reviewId }) => {
     const token = window.localStorage.getItem('jwtToken');
 
     return async (dispatch, getState) => {
+
+        dispatch({ type: LOADING, payload: true});
 
         const result = await fetch(URL, {
             method: "GET",
@@ -43,18 +46,22 @@ export const callReviewRallyAPI = ({ reviewId }) => {
             ]);
 
             if (rallyResult.httpStatus === 200 && memberResult.httpStatus === 200) {
+
                 // rally 엔티티 정보와 함께 review 엔티티 정보와 member 엔티티 정보를 dispatch
                 const reviewData = { ...result.results.reviews, rally: rallyResult.results.rally, member: memberResult.results.member };
-                
                 dispatch({ type: GET_REVIEW, payload: reviewData });
-                console.log("GET_REVIEW에 넣은 값 : ", reviewData);
+
+                setTimeout(function () {
+                    dispatch({ type: LOADING, payload: false });
+                }, 300);
+                // console.log("GET_REVIEW에 넣은 값 : ", reviewData);
+
+            } else {
+                // console.log("데이터 안돼");  //랠리데이터 or 멤버 데이터
             }
-            else {
-                console.log("데이터 안돼");  //랠리데이터 or 멤버 데이터
-            }
-        }
-        else {
-            console.log("데이터 안돼");   //리뷰 데이터
+
+        } else {
+            // console.log("데이터 안돼");   //리뷰 데이터
         }
     };
 }
@@ -150,7 +157,7 @@ export const callReviewRallyListAPI = () => {
 
 
 //리뷰 검색
-export const callSearchReviewAPI = ({criteria }) => {
+export const callSearchReviewAPI = ({ criteria }) => {
     const URL = `http://localhost:8000/api/v1/reviews/search?${criteria}`;
     const token = window.localStorage.getItem("jwtToken");
 
@@ -224,7 +231,7 @@ export const callSearchReviewAPI = ({criteria }) => {
                         member: memberMap.get(review.memberId),
                         rally: rallyMap.get(review.rallyId),
                     }));
-                    if((reviewDataList).length === 0 ){
+                    if ((reviewDataList).length === 0) {
                         alert('조건에 맞는 리뷰를 찾을 수 없습니다. \n 다른 조건으로 검색해주세요');
                     }
                     dispatch({ type: GET_REVIEWLIST, payload: reviewDataList });
