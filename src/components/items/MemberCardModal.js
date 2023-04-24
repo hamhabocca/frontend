@@ -19,7 +19,6 @@ function MemberCardModal({ mate }) {
     const NICKNAME = mate.member?.nickname;
     const PROFILE_IMG = mate.member?.imageSource
 
-
     if (MEMBER_ID === RALLY.master?.memberId) {
         return (
             <div className={style.member}>

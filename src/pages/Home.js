@@ -37,7 +37,7 @@ function Home() {
     return (
         <>
             <main>
-                <label className={style.Notice} onClick={toNotice}>공지사항일듯</label>
+                <div className={style.Notice} onClick={toNotice}></div>
                 <div className={style.NewestRallyAndMore}>
                     <h4>&gt; 최신 랠리 모집</h4>
                     <button><Link to='/rally'>더보기&nbsp;&nbsp; &gt;</Link></button>

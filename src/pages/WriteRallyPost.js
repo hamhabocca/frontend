@@ -66,6 +66,7 @@ function WriteRallyPost() {
         dispatch(callPostRallyAPI({ form: formData }));
         dispatch(reset_state());
         navigate('/rally', { replace: true });
+        window.location.reload();
     };
 
     const onClickPostHandler = () => {
