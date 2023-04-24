@@ -3,7 +3,8 @@ import sigunguList from '../../data/sigungu.json';
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } from '../../modules/CountModule';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { IoMdRefresh } from "react-icons/io";
 
 function searchSig(sido) {
 
@@ -17,10 +18,22 @@ function Sigoon({ sig }) {
 
 function ReviewSearchFilter() {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     /* 회원 확인 */
     const token = window.localStorage.getItem("jwtToken");
+    /* state값 가져오기 */
+    // const distanceCount = useSelector(state => state.countReducer.distanceState);
+    // const peopleCount = useSelector(state => state.countReducer.peopleState);
+
+    // /* 증감버튼 클릭이벤트핸들러 */
+    // const distanceCountIncrease = () => dispatch(distanceIncrease());
+    // const distanceCountDecrease = () => { distanceCount > 0 && dispatch(distanceDecrease()) };
+    // const peopleCountIncrease = () => dispatch(peopleIncrease());
+    // const peopleCountDecrease = () => { peopleCount > 0 && dispatch(peopleDecrease()) };
+
+
 
     // 시도 선택시 시군구 리스트 담음
     const [sigList, setSigList] = useState([]);
@@ -48,7 +61,7 @@ function ReviewSearchFilter() {
 
     /* 체크박스 - 한번만 체크할 수 있도록 */
     const checkOnlyOne = (checkThis) => {
-        const checkboxes = document.getElementsByName('rallytype')
+        const checkboxes = document.getElementsByName('ralltype')
         for (let i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i] !== checkThis) {
                 checkboxes[i].checked = false
@@ -60,6 +73,7 @@ function ReviewSearchFilter() {
         <div className={style.filter}>
             <article className={style.title}>
                 <h1>Filter</h1>
+                <button className={style.refresh} onClick={()=> { navigate('/review'); }}><IoMdRefresh/></button>
             </article>
 
             <form className={style.form} action={"/review/search"}>
