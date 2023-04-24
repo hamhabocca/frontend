@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { callRallyListAPI } from '../apis/RallyAPICalls';
+import { getCurrentMember } from '../apis/MemberAPICalls';
+import ModalNickname from '../components/modals/ModalNickname';
 
 function Home() {
 
@@ -11,6 +13,8 @@ function Home() {
     const rallies = useSelector((state) => state.rallyReducer);
     const rallyList = rallies?.rallyList?.content?.filter(rally => rally.rallyStatus != '취소됨').slice(0, 6);
     const pageInfo = rallies?.paging;
+
+    const isOpen = useSelector(state => state.modalsReducer.nicknameState);
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -22,6 +26,9 @@ function Home() {
 
     useEffect(
         () => {
+            if(window.localStorage.getItem('jwtToken')) {
+                dispatch(getCurrentMember());
+            }
             dispatch(callRallyListAPI({currentPage : currentPage}));
         },
         []
@@ -38,6 +45,7 @@ function Home() {
                 <div className={style.Rallycards}>
                     {Array.isArray(rallyList) && rallyList.map(rally => <RallCardMain key={rally.rallyId} rally={rally} />)}
                 </div>
+                {isOpen && <ModalNickname/>}
             </main>
         </>
     )

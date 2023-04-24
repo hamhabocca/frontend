@@ -2,6 +2,8 @@ import { GET_MEMBER } from "../modules/MemberModule";
 import { GET_RALLYLIST } from "../modules/RallyModule";
 import { GET_PARTICIPATE } from "../modules/ParticipateModule";
 import { CHECK_NICKNAME } from "../modules/NicknameModule";
+import { OPEN_NICKNAME } from "../modules/ModalsModule";
+import ModalNickname from "../components/modals/ModalNickname";
 
 export const getMembers = async () => {
 
@@ -43,6 +45,12 @@ export const getCurrentMember = () => {
         console.log('[MemberAPICalls] getCurrentMember RESULT : ', result);
         if (result.httpStatus === 200) {
             dispatch({ type: GET_MEMBER, payload: result.results.member });
+            
+            if(result.results.member.nickname.startsWith("새로운회원")) {
+                
+                dispatch({ type: OPEN_NICKNAME });
+            }
+
         }
     };
 }
