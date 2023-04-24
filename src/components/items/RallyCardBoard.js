@@ -41,8 +41,17 @@ function RallyCardBoard({ rally }) {
         }
     };
 
+    const token = window.localStorage.getItem("jwtToken");
+
+    const onClickHandler = () => {
+        
+        if(token === null) {
+            alert('비회원은 이용 불가합니다.\n로그인 후 이용해주시길 바랍니다.');
+        }
+    }
+
     return (
-        <Link to={`/rally/${RALLY_ID}`} style={{ textDecoration: 'none', color: '#202020' }}>
+        <Link to={token? `/rally/${RALLY_ID}`: '/login'} style={{ textDecoration: 'none', color: '#202020' }} onClick={() => {onClickHandler()}}>
             <section className={RALLY_STATUS === "취소됨"? `${style.category} ${style.cancel}`: `${style.category}`}>
                 <div className={style.status}>
                     {rallyStatus()}

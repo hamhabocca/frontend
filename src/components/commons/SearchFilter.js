@@ -61,7 +61,7 @@ function SearchFilter() {
 
     /* 체크박스 - 한번만 체크할 수 있도록 */
     const checkOnlyOne = (checkThis) => {
-        const checkboxes = document.getElementsByName('rallytype')
+        const checkboxes = document.getElementsByName('type')
         for (let i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i] !== checkThis) {
                 checkboxes[i].checked = false

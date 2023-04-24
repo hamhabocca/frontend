@@ -22,9 +22,9 @@ function MyPage() {
 
     /* 멤버의 모집/참여 이력 */
     const recruited = useSelector(state => state.rallyReducer);
-    const recruitedList = recruited?.recruitedRallyList;
+    const recruitedList = recruited?.recruitedRallyList?.reverse();
     const participated = useSelector(state => state.participateReducer);
-    const participatedList = participated?.finalRallyList;
+    const participatedList = participated?.finalRallyList?.reverse();
 
     /* 성별 아이콘 */
     function GenderIcon() {

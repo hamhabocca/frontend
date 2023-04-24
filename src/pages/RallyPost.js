@@ -1,8 +1,7 @@
 import { OPEN_RECRUIT_LIST, OPEN_PARTICIPATE, OPEN_CANCEL_PARTICIPATE, OPEN_CANCEL_RALLY, OPEN_REPORT } from "../modules/ModalsModule";
 import ModalCurrentRecruitList from "../components/modals/ModalCurrentRecruitList";
-import ModalRallyPartcipate from "../components/modals/ModalRallyPartcipate";
+import ModalParticipate from "../components/modals/ModalParticipate";
 import ModalRallyCancel from "../components/modals/ModalRallyCancel";
-import ModalRallyRecruitmentCancel from "../components/modals/ModalRallyRecruitmentCancel";
 import ModalReport from "../components/modals/ModalReport";
 
 import style from "./RallyPost.module.css";
@@ -13,6 +12,7 @@ import SearchFilter from "../components/commons/SearchFilter";
 import { callModifyRallyAPI, callRallyDetailAPI } from "../apis/RallyAPICalls";
 import { callParticipateListAPI } from "../apis/ParticipateAPICalls";
 import Kakaomap from '../components/items/Kakaomap';
+import ModalParticipateCancel from "../components/modals/ModalParticipateCancel";
 
 function RallyPost() {
 
@@ -115,7 +115,7 @@ function RallyPost() {
                     return (
                         <>
                             <button onClick={() => { dispatch({ type: OPEN_CANCEL_RALLY }) }} className={style.report}>랠리취소</button>
-                            {cancelRallyModal && <ModalRallyRecruitmentCancel rallyId={rallyId} />}
+                            {cancelRallyModal && <ModalRallyCancel rally={rally} />}
                             <button className={style.edit} onClick={() => { navigate(`/rally/${rallyId}/write`, { replace: true }); }}>수정</button>
                         </>
                     );
@@ -141,19 +141,28 @@ function RallyPost() {
                 case "모집중":
                     return (
                         <>
-                            <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
+                            <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>
+                                신청 현황
+                            </button>
                             {recruitListModal && <ModalCurrentRecruitList />}
-                            <button style={{ background: '#056DFA' }} onClick={() => { onClickRallyStatusUpdateHandler("모집완료") }}>모집 마감</button>
+                            <button style={{ background: '#056DFA' }} 
+                                    onClick={() => { onClickRallyStatusUpdateHandler("모집완료"); window.location.reload(); }}>
+                                모집 마감
+                            </button>
                         </>
                     );
                 case "모집완료":
                     return (
-                        <button className={style.done} onClick={() => { onClickRallyStatusUpdateHandler("완주!") }}>랠리 완주!</button>
+                        <button className={style.done} onClick={() => { onClickRallyStatusUpdateHandler("완주!"); window.location.reload(); }}>
+                            랠리 완주!
+                        </button>
                     );
                 default:
                     return (
                         <>
-                            <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
+                            <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>
+                                신청 현황
+                            </button>
                             {recruitListModal && <ModalCurrentRecruitList />}
                         </>
                     );
@@ -163,16 +172,16 @@ function RallyPost() {
         // 타회원
         if (RALLY_STATUS === '모집중' || RALLY_STATUS === '모집완료') {
 
-            let result = mateList?.filter(mate => mate.memberId == MEMBER_ID)[0]
+            let result = mateList?.filter(mate => mate.memberId === MEMBER_ID)[0]
 
             // 신청
-            if (result != undefined) {
+            if (result !== undefined) {
                 return (
                     <>
                         <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
                         {recruitListModal && <ModalCurrentRecruitList />}
                         <button onClick={() => { dispatch({ type: OPEN_CANCEL_PARTICIPATE }) }} style={{ background: '#056DFA' }}>신청 취소</button>
-                        {cancelParticipateModal && <ModalRallyCancel rallyId={rallyId} />}
+                        {cancelParticipateModal && <ModalParticipateCancel rally={rally} />}
                     </>
                 );
             }
@@ -183,7 +192,7 @@ function RallyPost() {
                     <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
                     {recruitListModal && <ModalCurrentRecruitList />}
                     <button onClick={() => { dispatch({ type: OPEN_PARTICIPATE }) }} style={{ background: '#056DFA' }}>랠리 신청</button>
-                    {participateModal && <ModalRallyPartcipate rallyId={rallyId} />}
+                    {participateModal && <ModalParticipate rally={rally} />}
 
                 </>
             );
@@ -230,7 +239,7 @@ function RallyPost() {
                             </div>
                             <div className={style.time}>
                                 <div className={style.datelabel}>모집 인원</div>
-                                <p>최소 {RALLY_MINIMUM || 0}명 ~ 최대 {RALLY_MAXIMUM || '4'}명</p>
+                                <p>최소 {RALLY_MINIMUM || '0'}명 ~ 최대 {RALLY_MAXIMUM || '4'}명</p>
                             </div>
                         </div>
                         <div className={style.rallyStatus}>{eventbutton()}</div>
@@ -251,7 +260,6 @@ function RallyPost() {
                         </div>
                     </div>
                 </article>
-
             </section>
         </main>
     );

@@ -3,8 +3,6 @@ import { GET_PARTICIPATE, POST_PARTICIPATE, PUT_PARTICIPATE, CANCEL_PARTICIPATE 
 // 랠리 신청 현황
 export const callParticipateListAPI = ({ rallyId }) => {
 
-    console.log("rallyId : " + rallyId);
-
     const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list`;
 
     return async (dispatch, getState) => {
@@ -19,7 +17,7 @@ export const callParticipateListAPI = ({ rallyId }) => {
         })
             .then(response => response.json());
 
-        console.log('[ParticipateAPICalls] ParticipateListAPI RESULT: ', result);
+        // console.log('[ParticipateAPICalls] ParticipateListAPI RESULT: ', result);
 
         if (result.httpStatus === 200) {
 
@@ -63,11 +61,7 @@ export const callParticipateRallyByMateAPI = ({ rallyId }) => {
                 "Auth": window.localStorage.getItem("jwtToken")
             }
         })
-            .then(response => response.json());
-
-        console.log('[ParticipateAPICalls] participateRallyByMateAPI RESULT: ', result);
-
-        dispatch({ type: POST_PARTICIPATE, payload: result.results.rallyMateList });
+            .catch(err => console.log("error : ", err))
 
     }
 }
@@ -89,18 +83,14 @@ export const callCancelParticipateRallyAPI = ({ rallyId }) => {
                 "Auth": window.localStorage.getItem("jwtToken")
             }
         })
-            .then(response => response.json());
-
-        console.log('[ParticipateAPICalls] cancelParticipateRallyAPI RESULT: ', result);
-
-        dispatch({ type: CANCEL_PARTICIPATE, payload: result });
+            .catch(err => console.log("error : ", err))
     }
 }
 
 // 랠리 참가신청 승인
 export const callAllowParticipateByMasterAPI = ({ rallyId, mateId }) => {
 
-    console.log("[ParticipateAPICalls] AllowParticipateByMasterAPI Call...");
+    // console.log("[ParticipateAPICalls] AllowParticipateByMasterAPI Call...");
 
     const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list?mateId=${mateId}`;
 
@@ -114,11 +104,9 @@ export const callAllowParticipateByMasterAPI = ({ rallyId, mateId }) => {
                 "Auth": window.localStorage.getItem("jwtToken")
             }
         })
-            .then(response => response.json());
+            .catch(err => console.log("error : ", err));
 
-        console.log('[ParticipateAPICalls] AllowParticipateByMasterAPI RESULT: ', result);
-
-        dispatch({ type: PUT_PARTICIPATE, payload: result });
+        // console.log('[ParticipateAPICalls] AllowParticipateByMasterAPI RESULT: ', result);
 
     }
 }

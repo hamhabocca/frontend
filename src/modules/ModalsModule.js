@@ -5,6 +5,7 @@ const initialState = {
     participateState: false,
     cancelParticipateState: false,
     cancelRallyState: false,
+    cancelRallyOkState: false,
     reportState: false,
     profileState: false,
     registerState: false,
@@ -19,10 +20,9 @@ const initialState = {
 
 export const OPEN_RECRUIT_LIST = 'modal/OPEN_RECRUIT_LIST';
 export const OPEN_PARTICIPATE = 'modal/OPEN_PARTICIPATE';
-export const OPEN_PARTICIPATE_OK = 'modal/OPEN_PARTICIPATE_OK'
 export const OPEN_CANCEL_PARTICIPATE = 'modal/OPEN_CANCEL_PARTICIPATE';
-export const OPEN_CANCEL_PARTICIPATE_OK = 'modal/OPEN_CANCEL_PARTICIPATE_OK';
 export const OPEN_CANCEL_RALLY = 'modal/OPEN_CANCEL_RALLY';
+export const OPEN_CANCEL_RALLY_OK = 'modal/OPEN_CANCEL_RALLY_OK';
 export const OPEN_OK = 'modal/OPEN_OK';
 export const OPEN_REPORT = 'modal/OPEN_REPORT';
 export const OPEN_PROFILE = 'modal/OPEN_PROFILE';
@@ -64,6 +64,12 @@ const modalsReducer = handleActions({
         return {
             ...state,
             cancelRallyState: true
+        };
+    },
+    [OPEN_CANCEL_RALLY_OK]: (state, payload) => {
+        return {
+            ...state,
+            cancelRallyOkState: true
         };
     },
     [OPEN_OK]: (state, payload) => {

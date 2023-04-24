@@ -21,8 +21,7 @@ export const callRallyListAPI = ({ currentPage }) => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "*/*",
-                "Auth": window.localStorage.getItem("jwtToken")
+                "Accept": "*/*"
             }
         })
             .then(response => response.json());
