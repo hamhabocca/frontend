@@ -98,17 +98,17 @@ function ModalProfile({ member }) {
 
         console.log(typeof checkResult)
 
-        if(typeof checkResult == 'boolean') {
+        if (typeof checkResult == 'boolean') {
 
             if (checkResult == true) {
                 console.log("겹치는 이름 있음")
-    
+
                 setCheckResultView("사용 중인 닉네임입니다.");
             } else if (checkResult == false) {
                 console.log("겹치는 이름 없음")
-    
+
                 setCheckResultView("사용 가능한 닉네임입니다!");
-            } 
+            }
         } else {
             console.log("초기화")
 
@@ -128,13 +128,21 @@ function ModalProfile({ member }) {
                     <h3>프로필 수정</h3>
                 </div>
                 <div className={styles.info}>
-                    <div className={styles.title}>
-                        <h4 style={{ height: '100px' }}>프로필사진</h4>
-                        <h4 style={{ height: '20px' }}>닉네임</h4>
-                        <h4 style={{ height: '10px' }}>선호지역</h4>
-                        <h4 style={{ height: '50px' }}>랠리타입</h4>
+                    <div className={styles.left}>
+                        <div>
+                            <h4>프로필사진</h4>
+                        </div>
+                        <div>
+                            <h4>닉네임</h4>
+                        </div>
+                        <div>
+                            <h4>선호지역</h4>
+                        </div>
+                        <div>
+                            <h4>랠리타입</h4>
+                        </div>
                     </div>
-                    <div className={styles.info2}>
+                    <div className={styles.right}>
                         <div>
                             <div className={styles.img1}>
                                 <img

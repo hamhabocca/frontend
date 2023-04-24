@@ -1,19 +1,14 @@
-
 .container {
     display: flex;
     margin-top: 20px;
-    
 }
-
 
 .container2 {
     display: flex;
-    /* background-color: pink; */
     align-items: center;
-    justify-Content : space-between;
+    justify-Content: space-between;
     margin-top: 5px;
 }
-
 
 .container3 {
     height: 400px;
@@ -21,21 +16,19 @@
     /* background-color: lightblue; */
 }
 
-.containerMain{
+.containerMain {
     display: flex;
     height: auto;
 }
 
-.containerTime{
+.containerTime {
     display: flex;
     align-items: center;
-    justify-Content : space-between;
+    justify-Content: space-between;
     /* background-color: pink; */
     margin-top: 10px;
     margin-right: 10px;
 }
-
-
 
 .Kmlabel {
     font-size: 42px;
@@ -50,6 +43,7 @@
     flex-flow: column;
     justify-content: space-between;
 }
+
 .location h2 {
     font-size: 32px;
     height: 35px;
@@ -98,9 +92,9 @@
     justify-content: space-between;
 }
 
-.report button{
+.report button {
     width: 65px;
-    height : 30px;
+    height: 30px;
     text-align: center;
     float: right;
     border: none;
@@ -112,24 +106,23 @@
     height: 1000px;
     /* background-color: lavender; */
     margin-bottom: 60px;
-    margin-left:  30px;
-    
+    margin-left: 30px;
+
 }
+
 .postStatus {
     width: 175px;
     display: flex;
     justify-content: flex-end;
 }
 
-
-
-.Main{
-    /* width : 100% */
+.Main {
+    width : 100%
     /* background-color: purple; */
-    height: 1500px;
+    /* height: 1500px; */
 }
 
-.picture{
+.picture {
     width: 45px;
     height: 45px;
     border-radius: 50px;
@@ -141,7 +134,7 @@
     font-size: 10pt;
     margin-left: 10px;
     margin-right: 5px;
-    
+
 }
 
 
@@ -155,7 +148,7 @@
 }
 
 
-.mainPic{
+.mainPic {
     margin-top: 10px;
     margin-left: 10px;
     width: 380px;
@@ -165,7 +158,7 @@
 
 }
 
-.mainContext{
+.mainContext {
     margin-top: 20px;
     margin-left: 10px;
     width: 380px;
@@ -177,23 +170,23 @@
 
 .startlabel {
     width: 100px;
-    height : 30px;
+    height: 30px;
     background-color: gray;
     margin-left: 10px;
     margin-top: 10px;
-    color : white;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.endlabel{
+.endlabel {
     width: 100px;
-    height : 30px;
+    height: 30px;
     background-color: gray;
     margin-left: 10px;
     margin-top: 5px;
-    color : white;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -209,7 +202,7 @@
     /* margin: 10px; */
 }
 
-.Review>h4{
+.Review>h4 {
     margin-top: 20px;
     padding: 15px;
 }
@@ -219,7 +212,7 @@
     width: 100%;
     height: 80px;
     border: 2px solid lightgray;
-    border-radius: 5px;   
+    border-radius: 5px;
     margin-right: 10px;
 }
 
@@ -229,7 +222,7 @@
     border: 2px solid #056DFA;
     border-radius: 5px;
     background-color: white;
-    color : #056DFA;
+    color: #056DFA;
     font-weight: bold;
 }
 
@@ -247,6 +240,5 @@
     width: 70px;
     height: 30px;
     border-radius: 5px;
-    color : white;
+    color: white;
 }
-

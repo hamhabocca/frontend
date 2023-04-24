@@ -13,8 +13,11 @@ import { callModifyRallyAPI, callRallyDetailAPI } from "../apis/RallyAPICalls";
 import { callParticipateListAPI } from "../apis/ParticipateAPICalls";
 import Kakaomap from '../components/items/Kakaomap';
 import ModalParticipateCancel from "../components/modals/ModalParticipateCancel";
+import Loading from "../components/commons/Loading";
 
 function RallyPost() {
+    
+    const loading = useSelector(state => state.loadingReducer);
 
     /* 현재 사용자 */
     const token = window.localStorage.getItem("jwtToken");
@@ -145,8 +148,8 @@ function RallyPost() {
                                 신청 현황
                             </button>
                             {recruitListModal && <ModalCurrentRecruitList />}
-                            <button style={{ background: '#056DFA' }} 
-                                    onClick={() => { onClickRallyStatusUpdateHandler("모집완료"); window.location.reload(); }}>
+                            <button style={{ background: '#056DFA' }}
+                                onClick={() => { onClickRallyStatusUpdateHandler("모집완료"); window.location.reload(); }}>
                                 모집 마감
                             </button>
                         </>
@@ -172,10 +175,8 @@ function RallyPost() {
         // 타회원
         if (RALLY_STATUS === '모집중' || RALLY_STATUS === '모집완료') {
 
-            let result = mateList?.filter(mate => mate.memberId === MEMBER_ID)[0]
-
             // 신청
-            if (result !== undefined) {
+            if (Array.isArray(mateList) && (mateList?.filter(mate => mate.memberId === MEMBER_ID)[0])) {
                 return (
                     <>
                         <button onClick={() => { dispatch({ type: OPEN_RECRUIT_LIST }) }}>신청 현황</button>
@@ -184,7 +185,7 @@ function RallyPost() {
                         {cancelParticipateModal && <ModalParticipateCancel rally={rally} />}
                     </>
                 );
-            }
+            };
 
             // 미신청
             return (
@@ -196,70 +197,70 @@ function RallyPost() {
 
                 </>
             );
-
-        }
+        };
     };
 
     return (
         <main className={style.container}>
             <SearchFilter />
             <section className={style.board}>
-                <article className={style.title}>
-                    <div className={style.label}><RallyStatus /></div>
-                    <div className={style.label}><RallyType /></div>
-                    <div className={style.rallyname}>{RALLY_NAME}</div>
-                    <div className={style.postStatus}><PostSet /></div>
-                </article>
-                <article className={style.writer}>
-                    <div>
-                        <div className={style.writerImg}>
-                            <img src={PROFILE_IMG} style={{ borderRadius: '50%' }} />
-                        </div>
-                        <h4>{NICKNAME}</h4>
-                    </div>
-                    <p>{RALLY_WRITE_DATE}</p>
-                </article>
-                <article className={style.rallyinfo}>
-                    <div className={style.map}>
-                        {RALLY_LOCATION && RALLY_END_LOCATION ?
-                            <Kakaomap departureAddress={RALLY_LOCATION} arrivalAddress={RALLY_END_LOCATION} /> : null}
-                    </div>
-                    <div className={style.info}>
-                        <div className={style.location}>
-                            <h2>{RALLY_DISTANCE}km</h2>
-                            <h4>출발지</h4>
-                            <h3>{RALLY_LOCATION}</h3>
-                            <h4>도착지</h4>
-                            <h3>{RALLY_END_LOCATION}</h3>
-                        </div>
+                { loading? <Loading/> : 
+                <div>
+                    <article className={style.title}>
+                        <div className={style.label}><RallyStatus /></div>
+                        <div className={style.label}><RallyType /></div>
+                        <div className={style.rallyname}>{RALLY_NAME}</div>
+                        <div className={style.postStatus}><PostSet /></div>
+                    </article>
+                    <article className={style.writer}>
                         <div>
-                            <div className={style.time}>
-                                <div className={style.datelabel}>출발 시각</div>
-                                <p>{RALLY_DATE}</p>
+                            <div className={style.writerImg}>
+                                <img src={PROFILE_IMG} style={{ borderRadius: '50%' }} />
                             </div>
-                            <div className={style.time}>
-                                <div className={style.datelabel}>모집 인원</div>
-                                <p>최소 {RALLY_MINIMUM || '0'}명 ~ 최대 {RALLY_MAXIMUM || '4'}명</p>
+                            <h4>{NICKNAME}</h4>
+                        </div>
+                        <p>{RALLY_WRITE_DATE}</p>
+                    </article>
+                    <article className={style.rallyinfo}>
+                        <div className={style.map}>
+                            {RALLY_LOCATION && RALLY_END_LOCATION ?
+                                <Kakaomap departureAddress={RALLY_LOCATION} arrivalAddress={RALLY_END_LOCATION} /> : null}
+                        </div>
+                        <div className={style.info}>
+                            <div className={style.location}>
+                                <h2>{RALLY_DISTANCE}km</h2>
+                                <h4>출발지</h4>
+                                <h3>{RALLY_LOCATION}</h3>
+                                <h4>도착지</h4>
+                                <h3>{RALLY_END_LOCATION}</h3>
+                            </div>
+                            <div>
+                                <div className={style.time}>
+                                    <div className={style.datelabel}>출발 시각</div>
+                                    <p>{RALLY_DATE}</p>
+                                </div>
+                                <div className={style.time}>
+                                    <div className={style.datelabel}>모집 인원</div>
+                                    <p>최소 {RALLY_MINIMUM || '0'}명 ~ 최대 {RALLY_MAXIMUM || '4'}명</p>
+                                </div>
+                            </div>
+                            <div className={style.rallyStatus}>{eventbutton()}</div>
+                        </div>
+                    </article>
+                    <article className={style.rallydetail}>
+                        {RALLY_DETAIL}
+                    </article>
+                    <article className={style.comments}>
+                        <div className={style.commentList}></div>
+                        <div className={style.mycomment}>
+                            <h5>내 닉네임</h5>
+                            <div className={style.mention}>
+                                <textarea />
+                                <button>등록</button>
                             </div>
                         </div>
-                        <div className={style.rallyStatus}>{eventbutton()}</div>
-                    </div>
-                </article>
-                <article className={style.rallydetail}>
-                    {RALLY_DETAIL}
-                </article>
-
-
-                <article className={style.comments}>
-                    <div className={style.commentList}></div>
-                    <div className={style.mycomment}>
-                        <h5>내 닉네임</h5>
-                        <div className={style.mention}>
-                            <textarea />
-                            <button>등록</button>
-                        </div>
-                    </div>
-                </article>
+                    </article>
+                </div>}
             </section>
         </main>
     );

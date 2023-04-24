@@ -54,7 +54,7 @@ function MyPageList({ typeOfList, rallyList }) {
             </div>
             <h4>과거 랠리</h4>
             <div className={style.RallyContainer}>
-                {Array.isArray(rallyList) && pastList.map(rally => <RallyCardMyPage key={rally.rallyId} rally={rally} typeOfList={'과거'}/>)}
+                {Array.isArray(rallyList) && pastList.map(rally => <RallyCardMyPage key={rally.rallyId} rally={rally} typeOfList={typeOfList}/>)}
                 {readMoreButton()}
             </div>
         </section>

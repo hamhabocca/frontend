@@ -8,10 +8,13 @@ import ModalProfile from "../components/modals/ModalProfile";
 import { useDispatch, useSelector } from 'react-redux';
 import { OPEN_DELETE_ACCOUNT, OPEN_PROFILE } from '../modules/ModalsModule';
 import { useEffect } from 'react';
+import Loading from '../components/commons/Loading';
 
 function MyPage() {
 
     const dispatch = useDispatch();
+
+    const loading = useSelector(state => state.loadingReducer);
 
     /* 모달 */
     const deleteAccountState = useSelector(state => state.modalsReducer.deleteAccountState);
@@ -85,59 +88,63 @@ function MyPage() {
     return (
         <>
             <main className={style.Main}>
-                <section className={style.Left}>
-                    <div className={style.Profile}>
-                        <img src={member?.imageSource} alt='profile image' className={style.ProfileImg} />
-                        <div className={style.Name}>
-                            <div className={style.Social}>{SocialIcon()}</div>
-                            <label>{member?.nickname}</label>
-                            <label className={style.Gender}>{GenderIcon()}</label>
+            { loading? <Loading/> :
+                <>
+                    <section className={style.Left}>
+                        <div className={style.Profile}>
+                            <img src={member?.imageSource} alt='profile image' className={style.ProfileImg} />
+                            <div className={style.Name}>
+                                <div className={style.Social}>{SocialIcon()}</div>
+                                <label>{member?.nickname}</label>
+                                <label className={style.Gender}>{GenderIcon()}</label>
+                            </div>
+                            <label className={style.Nickname}>{member?.email}</label>
                         </div>
-                        <label className={style.Nickname}>{member?.email}</label>
-                    </div>
-                    <div className={style.RiderProfile}>
-                        <h4>라이더 프로필</h4>
-                        <div className={style.circle_progress_wrap}>
-                            <svg className={style.circle_progress} width="120" height="120" viewBox="0 0 120 120">
-                                <circle className={style.frame} cx="60" cy="60" r="54" strokeWidth="12" />
-                                <circle className={style.bar} cx="60" cy="60" r="54" strokeWidth="12" style={circleStyle} />
-                            </svg>
-                            <div className={style.ProgressText}>
-                                <label>다음 단계까지</label>
-                                <label>{getRemainingKm()}km</label>
+                        <div className={style.RiderProfile}>
+                            <h4>라이더 프로필</h4>
+                            <div className={style.circle_progress_wrap}>
+                                <svg className={style.circle_progress} width="120" height="120" viewBox="0 0 120 120">
+                                    <circle className={style.frame} cx="60" cy="60" r="54" strokeWidth="12" />
+                                    <circle className={style.bar} cx="60" cy="60" r="54" strokeWidth="12" style={circleStyle} />
+                                </svg>
+                                <div className={style.ProgressText}>
+                                    <label>다음 단계까지</label>
+                                    <label>{getRemainingKm()}km</label>
+                                </div>
                             </div>
+                            <label>현재 단계 : {member?.level}</label>
+                            <div className={style.RiderProfileInfo}>
+                                <div>
+                                    <h4>선호 지역</h4>
+                                    <label>{member?.preferredLocation}</label>
+                                </div>
+                                <div>
+                                    <h4>선호 랠리 타입</h4>
+                                    <label>{member?.preferredType}</label>
+                                </div>
+                                <div>
+                                    <h4>랠리 모집 횟수</h4>
+                                    <label>{recruitedList?.length}</label>
+                                </div>
+                                <div>
+                                    <h4>랠리 참여 횟수</h4>
+                                    <label>{participatedList?.length}</label>
+                                </div>
+                            </div>
+                            <button onClick={() => { dispatch({ type: OPEN_PROFILE }) }} className={style.EditProfile}>프로필 수정</button>
+                            {profileState && <ModalProfile member={member} />}
                         </div>
-                        <label>현재 단계 : {member?.level}</label>
-                        <div className={style.RiderProfileInfo}>
-                            <div>
-                                <h4>선호 지역</h4>
-                                <label>{member?.preferredLocation}</label>
-                            </div>
-                            <div>
-                                <h4>선호 랠리 타입</h4>
-                                <label>{member?.preferredType}</label>
-                            </div>
-                            <div>
-                                <h4>랠리 모집 횟수</h4>
-                                <label>{recruitedList?.length}</label>
-                            </div>
-                            <div>
-                                <h4>랠리 참여 횟수</h4>
-                                <label>{participatedList?.length}</label>
-                            </div>
+                        <div>
+                            <button className={style.Deactivate} onClick={() => { dispatch({ type: OPEN_DELETE_ACCOUNT }) }}>사이트 탈퇴하기</button>
+                            {deleteAccountState && <ModalDeactivate />}
                         </div>
-                        <button onClick={() => { dispatch({ type: OPEN_PROFILE }) }} className={style.EditProfile}>프로필 수정</button>
-                        {profileState && <ModalProfile member={member} />}
-                    </div>
-                    <div>
-                        <button className={style.Deactivate} onClick={() => { dispatch({ type: OPEN_DELETE_ACCOUNT }) }}>사이트 탈퇴하기</button>
-                        {deleteAccountState && <ModalDeactivate />}
-                    </div>
-                </section>
-                <section className={style.Right}>
-                    <MyPageList typeOfList={'모집'} rallyList={recruitedList} />
-                    <MyPageList typeOfList={'참여'} rallyList={participatedList} />
-                </section>
+                    </section>
+                    <section className={style.Right}>
+                        <MyPageList typeOfList={'모집'} rallyList={recruitedList} />
+                        <MyPageList typeOfList={'참여'} rallyList={participatedList} />
+                    </section>
+                </>
+            }
             </main>
         </>
     );
