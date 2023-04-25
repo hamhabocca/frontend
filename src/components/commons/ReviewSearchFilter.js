@@ -1,7 +1,7 @@
 import style from './ReviewSearchFilter.module.css';
 import sigunguList from '../../data/sigungu.json';
 import { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IoMdRefresh } from "react-icons/io";
 
 function searchSig(sido) {

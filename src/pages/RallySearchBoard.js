@@ -36,12 +36,6 @@ function RallySearchBoard() {
 
     let lastPage = Array.isArray(pageInfo).length;   //임시
 
-    // if (pageInfo) {
-    //     for (let i = pageInfo.startPage + 1; i <= pageInfo.endPage; i++) {
-    //         pageNumber.push(i);
-    //     }
-    // }
-
     return (
         <main className={style.container}>
 

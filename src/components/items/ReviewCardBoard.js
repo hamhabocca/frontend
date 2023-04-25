@@ -10,6 +10,7 @@ function ReviewCardBoard({review}) {
     const RALLY_NAME = review.rally?.rallyName;
 
     const RALLY_TYPE = review.rally?.rallyType;
+    
     /* 랠리 타입 구분 */
     const rallytype = () => {
 

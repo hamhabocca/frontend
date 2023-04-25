@@ -1,9 +1,6 @@
-import { useEffect } from 'react';
 import style from './RallyCardMyPage.module.css';
 import { BiCalendarCheck } from 'react-icons/bi';
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { callApprovalAPI } from '../../apis/MemberAPICalls';
+import { Link } from "react-router-dom";
 
 function RallyCardMyPage({ rally, typeOfList }) {
 

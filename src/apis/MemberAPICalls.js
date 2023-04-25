@@ -3,7 +3,6 @@ import { GET_RALLYLIST } from "../modules/RallyModule";
 import { GET_PARTICIPATE } from "../modules/ParticipateModule";
 import { CHECK_NICKNAME } from "../modules/NicknameModule";
 import { OPEN_NICKNAME } from "../modules/ModalsModule";
-import ModalNickname from "../components/modals/ModalNickname";
 import { LOADING } from "../modules/LoadingModule";
 
 export const getMembers = async () => {
@@ -21,8 +20,6 @@ export const getMembers = async () => {
             "Auth": token
         }
     }).then(res => res.json());
-
-    console.log('[MemberAPICalls] getMembers RESULT : ', result);
 }
 
 /* 현재 로그인 된 멤버 정보 가져오기 */
@@ -45,11 +42,12 @@ export const getCurrentMember = () => {
             }
         }).then(res => res.json());
 
-        console.log('[MemberAPICalls] getCurrentMember RESULT : ', result);
         if (result.httpStatus === 200) {
+
             dispatch({ type: GET_MEMBER, payload: result.results.member });
             
             if(result.results.member.nickname.startsWith("새로운회원")) {
+                
                 dispatch({ type: OPEN_NICKNAME });
             }
 
@@ -78,7 +76,6 @@ export const getRecruitedRallies = () => {
             }
         }).then(res => res.json());
 
-        console.log('[MemberAPICalls] getRecruitedRallies RESULT : ', result);
         if (result.httpStatus === 200) {
             dispatch({ type: GET_RALLYLIST, payload: result.results });
         }
@@ -104,9 +101,7 @@ export const deactivateMember = () => {
                 "Auth": token
             },
         })
-        // .then(res => res.json());
 
-        console.log('[MemberAPICalls] deactivateMember RESULT : ', result);
         if (result.httpStatus === 200) {
             dispatch({ type: GET_RALLYLIST, payload: result.results });
         }
@@ -131,12 +126,8 @@ export const checkReviewStatus = (rallyId, memberId) => {
         })
             .then(res => res.json());
 
-        console.log('[MemberAPICalls] checkReviewStatus RESULT : ', result);
         if (result.httpStatus === 200) {
-            console.log("찾았다~");
             dispatch({ type: GET_RALLYLIST, payload: result.results });
-        } else if (result.httpStatus === 401) {
-            console.log("만료됨...");
         }
     }
 }
@@ -159,7 +150,6 @@ export const getParticipatedRallies = () => {
             }
         }).then(res => res.json());
 
-        console.log('[MemberAPICalls] getParticipatedRallies RESULT : ', result);
         if (result.httpStatus === 200) {
 
             dispatch({ type: GET_PARTICIPATE, payload: result.results });
@@ -186,7 +176,6 @@ export const callSimpleMemberAPI = (memberId) => {
             }
         }).then(res => res.json());
 
-        console.log('[MemberAPICalls] callSimpleMemberAPI RESULT : ', result);
         if (result.httpStatus === 200) {
             dispatch({ type: GET_MEMBER, payload: result.results?.member });
         }
@@ -212,7 +201,6 @@ export const checkNickname = (nickname) => {
         })
             .then(res => res.json());
 
-        console.log('[MemberAPICalls] checkNickname RESULT : ', result);
         if (result.httpStatus === 200) {
             dispatch({ type: CHECK_NICKNAME, payload: result.results.result });
         }
@@ -228,16 +216,6 @@ export const modifyProfile = ({ form }) => {
 
     const requestURL = `http://localhost:8000/api/v1/members/${memberId}?type=edit`
 
-    // FormData의 key 확인
-    for (let key of form.keys()) {
-        console.log(key);
-    }
-
-    // FormData의 value 확인
-    for (let value of form.values()) {
-        console.log(value);
-    }
-
     return async (dispatch, getState) => {
 
         const result = await fetch(requestURL, {
@@ -248,9 +226,7 @@ export const modifyProfile = ({ form }) => {
             },
             body: form
         })
-        // .then(res => res.json());
 
-        console.log('[MemberAPICalls] modifyProfile RESULT : ', result);
     }
 }
 

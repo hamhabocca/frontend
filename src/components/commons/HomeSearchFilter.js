@@ -1,6 +1,6 @@
 import { BiPlus, BiMinus } from "react-icons/bi";
 import sigunguList from '../../data/sigungu.json';
-import { useRef, useState } from "react";
+import { useState } from "react";
 import style from './HomeSearchFilter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { distanceIncrease, distanceDecrease, peopleIncrease, peopleDecrease } from '../../modules/CountModule';
@@ -87,7 +87,6 @@ function HomeSearchFilter() {
                         <input type={'radio'} id="legend" name='type' value={'전설'} />
                         <label htmlFor='legend'>전설</label>
                     </div>
-                    {/* <button className={style.QuestionButton}>?</button> */}
                 </fieldset>
                 <fieldset className={style.RallyLocation}>
                     <select name='sido' id="sido" onChange={onChangeSidoHandler}>

@@ -96,14 +96,7 @@ function EditQnA() {
                     <textarea className={style.textfield} cols="700" rows="230" name="qnaDetail" onChange={onChangeHandler}>{QNA_DETAIL}</textarea>
 
                 </div>
-                <div className={style.fileImg}>
-                    {/* <label>파일첨부</label>
-
-                    <input className={style.filearea} type="file" name="uploadFile" onChange={onChangeHandler} /> */}
-
-
-                </div>
-
+                <div className={style.fileImg}></div>
             </div>
             <br />
             <hr />

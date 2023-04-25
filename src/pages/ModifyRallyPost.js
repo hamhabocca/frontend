@@ -51,10 +51,6 @@ function ModifyRallyPost() {
         }, [departureAddress && arrivalAddress]
     );
 
-    useEffect(() => {
-
-    }, []);
-
     const onChangeHandler = (e) => {
         setForm({
             ...form,
@@ -63,8 +59,6 @@ function ModifyRallyPost() {
     }
 
     const onClickRallyPutHandler = () => {
-
-        console.log('[랠리수정] onClickRallyPutHandler');
 
         const formData = new FormData();
 

@@ -18,10 +18,10 @@ function Footer() {
                         </ul>
                     </div>
                     <div className={style.info}>
-                        <span>사업자등록번호: 201-81-00000</span>
-                        <span>주식회사 함해보까 대표이사 : 함보까</span>
-                        <span>Email:0000@gmail.com</span>
-                        <span>개인정보 책임자 : 함보까</span>
+                        <span>사업자등록번호: 000-00-00000</span>
+                        <span>프로젝트 팀 함해보까</span>
+                        <span>Email : hamhabocca@gmail.com</span>
+                        {/* <span>개인정보 책임자 : 함보까</span> */}
                     </div>
                     <div className={style.copy}>
                         Copyright 2023. team-greedy. all rights reserved.

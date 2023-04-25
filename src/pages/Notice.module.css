@@ -7,7 +7,6 @@
 
 .container {
     width: 830px;
-    
 }
 
 .header{
@@ -34,5 +33,4 @@
     flex-basis: 50px;
     flex-grow: 1;
     border-left: 1.5px solid #202020;
-
 }

@@ -1,4 +1,4 @@
-import { createActions, handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 // 초기값
 const initialState = [
@@ -6,10 +6,6 @@ const initialState = [
 
 // 액선
 export const POST_REVIEWREPORT = 'reviewreport/POST_REVIEWREPORT';
-
-const actions = createActions({
-    [POST_REVIEWREPORT]: () => { }
-});
 
 // 리듀서
 const reviewReportReducer = handleActions(

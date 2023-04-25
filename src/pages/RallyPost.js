@@ -250,7 +250,7 @@ function RallyPost() {
                     <article className={style.rallydetail}>
                         {RALLY_DETAIL}
                     </article>
-                    <article className={style.comments}>
+                    {/* <article className={style.comments}>
                         <div className={style.commentList}></div>
                         <div className={style.mycomment}>
                             <h5>내 닉네임</h5>
@@ -259,7 +259,7 @@ function RallyPost() {
                                 <button>등록</button>
                             </div>
                         </div>
-                    </article>
+                    </article> */}
                 </div>}
             </section>
         </main>

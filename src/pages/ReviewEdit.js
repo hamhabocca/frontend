@@ -9,9 +9,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 function WriteReviewPost() {
     const imageInput = useRef();
-    const onCickImageUpload = () => {
-        imageInput.current.click();
-    };
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -98,7 +95,6 @@ function WriteReviewPost() {
                     <div className={style.imageBoard}>
                             <div className={style.imageGo} style={{float: 'left', marginLeft: '10px'}}>리뷰 내용</div>
                             <input style={{ display: 'none' }} type="file" ref={imageInput} />
-                            {/* <button className={style.imageGo} onClick={onCickImageUpload}>이미지업로드</button> */}
                         </div>
                         <textarea
                             onChange={onChangeHandler}

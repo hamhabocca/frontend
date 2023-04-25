@@ -18,7 +18,6 @@ const DaumPost2 = ({}) => {
             }
             fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
         }
-        //fullAddress -> 전체 주소반환
 
         dispatch(get_arrival(fullAddress));
         dispatch(toggle_arrival(false));

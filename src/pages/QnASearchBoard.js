@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import QnAList from "../components/lists/QnAList";
 import style from "./QnABoard.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import { callSearchQnaAPI } from "../apis/QnAAPICalls";
 
 function QnASearchBoard() {
@@ -17,7 +17,6 @@ function QnASearchBoard() {
     const { search } = useLocation();
 
     const query = decodeURI(search).replace('?', '');
-    console.log("쿼리" + query);
 
     const [searchValue, setSearchValue] = useState("");
     const [categoryValue, setCategoryValue] = useState("");
@@ -122,9 +121,7 @@ function QnASearchBoard() {
             </article>
             <br />
             <hr />
-
         </main>
-
     );
 }
 

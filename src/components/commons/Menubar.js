@@ -3,7 +3,6 @@ import style from './Menubar.module.css';
 import { callLogoutAPI } from '../../apis/LoginAPICalls';
 import { useDispatch } from 'react-redux';
 
-
 function Menubar() {
 
     const dispatch = useDispatch();
@@ -14,7 +13,8 @@ function Menubar() {
     }
 
     const onClickLogoutHandler = () => {
-        window.localStorage.removeItem('jwtToken');  
+        window.localStorage.removeItem('jwtToken');
+          
         //로그아웃
         dispatch(callLogoutAPI());
         

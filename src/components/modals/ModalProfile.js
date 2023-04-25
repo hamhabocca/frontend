@@ -94,10 +94,6 @@ function ModalProfile({ member }) {
 
         setCheckResultView("");
 
-        console.log("결과 : " + checkResult + ", " + checkResult.length)
-
-        console.log(typeof checkResult)
-
         if (typeof checkResult == 'boolean') {
 
             if (checkResult == true) {

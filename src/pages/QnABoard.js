@@ -5,19 +5,15 @@ import QnAList from "../components/lists/QnAList";
 import style from "./QnABoard.module.css";
 import { callQnaListAPI } from "../apis/QnAAPICalls";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router";
 import { checkLoginStatusAPICalls } from "../apis/CheckLoginStatusAPICalls";
 
 function QnABoard() {
-
 
     // 리덕스
     const dispatch = useDispatch();
     const qnas = useSelector((state) => state.qnaReducer);
     const qnaList = qnas.qnaDataList;
     const pageInfo = qnas?.paging;
-    const { search } = useLocation();
-    const query = decodeURI(search).replace('?', '');
 
     const [searchValue, setSearchValue] = useState("");
     const [categoryValue, setCategoryValue] = useState("");
@@ -130,9 +126,7 @@ function QnABoard() {
             </article>
             <br />
             <hr />
-
         </main>
-
     );
 }
 

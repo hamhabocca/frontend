@@ -89,9 +89,7 @@ function WriteReviewPost() {
                     <div className={style.textBoard}>
                         <div className={style.imageBoard}>
                             <div className={style.imageGo} style={{float: 'left', marginLeft: '10px'}}>리뷰 내용</div>
-                            <input style={{ display: 'none' }} type="file" ref={imageInput} />
-                            {/* <button className={style.imageGo} onClick={onCickImageUpload}>이미지업로드</button> */}
-                        </div>
+                            <input style={{ display: 'none' }} type="file" ref={imageInput} /></div>
                         <textarea
                             onChange={onChangeHandler}
                             defaultValue={ form.reviewDetail}

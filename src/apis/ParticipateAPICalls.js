@@ -1,4 +1,4 @@
-import { GET_PARTICIPATE, POST_PARTICIPATE, PUT_PARTICIPATE, CANCEL_PARTICIPATE } from '../modules/ParticipateModule';
+import { GET_PARTICIPATE } from '../modules/ParticipateModule';
 
 // 랠리 신청 현황
 export const callParticipateListAPI = ({ rallyId }) => {
@@ -16,8 +16,6 @@ export const callParticipateListAPI = ({ rallyId }) => {
             }
         })
             .then(response => response.json());
-
-        // console.log('[ParticipateAPICalls] ParticipateListAPI RESULT: ', result);
 
         if (result.httpStatus === 200) {
 
@@ -46,8 +44,6 @@ export const callParticipateListAPI = ({ rallyId }) => {
 
 // 랠리 참가 신청
 export const callParticipateRallyByMateAPI = ({ rallyId }) => {
-
-    // console.log("[ParticipateAPICalls] participateRallyByMateAPI Call...");
 
     const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list`;
 
@@ -90,8 +86,6 @@ export const callCancelParticipateRallyAPI = ({ rallyId }) => {
 // 랠리 참가신청 승인
 export const callAllowParticipateByMasterAPI = ({ rallyId, mateId }) => {
 
-    // console.log("[ParticipateAPICalls] AllowParticipateByMasterAPI Call...");
-
     const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list?mateId=${mateId}`;
 
     return async (dispatch, getState) => {
@@ -105,8 +99,6 @@ export const callAllowParticipateByMasterAPI = ({ rallyId, mateId }) => {
             }
         })
             .catch(err => console.log("error : ", err));
-
-        // console.log('[ParticipateAPICalls] AllowParticipateByMasterAPI RESULT: ', result);
 
     }
 }

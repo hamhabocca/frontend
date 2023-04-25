@@ -10,8 +10,8 @@
     width: 150px;
     height: 40px;
 }
+
 .input {
-    
     height: 40px;
 }
 
@@ -34,11 +34,9 @@
 }
 
 .board {
-   
     height: 464px;
     margin-top: 36px;
 }
-
 
 .cg {
     height: 40px;
@@ -65,10 +63,8 @@
 }
 
 .list {
-    
     height: 398px;
 }
-
 
 .btn button {
     width: 100px;
@@ -83,14 +79,7 @@
     
 }
 
-/* .all div {
-
-    border : 1px solid red;
-} */
-
 .postname {
-    /* border: 2px solid red; */
-    /* padding: 3px; */
     padding-left: 10px;
     border-left: 1px solid #202020;
     font-weight: 500;
@@ -129,6 +118,6 @@
 }
 
 .pagination button:hover {
-cursor: pointer;
+    cursor: pointer;
     color: #A5A5A5;
 }

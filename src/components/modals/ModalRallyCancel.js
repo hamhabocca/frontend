@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { CLOSE_MODAL, OPEN_CANCEL_RALLY, OPEN_CANCEL_RALLY_OK, OPEN_OK } from "../../modules/ModalsModule";
+import { CLOSE_MODAL, OPEN_CANCEL_RALLY_OK } from "../../modules/ModalsModule";
 import { callModifyRallyAPI } from '../../apis/RallyAPICalls';
 import styles from './Modal.module.css';
 

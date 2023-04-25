@@ -1,9 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import { GET_QNALIST, GET_QNA, POST_QNA, PUT_QNA, DELETE_QNA } from "../modules/QnaModule";
-import QnAList from "../components/lists/QnAList";
+import { GET_QNALIST, GET_QNA, POST_QNA, PUT_QNA } from "../modules/QnaModule";
 
 /// 전체 조회
 export const callQnaListAPI = ({ currentPage }) => {
+
     let URL;
     const token = window.localStorage.getItem('jwtToken');
 
@@ -12,8 +11,6 @@ export const callQnaListAPI = ({ currentPage }) => {
     } else {
         URL = 'localhost:800/api/v1/qnas';
     }
-
-    console.log('[QnaAPICalls] URL : ', URL);
 
     return async (dispatch, getState) => {
         const result = await fetch(URL, {
@@ -26,8 +23,6 @@ export const callQnaListAPI = ({ currentPage }) => {
         }).then(response => response.json());
 
         if (result.httpStatus === 200) {
-            console.log('[QnaAPICalls] callQnaListAPI RESULT : ', result);
-            // dispatch({ type: GET_QNALIST, payload: result.results });
 
             const qnaList = result.results.qnaList.content;
             const paging = result.results.paging;
@@ -49,8 +44,6 @@ export const callQnaListAPI = ({ currentPage }) => {
                         },
                     }
                 ).then((response) => response.json());
-
-                console.log("[QnaMemberAPICalls] memberResult: ", memberResult);
 
                 if (memberResult.httpStatus === 200) {
                     // member 엔티티 정보와 함께 qna 엔티티 정보를 dispatch
@@ -78,8 +71,6 @@ export const callQnaDetailAPI = ({ qnaId }) => {
 
     const URL = `http://localhost:8000/api/v1/qnas/${qnaId}`;
 
-    console.log(URL)
-
     const token = window.localStorage.getItem('jwtToken');
 
     return async (dispatch, getState) => {
@@ -93,10 +84,9 @@ export const callQnaDetailAPI = ({ qnaId }) => {
             }
         })
             .then(response => response.json())
-        // .catch(console.error("에러발생"));
 
         if (result.httpStatus === 200) {
-            console.log('[QnaAPICalls] callQnaDetailAPI SUCCESS', result);
+
             dispatch({ type: GET_QNA, payload: result.results.qnas })
             const memberId = result.results.qnas.memberId;
 
@@ -125,24 +115,13 @@ export const callQnaDetailAPI = ({ qnaId }) => {
                 const qnaData = { ...result.results.qnas, qna: qnaResult.results.qna, member: memberResult.results.member };
 
                 dispatch({ type: GET_QNA, payload: qnaData });
-                console.log("GET_QNA에 넣은 값 : ", qnaData);
             }
-            else {
-                console.log("데이터 안돼");  //멤버 데이터
-            }
-        }
-        else {
-            console.log("데이터 안돼");   //리뷰 데이터
         }
     }
 }
 
 // 등록
 export const callPostQnaAPI = ({ form }) => {
-
-    console.log("form", form)
-
-    console.log("[QnaAPICalls] callPostQnaAPI Call");
 
     const URL = 'http://localhost:8000/api/v1/qnas';
 
@@ -159,8 +138,6 @@ export const callPostQnaAPI = ({ form }) => {
             body: form
         })
             .then(response => response.json());
-
-        console.log("[QnaAPICalls] callPostQnaAPI RESULT:", result);
 
         dispatch({ type: POST_QNA, payload: result });
     };
@@ -185,8 +162,6 @@ export const callModifyRallyAPI = ({ form, qnaId }) => {
         })
             .then(response => response.json());
 
-        console.log('[QnaAPICalls] callModifyQnaAPI RESULT : ', result);
-
         dispatch({ type: PUT_QNA, payload: result });
     };
 }
@@ -194,15 +169,9 @@ export const callModifyRallyAPI = ({ form, qnaId }) => {
 // 검색
 export const callSearchQnaAPI = ({ criteria }) => {
 
-    console.log('[QnaAPICalls] callSearchQnaAPI Call');
-
-    console.log('뭐가 담겼나...:' + criteria);
-
     const URL = `http://localhost:8000/api/v1/qnas/search?${criteria}`;
 
     const token = window.localStorage.getItem('jwtToken');
-
-    console.log("URL : ", URL);
 
     return async (dispatch, getState) => {
 
@@ -216,10 +185,6 @@ export const callSearchQnaAPI = ({ criteria }) => {
         })
             .then(response => response.json())
             .catch(error => console.error("에러발생"));
-
-        console.log('[QnaAPICalls] callSearchQnaAPI RESULT : ', result);
-
-        // dispatch({ type: GET_QNALIST, payload: result.results })
 
         if (result.httpStatus === 200) {
 
@@ -243,8 +208,6 @@ export const callSearchQnaAPI = ({ criteria }) => {
                         },
                     }
                 ).then((response) => response.json());
-
-                console.log("[QnaMemberAPICalls] memberResult: ", memberResult);
 
                 if (memberResult.httpStatus === 200) {
                     // member 엔티티 정보와 함께 qna 엔티티 정보를 dispatch
@@ -271,8 +234,6 @@ export const callQnaDeleteAPI = ({ qnaId }) => {
 
     const URL = `http://localhost:8000/api/v1/qnas/${qnaId}`;
 
-    console.log(URL)
-
     const token = window.localStorage.getItem('jwtToken');
 
     return async () => {
@@ -285,10 +246,8 @@ export const callQnaDeleteAPI = ({ qnaId }) => {
                 "Auth": token
             }
         })
-        console.log(result)
 
         if (result.status === 204) {
-            console.log('[QnaAPICalls] callQnaDeleteAPI SUCCESS', result);
             window.location.replace('http://localhost:3000/qna');
         }
     }

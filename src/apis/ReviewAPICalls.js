@@ -14,8 +14,6 @@ export const callReviewListAPI = ({ currentPage }) => {
         URL = 'http://localhost:8000/api/v1/reviews';
     }
 
-    console.log('[ReviewAPICalls] URL :', URL);
-
     return async (dispatch, getState) => {
 
         const result = await fetch(URL, {
@@ -29,7 +27,6 @@ export const callReviewListAPI = ({ currentPage }) => {
             .then(response => response.json());
 
         if (result.httpStatus === 200) {
-            console.log('[ReviewAPICalls] callReviewListAPI RESULT :', result);
             dispatch({ type: GET_REVIEWLIST, payload: result.results });
         }
     };
@@ -54,10 +51,7 @@ export const callReviewDetailAPI = ({ reviewId }) => {
         })
             .then(response => response.json())
 
-        console.log('[ReviewDetailAPICalls] URL: ', result);
-
         if (result.httpStatus === 200) {
-            console.log('[ReviewDetailAPICalls] callReviewDetailAPI SUCCESS ');
             dispatch({ type: GET_REVIEW, payload: result.results.reviews });
         }
         else {
@@ -84,25 +78,16 @@ export const callReviewUpdateAPI = ({ form, reviewId }) => {
             },
             body: form
         })
-        // .then(response => response.json());
-
-        console.log('[ReviewAPICalls] callReviewUpdateAPI RESULT : ', result);
 
         if (result.status === 201) {
-            console.log('[ReviewUpdateAPICalls] callReviewUpdateAPI SUCCESS ');
             dispatch({ type: PUT_REVIEW, payload: result });
         }
-        else {
-            console.log("데이터 안돼");
-        };
     }
 }
 
 
 /* 리뷰 등록 */
 export const callPostReviewAPI = ({ form }) => {
-
-    console.log("[ReviewAPICalls] callPostReviewAPI Call");
     
     const token = window.localStorage.getItem('jwtToken');
 
@@ -120,8 +105,6 @@ export const callPostReviewAPI = ({ form }) => {
         })
         .then(response => response.json());
 
-        console.log("[ReviewAPICalls] callPostReviewAPi Result : ", result);
-
         dispatch({ type: POST_REVIEW, payload: result });
     };
 }
@@ -131,8 +114,6 @@ export const callPostReviewAPI = ({ form }) => {
 export const callReviewDeleteAPI = ({ reviewId }) => {
 
     const URL = `http://localhost:8000/api/v1/reviews/${reviewId}`;
-
-    console.log(URL)
 
     const token = window.localStorage.getItem('jwtToken');
 
@@ -146,15 +127,10 @@ export const callReviewDeleteAPI = ({ reviewId }) => {
                 "Auth": token
             }
         })
-        console.log(result);
 
         if (result.status === 204) {
             
-            console.log('[ReviewAPICalls] callReviewDeleteAPI SUCCESS', result);
             window.location.replace('http://localhost:3000/review');
         }
     };
-}
-
-export function searchReview(reviewTitle) {
 }

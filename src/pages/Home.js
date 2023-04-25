@@ -1,6 +1,6 @@
 import style from './Home.module.css';
 import RallCardMain from '../components/items/RallyCardMain';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { callRallyListAPI } from '../apis/RallyAPICalls';
@@ -11,12 +11,11 @@ function Home() {
 
     const dispatch = useDispatch();
     const rallies = useSelector((state) => state.rallyReducer);
-    const rallyList = rallies?.rallyList?.content?.filter(rally => rally.rallyStatus != '취소됨').slice(0, 6);
-    const pageInfo = rallies?.paging;
+    const rallyList = rallies?.rallyList?.content?.filter(rally => rally.rallyStatus !== '취소됨').slice(0, 6);
 
     const isOpen = useSelector(state => state.modalsReducer.nicknameState);
 
-    const [currentPage, setCurrentPage] = useState(1);
+    const currentPage = 1;
 
     const HAS_VISITED_BEFORE = localStorage.getItem('hasVisitedBefore');
 
@@ -28,14 +27,13 @@ function Home() {
 
     useEffect(
         () => {
-            if(window.localStorage.getItem('jwtToken')) {
+            if (window.localStorage.getItem('jwtToken')) {
                 dispatch(getCurrentMember());
             }
-            dispatch(callRallyListAPI({currentPage : currentPage}));
-
+            dispatch(callRallyListAPI({ currentPage: currentPage }));
 
             if (!HAS_VISITED_BEFORE || HAS_VISITED_BEFORE < new Date()) {
-                
+
                 popUp();
             }
         },
@@ -57,7 +55,7 @@ function Home() {
                 <div className={style.Rallycards}>
                     {Array.isArray(rallyList) && rallyList.map(rally => <RallCardMain key={rally.rallyId} rally={rally} />)}
                 </div>
-                {isOpen && <ModalNickname/>}
+                {isOpen && <ModalNickname />}
             </main>
         </>
     )

@@ -50,11 +50,8 @@ function QnAPost() {
         }
 
         // 작성자 아닐떄
-
-
         return (
             <>
-
             </>
         );
 
@@ -71,13 +68,10 @@ function QnAPost() {
 
     return (
         <main className={style.all}>
-
             <div>
-
                 <div className={style.post}>
                     <div className={style.d1}>
                         <h6 className={style.member}>{QNA_CATEGORY}</h6>
-
                         <h6 className={style.postname}>{QNA_TITLE}</h6>
                     </div>
 

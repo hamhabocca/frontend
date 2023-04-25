@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-
 function WriteQnA() {
 
     const dispatch = useDispatch();
@@ -80,13 +79,7 @@ function WriteQnA() {
                     <textarea className={style.textfield} cols="700" rows="230" name="qnaDetail" onChange={onChangeHandler}></textarea>
 
                 </div>
-                <div className={style.fileImg}>
-                    {/* <label>파일첨부</label>
-
-                    <input className={style.filearea} type="file" name="uploadFile" onChange={onChangeHandler} /> */}
-
-
-                </div>
+                <div className={style.fileImg}></div>
 
             </div>
             <br />

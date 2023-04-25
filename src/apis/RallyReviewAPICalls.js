@@ -54,14 +54,8 @@ export const callReviewRallyAPI = ({ reviewId }) => {
                 setTimeout(function () {
                     dispatch({ type: LOADING, payload: false });
                 }, 300);
-                // console.log("GET_REVIEW에 넣은 값 : ", reviewData);
 
-            } else {
-                // console.log("데이터 안돼");  //랠리데이터 or 멤버 데이터
             }
-
-        } else {
-            // console.log("데이터 안돼");   //리뷰 데이터
         }
     };
 }
@@ -80,8 +74,6 @@ export const callReviewRallyListAPI = () => {
                 Auth: token,
             },
         }).then((response) => response.json());
-
-        console.log("[ReviewDetailAPICalls] URL: ", result);
 
         if (result.httpStatus === 200) {
             const reviewList = result.results.reviews;
@@ -118,9 +110,6 @@ export const callReviewRallyListAPI = () => {
                         },
                     }
                 ).then((response) => response.json());
-
-                console.log("[ReviewMemberAPICalls] memberResult: ", memberResult);
-                console.log("[ReviewRallyAPICalls] rallyResult: ", rallyResult);
 
                 if (memberResult.httpStatus === 200 && rallyResult.httpStatus === 200) {
                     // member 엔티티 정보와 함께 review 엔티티 정보를 dispatch
@@ -141,16 +130,10 @@ export const callReviewRallyListAPI = () => {
                         member: memberMap.get(review.memberId),
                         rally: rallyMap.get(review.rallyId),
                     }));
+
                     dispatch({ type: GET_REVIEWLIST, payload: reviewDataList });
-                    console.log("reviewDataList : ", reviewDataList);
-                } else {
-                    console.log("member 데이터나 rally 데이터를 가져오지 못했습니다");
                 }
-            } else {
-                console.log("리뷰 데이터가 없습니다");
             }
-        } else {
-            console.log("데이터를 가져오지 못했습니다");
         }
     };
 };
@@ -170,8 +153,6 @@ export const callSearchReviewAPI = ({ criteria }) => {
                 Auth: token,
             },
         }).then((response) => response.json());
-
-        console.log("[ReviewDetailAPICalls] URL: ", result);
 
         if (result.httpStatus === 200) {
             const reviewList = result.results.reviews;
@@ -208,9 +189,6 @@ export const callSearchReviewAPI = ({ criteria }) => {
                         },
                     }
                 ).then((response) => response.json());
-
-                console.log("[ReviewMemberAPICalls] memberResult: ", memberResult);
-                console.log("[ReviewRallyAPICalls] rallyResult: ", rallyResult);
 
                 if (memberResult.httpStatus === 200 && rallyResult.httpStatus === 200) {
                     // member 엔티티 정보와 함께 review 엔티티 정보를 dispatch
@@ -235,15 +213,8 @@ export const callSearchReviewAPI = ({ criteria }) => {
                         alert('조건에 맞는 리뷰를 찾을 수 없습니다. \n 다른 조건으로 검색해주세요');
                     }
                     dispatch({ type: GET_REVIEWLIST, payload: reviewDataList });
-                    console.log("reviewDataList : ", reviewDataList);
-                } else {
-                    console.log("member 데이터나 rally 데이터를 가져오지 못했습니다");
                 }
-            } else {
-                console.log("리뷰 데이터가 없습니다");
             }
-        } else {
-            console.log("데이터를 가져오지 못했습니다");
         }
     };
 };

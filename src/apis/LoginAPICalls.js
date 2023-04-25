@@ -1,12 +1,9 @@
-import { useSelector } from "react-redux";
 import { IS_SIGNUP } from "../modules/LoginModule";
 import { getCurrentMember } from "./MemberAPICalls";
 
 export const callKakaoLoginAPI = (code) => {
 
     const requestURL = 'http://localhost:8000/api/v1/login/kakaocode';
-
-    console.log(code);
 
     return async (dispatch, getState) => {
 
@@ -21,23 +18,16 @@ export const callKakaoLoginAPI = (code) => {
             body: JSON.stringify(data)
         }).then(res => res.json());
 
-        console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
         if(result.httpStatus === 200){
             
             window.localStorage.setItem('jwtToken', JSON.stringify(result.results.token));
             dispatch({type: IS_SIGNUP})
                         
-        } else if(result.httpStatus === 401) {
-            console.log("만료됨...")
         }
     };
 }
 
 export const callNaverLoginAPI = (code, state) => {
-
-    console.log(code);
-
-    console.log(state);
 
     const requestURL = 'http://localhost:8000/api/v1/login/navercode'
 
@@ -52,17 +42,13 @@ export const callNaverLoginAPI = (code, state) => {
                 "Accept": '*/*'
             },
             body: JSON.stringify(data)
+
         }).then(res => res.json());
 
-        console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
         if(result.httpStatus === 200){
             window.localStorage.setItem('jwtToken', JSON.stringify(result.results.token));            
 
             dispatch(getCurrentMember());
-
-        } else if(result.httpStatus === 401) {
-            
-            console.log("만료됨...")
 
         }
     };
@@ -72,8 +58,5 @@ export const callLogoutAPI = () => {
     
     return async (dispatch, getState) => {  
         
-        console.log('test2');
-
-        console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
     };
 }

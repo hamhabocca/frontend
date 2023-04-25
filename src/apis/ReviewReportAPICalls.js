@@ -2,8 +2,6 @@ import { POST_REVIEWREPORT } from "../modules/ReviewReportModule";
 
 export const callPostReviewReportAPI = ({ form }) => {
 
-    console.log("form", form)
-
     const URL = 'http://localhost:8000/api/v1/report';
 
     const token = window.localStorage.getItem('jwtToken');
@@ -18,9 +16,6 @@ export const callPostReviewReportAPI = ({ form }) => {
             },
             body: form
         })
-            // .then(response => response.json());
-
-        console.log("[ReviewsReportAPICalls] callPostReviewReportAPI RESULT:", result);
 
         dispatch({ type: POST_REVIEWREPORT, payload: result });
     };

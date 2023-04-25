@@ -1,7 +1,5 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { callKakaoLoginAPI } from "../apis/LoginAPICalls";
 import { useDispatch, useSelector } from "react-redux";
 import { callNaverLoginAPI } from "../apis/LoginAPICalls";
 
