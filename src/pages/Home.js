@@ -1,7 +1,7 @@
 import style from './Home.module.css';
 import RallCardMain from '../components/items/RallyCardMain';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { callRallyListAPI } from '../apis/RallyAPICalls';
 import { getCurrentMember } from '../apis/MemberAPICalls';
@@ -23,7 +23,8 @@ function Home() {
         window.location.replace("/notice");
     }
 
-    const code = new URL(window.location.href).searchParams.get('code');
+    const location = useLocation();
+    const code = location.search;
 
     console.log(code);
 
