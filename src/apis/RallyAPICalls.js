@@ -18,8 +18,7 @@ export const callRallyListAPI = ({ currentPage }) => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "*/*",
-                "Access-Control-Allow-Origin": "*"
+                "Accept": "*/*"
             }
         })
             .then(response => response.json());
