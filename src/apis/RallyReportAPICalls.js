@@ -2,7 +2,7 @@ import { POST_RALLYREPORT } from "../modules/RallyReportModule";
 
 export const callPostRallyReportAPI = ({ form }) => {
 
-    const URL = 'http://localhost:8000/api/v1/reports';
+    const URL = 'http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/reports';
 
     const token = window.localStorage.getItem('jwtToken');
 

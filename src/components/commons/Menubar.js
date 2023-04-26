@@ -1,6 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import style from './Menubar.module.css';
-import { callLogoutAPI } from '../../apis/LoginAPICalls';
 import { useDispatch } from 'react-redux';
 
 function Menubar() {
@@ -14,9 +13,6 @@ function Menubar() {
 
     const onClickLogoutHandler = () => {
         window.localStorage.removeItem('jwtToken');
-          
-        //로그아웃
-        dispatch(callLogoutAPI());
         
         alert('로그아웃이 되어 메인화면으로 이동합니다.');
         navigate("/", { replace: true })

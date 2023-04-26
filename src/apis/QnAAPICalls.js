@@ -7,7 +7,7 @@ export const callQnaListAPI = ({ currentPage }) => {
     const token = window.localStorage.getItem('jwtToken');
 
     if (currentPage !== undefined || currentPage !== null) {
-        URL = `http://localhost:8000/api/v1/qnas?page=${currentPage}`;
+        URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/qnas?page=${currentPage}`;
     } else {
         URL = 'localhost:800/api/v1/qnas';
     }
@@ -32,7 +32,7 @@ export const callQnaListAPI = ({ currentPage }) => {
 
                 // member 데이터와 qna 데이터를 가져오는 API endpoint를 호출
                 const memberResult = await fetch(
-                    `http://localhost:8000/api/v1/members?${memberIdList
+                    `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members?${memberIdList
                         .map((id) => `id=${id}`)
                         .join("&")}`,
                     {
@@ -69,7 +69,7 @@ export const callQnaListAPI = ({ currentPage }) => {
 // 선택 조회 
 export const callQnaDetailAPI = ({ qnaId }) => {
 
-    const URL = `http://localhost:8000/api/v1/qnas/${qnaId}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/qnas/${qnaId}`;
 
     const token = window.localStorage.getItem('jwtToken');
 
@@ -91,7 +91,7 @@ export const callQnaDetailAPI = ({ qnaId }) => {
             const memberId = result.results.qnas.memberId;
 
             const [qnaResult, memberResult] = await Promise.all([
-                fetch(`http://localhost:8000/api/v1/qnas/${qnaId}`, {
+                fetch(`http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/qnas/${qnaId}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export const callQnaDetailAPI = ({ qnaId }) => {
                     }
                 }).then(response => response.json()),
 
-                fetch(`http://localhost:8000/api/v1/members/${memberId}`, {
+                fetch(`http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members/${memberId}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -123,7 +123,7 @@ export const callQnaDetailAPI = ({ qnaId }) => {
 // 등록
 export const callPostQnaAPI = ({ form }) => {
 
-    const URL = 'http://localhost:8000/api/v1/qnas';
+    const URL = 'http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/qnas';
 
     const token = window.localStorage.getItem('jwtToken');
 
@@ -146,7 +146,7 @@ export const callPostQnaAPI = ({ form }) => {
 // 수정
 export const callModifyRallyAPI = ({ form, qnaId }) => {
 
-    const URL = `http://localhost:8000/api/v1/qnas/${qnaId}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/qnas/${qnaId}`;
 
     const token = window.localStorage.getItem('jwtToken');
 
@@ -169,7 +169,7 @@ export const callModifyRallyAPI = ({ form, qnaId }) => {
 // 검색
 export const callSearchQnaAPI = ({ criteria }) => {
 
-    const URL = `http://localhost:8000/api/v1/qnas/search?${criteria}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/qnas/search?${criteria}`;
 
     const token = window.localStorage.getItem('jwtToken');
 
@@ -196,7 +196,7 @@ export const callSearchQnaAPI = ({ criteria }) => {
 
                 // member 데이터와 qna 데이터를 가져오는 API endpoint를 호출
                 const memberResult = await fetch(
-                    `http://localhost:8000/api/v1/members?${memberIdList
+                    `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members?${memberIdList
                         .map((id) => `id=${id}`)
                         .join("&")}`,
                     {
@@ -232,7 +232,7 @@ export const callSearchQnaAPI = ({ criteria }) => {
 // 삭제
 export const callQnaDeleteAPI = ({ qnaId }) => {
 
-    const URL = `http://localhost:8000/api/v1/qnas/${qnaId}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/qnas/${qnaId}`;
 
     const token = window.localStorage.getItem('jwtToken');
 
@@ -248,10 +248,7 @@ export const callQnaDeleteAPI = ({ qnaId }) => {
         })
 
         if (result.status === 204) {
-            window.location.replace('http://localhost:3000/qna');
+            window.location.replace('/qna');
         }
     }
 }
-
-
-export function getQnAList() { };

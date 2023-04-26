@@ -19,8 +19,6 @@ function Home() {
 
     const HAS_VISITED_BEFORE = localStorage.getItem('hasVisitedBefore');
 
-    console.log(rallyList);
-
     function toNotice() {
         window.location.replace("/notice");
     }

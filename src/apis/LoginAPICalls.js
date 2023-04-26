@@ -3,7 +3,7 @@ import { getCurrentMember } from "./MemberAPICalls";
 
 export const callKakaoLoginAPI = (code) => {
 
-    const requestURL = 'http://localhost:8000/api/v1/login/kakaocode';
+    const requestURL = 'http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/login/kakaocode';
 
     return async (dispatch, getState) => {
 
@@ -29,7 +29,7 @@ export const callKakaoLoginAPI = (code) => {
 
 export const callNaverLoginAPI = (code, state) => {
 
-    const requestURL = 'http://localhost:8000/api/v1/login/navercode'
+    const requestURL = 'http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/login/navercode'
 
     return async (dispatch, getState) => {
 
@@ -51,12 +51,5 @@ export const callNaverLoginAPI = (code, state) => {
             dispatch(getCurrentMember());
 
         }
-    };
-}
-
-export const callLogoutAPI = () => {
-    
-    return async (dispatch, getState) => {  
-        
     };
 }

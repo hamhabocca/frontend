@@ -9,9 +9,9 @@ export const callReviewListAPI = ({ currentPage }) => {
     let URL;
 
     if (currentPage !== undefined || currentPage !== null) {
-        URL = `http://localhost:8000/api/v1/reviews?page=${currentPage}`;
+        URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/reviews?page=${currentPage}`;
     } else {
-        URL = 'http://localhost:8000/api/v1/reviews';
+        URL = 'http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/reviews';
     }
 
     return async (dispatch, getState) => {
@@ -35,7 +35,7 @@ export const callReviewListAPI = ({ currentPage }) => {
 /* 상세 조회 */
 export const callReviewDetailAPI = ({ reviewId }) => {
 
-    const URL = `http://localhost:8000/api/v1/reviews/${reviewId}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/reviews/${reviewId}`;
 
     const token = window.localStorage.getItem('jwtToken');
 
@@ -63,7 +63,7 @@ export const callReviewDetailAPI = ({ reviewId }) => {
 /* 데이터 수정 */
 export const callReviewUpdateAPI = ({ form, reviewId }) => {
 
-    const URL = `http://localhost:8000/api/v1/reviews/${reviewId}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/reviews/${reviewId}`;
 
     const token = window.localStorage.getItem('jwtToken');
 
@@ -91,7 +91,7 @@ export const callPostReviewAPI = ({ form }) => {
     
     const token = window.localStorage.getItem('jwtToken');
 
-    const URL = 'http://localhost:8000/api/v1/reviews';
+    const URL = 'http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/reviews';
 
     return async (dispatch, getState) => {
 
@@ -113,7 +113,7 @@ export const callPostReviewAPI = ({ form }) => {
 // 삭제
 export const callReviewDeleteAPI = ({ reviewId }) => {
 
-    const URL = `http://localhost:8000/api/v1/reviews/${reviewId}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/reviews/${reviewId}`;
 
     const token = window.localStorage.getItem('jwtToken');
 
@@ -130,7 +130,7 @@ export const callReviewDeleteAPI = ({ reviewId }) => {
 
         if (result.status === 204) {
             
-            window.location.replace('http://localhost:3000/review');
+            window.location.replace('/review');
         }
     };
 }

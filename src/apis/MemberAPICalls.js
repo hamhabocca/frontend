@@ -10,7 +10,7 @@ export const getMembers = async () => {
     /* 백엔드에 토큰 보내기 */
     const token = window.localStorage.getItem('jwtToken');
 
-    const requestURL = 'http://localhost:8000/api/v1/members'
+    const requestURL = 'http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members'
 
     const result = await fetch(requestURL, {
         method: 'GET',
@@ -27,7 +27,7 @@ export const getCurrentMember = () => {
 
     const token = window.localStorage.getItem('jwtToken');
 
-    const requestURL = 'http://localhost:8000/api/v1/members/auth'
+    const requestURL = 'http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members/auth'
 
     return async (dispatch, getState) => {
 
@@ -63,7 +63,7 @@ export const getRecruitedRallies = () => {
 
     const token = window.localStorage.getItem('jwtToken');
 
-    const requestURL = `http://localhost:8000/api/v1/members/recruit`
+    const requestURL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members/recruit`
 
     return async (dispatch, getState) => {
 
@@ -89,7 +89,7 @@ export const deactivateMember = () => {
 
     const memberId = JSON.parse(token).memberId;
 
-    const requestURL = `http://localhost:8000/api/v1/members/${memberId}?type=deactivate`
+    const requestURL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members/${memberId}?type=deactivate`
 
     return async (dispatch, getState) => {
 
@@ -137,7 +137,7 @@ export const getParticipatedRallies = () => {
 
     const token = window.localStorage.getItem('jwtToken');
 
-    const requestURL = `http://localhost:8000/api/v1/members/participate`
+    const requestURL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members/participate`
 
     return async (dispatch, getState) => {
 
@@ -163,7 +163,7 @@ export const callSimpleMemberAPI = (memberId) => {
 
     const token = window.localStorage.getItem('jwtToken');
 
-    const requestURL = `http://localhost:8000/api/v1/members/simple/${memberId}`;
+    const requestURL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members/simple/${memberId}`;
 
     return async (dispatch, getState) => {
 
@@ -187,7 +187,7 @@ export const checkNickname = (nickname) => {
 
     const token = window.localStorage.getItem('jwtToken');
 
-    const requestURL = `http://localhost:8000/api/v1/members/duplicate/${nickname}`;
+    const requestURL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members/duplicate/${nickname}`;
 
     return async (dispatch, getState) => {
 
@@ -214,7 +214,7 @@ export const modifyProfile = ({ form }) => {
 
     const memberId = JSON.parse(token).memberId;
 
-    const requestURL = `http://localhost:8000/api/v1/members/${memberId}?type=edit`
+    const requestURL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members/${memberId}?type=edit`
 
     return async (dispatch, getState) => {
 

@@ -3,7 +3,7 @@ import { GET_REVIEW, GET_REVIEWLIST } from "../modules/ReviewModule";
 
 export const callReviewRallyAPI = ({ reviewId }) => {
 
-    const URL = `http://localhost:8000/api/v1/reviews/${reviewId}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/reviews/${reviewId}`;
 
     const token = window.localStorage.getItem('jwtToken');
 
@@ -26,7 +26,7 @@ export const callReviewRallyAPI = ({ reviewId }) => {
             const memberId = result.results.reviews.memberId; // review 엔티티의 memberId를 가져옴
 
             const [rallyResult, memberResult] = await Promise.all([
-                fetch(`http://localhost:8000/api/v1/rallies/${rallyId}`, {
+                fetch(`http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies/${rallyId}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export const callReviewRallyAPI = ({ reviewId }) => {
                     }
                 }).then(response => response.json()),
 
-                fetch(`http://localhost:8000/api/v1/members/${memberId}`, {
+                fetch(`http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members/${memberId}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -54,7 +54,6 @@ export const callReviewRallyAPI = ({ reviewId }) => {
                 setTimeout(function () {
                     dispatch({ type: LOADING, payload: false });
                 }, 300);
-
             }
         }
     };
@@ -62,7 +61,7 @@ export const callReviewRallyAPI = ({ reviewId }) => {
 
 // 랠리 + 리뷰 보드 리스트
 export const callReviewRallyListAPI = () => {
-    const URL = `http://localhost:8000/api/v1/reviews`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/reviews`;
     const token = window.localStorage.getItem("jwtToken");
 
     return async (dispatch, getState) => {
@@ -84,7 +83,7 @@ export const callReviewRallyListAPI = () => {
 
                 // member 데이터와 rally 데이터를 가져오는 API endpoint를 호출
                 const memberResult = await fetch(
-                    `http://localhost:8000/api/v1/members?${memberIdList
+                    `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members?${memberIdList
                         .map((id) => `id=${id}`)
                         .join("&")}`,
                     {
@@ -98,7 +97,7 @@ export const callReviewRallyListAPI = () => {
                 ).then((response) => response.json());
 
                 const rallyResult = await fetch(
-                    `http://localhost:8000/api/v1/rallies?${rallyIdList
+                    `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies?${rallyIdList
                         .map((id) => `id=${id}`)
                         .join("&")}`,
                     {
@@ -141,7 +140,7 @@ export const callReviewRallyListAPI = () => {
 
 //리뷰 검색
 export const callSearchReviewAPI = ({ criteria }) => {
-    const URL = `http://localhost:8000/api/v1/reviews/search?${criteria}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/reviews/search?${criteria}`;
     const token = window.localStorage.getItem("jwtToken");
 
     return async (dispatch, getState) => {
@@ -163,7 +162,7 @@ export const callSearchReviewAPI = ({ criteria }) => {
 
                 // member 데이터와 rally 데이터를 가져오는 API endpoint를 호출
                 const memberResult = await fetch(
-                    `http://localhost:8000/api/v1/members?${memberIdList
+                    `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members?${memberIdList
                         .map((id) => `id=${id}`)
                         .join("&")}`,
                     {
@@ -177,7 +176,7 @@ export const callSearchReviewAPI = ({ criteria }) => {
                 ).then((response) => response.json());
 
                 const rallyResult = await fetch(
-                    `http://localhost:8000/api/v1/rallies?${rallyIdList
+                    `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies?${rallyIdList
                         .map((id) => `id=${id}`)
                         .join("&")}`,
                     {

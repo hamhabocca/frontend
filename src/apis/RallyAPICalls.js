@@ -7,12 +7,10 @@ export const callRallyListAPI = ({ currentPage }) => {
     let URL = "";
 
     if (currentPage !== undefined || currentPage !== null) {
-        URL = `http://localhost:8000/api/v1/rallies?page=${currentPage}`;
+        URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies?page=${currentPage}`;
     } else {
-        URL = 'http://localhost:8000/api/v1/rallies?page=1';
+        URL = 'http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies?page=1';
     }
-
-    console.log('[RallyAPICalls] URL : ', URL);
 
     return async (dispatch, getState) => {
 
@@ -34,7 +32,7 @@ export const callRallyListAPI = ({ currentPage }) => {
 // 선택 조회
 export const callRallyDetailAPI = ({ rallyId }) => {
 
-    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies/${rallyId}`;
 
     return async (dispatch, getState) => {
 
@@ -52,7 +50,7 @@ export const callRallyDetailAPI = ({ rallyId }) => {
 
         if (result.httpStatus === 200) {
 
-            const URL = `http://localhost:8000/api/v1/members/simple/${result.results.rally.masterId}`;
+            const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members/simple/${result.results.rally.masterId}`;
             const master = await fetch(URL, {
                 method: "GET",
                 headers: {
@@ -76,7 +74,7 @@ export const callRallyDetailAPI = ({ rallyId }) => {
 // 랠리 등록
 export const callPostRallyAPI = ({ form }) => {
 
-    const URL = 'http://localhost:8000/api/v1/rallies';
+    const URL = 'http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies';
 
     return async (dispatch, getState) => {
 
@@ -99,7 +97,7 @@ export const callPostRallyAPI = ({ form }) => {
 // 랠리 수정
 export const callModifyRallyAPI = ({ form, rallyId }) => {
 
-    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies/${rallyId}`;
 
     console.log("URL", URL);
 
@@ -120,7 +118,7 @@ export const callModifyRallyAPI = ({ form, rallyId }) => {
 // 랠리 검색
 export const callSearchRallyAPI = ({ criteria }) => {
 
-    const URL = `http://localhost:8000/api/v1/rallies/search?${criteria}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies/search?${criteria}`;
 
     return async (dispatch, getState) => {
 

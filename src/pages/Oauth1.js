@@ -11,7 +11,7 @@ function Oauth1() {
 
     const state = new URL(window.location.href).searchParams.get('state');
 
-    const NAVER_REDIRECT_URI = encodeURI('http://localhost:3000/oauth1');
+    const NAVER_REDIRECT_URI = encodeURI('http://dallibocca.site/oauth1');
 
     const navigate = useNavigate();
 

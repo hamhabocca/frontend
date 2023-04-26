@@ -3,7 +3,7 @@ import { GET_PARTICIPATE } from '../modules/ParticipateModule';
 // 랠리 신청 현황
 export const callParticipateListAPI = ({ rallyId }) => {
 
-    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies/${rallyId}/mate-list`;
 
     return async (dispatch, getState) => {
 
@@ -23,7 +23,7 @@ export const callParticipateListAPI = ({ rallyId }) => {
 
             for (let i = 0; i < rallyMateList.length; i++) {
 
-                const getMemberURL = `http://localhost:8000/api/v1/members/simple/${rallyMateList[i].memberId}`;
+                const getMemberURL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/members/simple/${rallyMateList[i].memberId}`;
                 const member = await fetch(getMemberURL, {
                     method: "GET",
                     headers: {
@@ -45,7 +45,7 @@ export const callParticipateListAPI = ({ rallyId }) => {
 // 랠리 참가 신청
 export const callParticipateRallyByMateAPI = ({ rallyId }) => {
 
-    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies/${rallyId}/mate-list`;
 
     return async (dispatch, getState) => {
 
@@ -67,7 +67,7 @@ export const callCancelParticipateRallyAPI = ({ rallyId }) => {
 
     console.log("[ParticipateAPICalls] cancelParticipateRallyAPI Call...");
 
-    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies/${rallyId}/mate-list`;
 
     return async (dispatch, getState) => {
 
@@ -86,7 +86,7 @@ export const callCancelParticipateRallyAPI = ({ rallyId }) => {
 // 랠리 참가신청 승인
 export const callAllowParticipateByMasterAPI = ({ rallyId, mateId }) => {
 
-    const URL = `http://localhost:8000/api/v1/rallies/${rallyId}/mate-list?mateId=${mateId}`;
+    const URL = `http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/rallies/${rallyId}/mate-list?mateId=${mateId}`;
 
     return async (dispatch, getState) => {
 
