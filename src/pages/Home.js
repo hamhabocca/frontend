@@ -23,6 +23,10 @@ function Home() {
         window.location.replace("/notice");
     }
 
+    const code = new URL(window.location.href).searchParams.get('code');
+
+    console.log(code);
+
     useEffect(
         () => {
             if (window.localStorage.getItem('jwtToken')) {
