@@ -42,14 +42,14 @@ function App() {
 						<Route path=':rallyId' element={<RallyPost />} />
 						<Route path='search' element={<RallySearchBoard />} />
 						<Route path='write' element={<WriteRallyPost />} />
-						<Route path=':rallyId/edit' element={<ModifyRallyPost/>} />
+						<Route path=':rallyId/edit' element={<ModifyRallyPost />} />
 					</Route>
 					<Route path='review'>
 						<Route index element={<ReviewBoard />} />
 						<Route path=':reviewId' element={<ReviewPost />} />
 						<Route path='search' element={<ReviewSearchBoard />} />
 						<Route path='write' element={<WriteReviewPost />} />
-						<Route path=':reviewId/edit' element={<ReviewEdit/>}/>
+						<Route path=':reviewId/edit' element={<ReviewEdit />} />
 					</Route>
 					<Route path='notice' element={<Notice />} />
 					<Route path='qna'>
@@ -60,12 +60,12 @@ function App() {
 						<Route path=':qnaId/edit' element={< EditQnA />} />
 					</Route>
 					<Route path='mypage' element={<MyPage />} />
-					<Route path='login' element={<Login />} />
-					<Route path='oauth' element={<Oauth/>}/>
-					<Route path='oauth1' element={<Oauth1/>} />
 				</Route>
+				<Route path='/login' element={<Login />} />
+				<Route path='/oauth' element={<Oauth />} />
+				<Route path='/oauth1' element={<Oauth1 />} />
 				<Route path='/popup'>
-					<Route path='initial' element={<InitialPopUp/>}/>
+					<Route path='initial' element={<InitialPopUp />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

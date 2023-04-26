@@ -11,17 +11,17 @@ const NAVER_AUTH_URI = `https://nid.naver.com/oauth2.0/authorize?response_type=c
 
 const loginHandler = (platform) => {
 
-    switch(platform) {
-        case 'N' :
+    switch (platform) {
+        case 'N':
             window.location.href = NAVER_AUTH_URI;
             break;
-        case 'K' :
+        case 'K':
             window.location.href = KAKAO_AUTH_URI;
             break;
     }
 }
 
-function Login() {
+function Login() {    
 
     return (
         <main className={style.Container}>

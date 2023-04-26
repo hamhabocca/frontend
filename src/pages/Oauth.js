@@ -19,8 +19,6 @@ function Oauth() {
             dispatch(callKakaoLoginAPI(code));
 
             if(loginStatus) {
-
-                console.log(loginStatus)
                 
             } else {
                 alert("로그인에 실패하였습니다.")
