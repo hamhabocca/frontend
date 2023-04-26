@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { callKakaoLoginAPI } from "../apis/LoginAPICalls";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from '../components/commons/Loading';
 
 function Oauth() {
 
@@ -11,26 +12,30 @@ function Oauth() {
 
     const dispatch = useDispatch();
 
-    const loginStatus = useSelector(state => state.memberReducer);
+    const loginStatus = useSelector(state => state.loginReducer);
+
+    const loading = useSelector(state => state.loadingReducer);
 
     useEffect(
         () => {
 
             dispatch(callKakaoLoginAPI(code));
 
-            if(loginStatus) {
-                
-            } else {
-                alert("로그인에 실패하였습니다.")
-            }
-            navigate("/", {replace: true});
         }
     )
 
-return (
-    <>
-    </>
-)
+    return (
+        <>
+            <div>
+                {loading ? <Loading /> :
+                    <>
+                        <h6>로그인 완료!</h6>
+                        {loginStatus && <NavLink to='/'>메인으로 돌아가기</NavLink>}
+                    </>
+                }
+            </div>
+        </>
+    )
 
 }
 
