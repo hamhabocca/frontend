@@ -24,7 +24,7 @@ function Home() {
     }
 
     const location = useLocation();
-    const code = location.search;
+    const code = location.hash;
 
     console.log(code);
 
