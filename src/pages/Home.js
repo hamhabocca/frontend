@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { callRallyListAPI } from '../apis/RallyAPICalls';
 import { getCurrentMember } from '../apis/MemberAPICalls';
 import ModalNickname from '../components/modals/ModalNickname';
+import { callKakaoLoginAPI } from '../apis/LoginAPICalls';
 
 function Home() {
 
@@ -26,10 +27,15 @@ function Home() {
     const location = useLocation();
     const code = location.hash;
 
-    console.log(code);
-
     useEffect(
         () => {
+
+            if(code) {
+                let toOauth = code.slice(code.indexOf("/") + 1);
+                console.log(toOauth);
+                // dispatch(callKakaoLoginAPI(toOauth));
+            }
+
             if (window.localStorage.getItem('jwtToken')) {
                 dispatch(getCurrentMember());
             }
