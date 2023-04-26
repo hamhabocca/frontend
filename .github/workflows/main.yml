@@ -19,6 +19,14 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
+            
+      - name: Generate Environment Variables File for Production  # 환경 변수 파일 생성
+        run: |
+          echo "REACT_APP_KAKAO_REST_API_KEY=$REACT_APP_KAKAO_REST_API_KEY">> .env.production
+          echo "REACT_APP_KAKAO_JS_KEY=$REACT_APP_KAKAO_JS_KEY" >> .env.production
+        env:
+          REACT_APP_KAKAO_REST_API_KEY: ${{ secrets.REACT_APP_KAKAO_REST_API_KEY }}
+          REACT_APP_KAKAO_JS_KEY: ${{ secrets.REACT_APP_KAKAO_JS_KEY }}
 
       - name: Install Dependencies    # 의존 파일 설치
         run: npm install
