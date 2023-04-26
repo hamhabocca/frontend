@@ -24,17 +24,8 @@ function Home() {
         window.location.replace("/notice");
     }
 
-    const location = useLocation();
-    const code = location.hash;
-
     useEffect(
         () => {
-
-            if(code) {
-                let toOauth = code.slice(code.indexOf("=") + 1);
-                console.log(toOauth);
-                dispatch(callKakaoLoginAPI(toOauth));
-            }
 
             if (window.localStorage.getItem('jwtToken')) {
                 dispatch(getCurrentMember());

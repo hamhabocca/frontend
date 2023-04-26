@@ -60,10 +60,10 @@ function App() {
 						<Route path=':qnaId/edit' element={< EditQnA />} />
 					</Route>
 					<Route path='mypage' element={<MyPage />} />
+					<Route path='/login' element={<Login />} />
+					<Route path='/oauth' element={<Oauth />} />
+					<Route path='/oauth1' element={<Oauth1 />} />
 				</Route>
-				<Route path='/login' element={<Login />} />
-				<Route path='/oauth' element={<Oauth />} />
-				<Route path='/oauth1' element={<Oauth1 />} />
 				<Route path='/popup'>
 					<Route path='initial' element={<InitialPopUp />} />
 				</Route>
