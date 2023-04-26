@@ -32,17 +32,17 @@ function Home() {
             }
             dispatch(callRallyListAPI({ currentPage: currentPage }));
 
-            if (!HAS_VISITED_BEFORE || HAS_VISITED_BEFORE < new Date()) {
+            // if (!HAS_VISITED_BEFORE || HAS_VISITED_BEFORE < new Date()) {
 
-                popUp();
-            }
+            //     popUp();
+            // }
         },
         []
     );
 
-    const popUp = () => {
-        window.open("http://dallibocca.site/popup/initial", "_blank", "popup,width=520,height=860");
-    }
+    // const popUp = () => {
+    //     window.open("http://dallibocca.site/popup/initial", "_blank", "popup,width=520,height=860");
+    // }
 
     return (
         <>
