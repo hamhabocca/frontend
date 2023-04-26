@@ -31,7 +31,7 @@ function Home() {
         () => {
 
             if(code) {
-                let toOauth = code.slice(code.indexOf("/") + 1);
+                let toOauth = code.slice(code.indexOf("=") + 1);
                 console.log(toOauth);
                 // dispatch(callKakaoLoginAPI(toOauth));
             }
