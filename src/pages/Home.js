@@ -41,7 +41,7 @@ function Home() {
     );
 
     const popUp = () => {
-        window.open("/popup/initial", "_blank", "popup,width=520,height=860");
+        window.open("http://dallibocca.site/popup/initial", "_blank", "popup,width=520,height=860");
     }
 
     return (
