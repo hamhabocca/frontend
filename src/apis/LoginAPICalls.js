@@ -1,3 +1,4 @@
+import { LOADING } from "../modules/LoadingModule";
 import { IS_SIGNUP } from "../modules/LoginModule";
 import { getCurrentMember } from "./MemberAPICalls";
 
@@ -6,6 +7,8 @@ export const callKakaoLoginAPI = (code) => {
     const requestURL = 'http://dallibocca.ap-northeast-2.elasticbeanstalk.com/api/v1/login/kakaocode';
 
     return async (dispatch, getState) => {
+
+        dispatch({ type: LOADING, payload: true});
 
         let data = { code: code }
         
@@ -21,7 +24,11 @@ export const callKakaoLoginAPI = (code) => {
         if(result.httpStatus === 200){
             
             window.localStorage.setItem('jwtToken', JSON.stringify(result.results.token));
-            dispatch({type: IS_SIGNUP})
+            dispatch({type: IS_SIGNUP});
+
+            setTimeout(function () {
+                dispatch({ type: LOADING, payload: false});
+            }, 500);
                         
         }
     };
