@@ -110,7 +110,7 @@ function RallyPost() {
 
             switch (RALLY_STATUS) {
                 case "완주!":
-                    return (<button className={style.edit} onClick={() => { navigate(`/rally/${rallyId}/write`, { replace: true }); }}>수정</button>);
+                    return (<button className={style.edit} onClick={() => { navigate(`/rally/${rallyId}/edit`, { replace: true }); }}>수정</button>);
 
                 case "취소됨":
                     return (<></>);
@@ -119,7 +119,7 @@ function RallyPost() {
                         <>
                             <button onClick={() => { dispatch({ type: OPEN_CANCEL_RALLY }) }} className={style.report}>랠리취소</button>
                             {cancelRallyModal && <ModalRallyCancel rally={rally} />}
-                            <button className={style.edit} onClick={() => { navigate(`/rally/${rallyId}/write`, { replace: true }); }}>수정</button>
+                            <button className={style.edit} onClick={() => { navigate(`/rally/${rallyId}/edit`, { replace: true }); }}>수정</button>
                         </>
                     );
             }

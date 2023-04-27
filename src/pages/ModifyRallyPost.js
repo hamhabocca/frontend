@@ -75,7 +75,7 @@ function ModifyRallyPost() {
         dispatch(callModifyRallyAPI({ form: formData, rallyId: rallyId }));
         dispatch(reset_state());
 
-        alert('새로고침 합니다');
+        alert('랠리글을 수정하였습니다.');
         navigate(`/rally/${rallyId}`, { replace: true });
         window.location.reload();
     };

@@ -65,6 +65,7 @@ function WriteRallyPost() {
 
         dispatch(callPostRallyAPI({ form: formData }));
         dispatch(reset_state());
+        alert('모집 게시판으로 이동합니다.');
         navigate('/rally', { replace: true });
         window.location.reload();
     };
