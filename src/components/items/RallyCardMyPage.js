@@ -20,6 +20,22 @@ function RallyCardMyPage({ rally, typeOfList }) {
             
             if(isAccepted === "Y") {
                 approval = "승인됨";
+
+                switch (rallyStatus) {
+                    case "완주!":
+                        return  <Link to={`/review/write?rallyid=${rally.rallyId}`} style={{ color: 'white', textDecoration: 'none' }}>
+                                    <button className={style.button} style={{ background: '#056DFA' }}>
+                                        후기 작성
+                                    </button>
+                                </Link>;
+                    case "모집중":
+                        return <button className={style.button} style={{ background: '#63AF73' }}>{approval}</button>;
+                    case "모집완료":
+                        return <button className={style.button} style={{ background: '#FF7A00' }}>모집완료</button>;
+                    case "취소됨":
+                        return <button className={style.button} style={{ background: '#D9D9D9' }}>취소됨</button>;
+                }
+
             } 
 
             switch (rallyStatus) {
@@ -34,6 +50,7 @@ function RallyCardMyPage({ rally, typeOfList }) {
                 case "취소됨":
                     return <button className={style.button} style={{ background: '#D9D9D9' }}>취소됨</button>;
             }
+
         }
 
         switch (rallyStatus) {
