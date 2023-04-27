@@ -153,7 +153,7 @@ function ModalProfile({ member }) {
                             </div>
                         </div>
                         <div className={styles.nickname}>
-                            <div className={styles.text1}>
+                            <div className={styles.checkResult}>
                                 <h6>{checkResultView}</h6>
                             </div>
                             <div>

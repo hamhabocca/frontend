@@ -88,6 +88,9 @@
 
 .nickname {
   padding-left: 24px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 }
 
 .textfield {
