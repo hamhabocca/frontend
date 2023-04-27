@@ -59,8 +59,8 @@ function EditQnA() {
 
         dispatch(callModifyRallyAPI({ form: formData, qnaId: qnaId }));
 
-        alert('건의글 메인페이지로 이동합니다.');
-        navigate('/qna', { replace: true });
+        alert('수정이 완료되었습니다.');
+        navigate(`/qna/${qnaId}`, { replace: true });
         window.location.reload();
     };
 
