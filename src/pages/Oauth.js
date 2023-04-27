@@ -26,7 +26,7 @@ function Oauth() {
 
     return (
         <>
-            <div>
+            <div style={{height: '100wh'}}>
                 {loading && <Loading />}
             </div>
         </>

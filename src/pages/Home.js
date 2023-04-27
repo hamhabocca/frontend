@@ -1,12 +1,11 @@
 import style from './Home.module.css';
 import RallCardMain from '../components/items/RallyCardMain';
 import { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { callRallyListAPI } from '../apis/RallyAPICalls';
 import { getCurrentMember } from '../apis/MemberAPICalls';
 import ModalNickname from '../components/modals/ModalNickname';
-import { callKakaoLoginAPI } from '../apis/LoginAPICalls';
 
 function Home() {
 
@@ -32,17 +31,17 @@ function Home() {
             }
             dispatch(callRallyListAPI({ currentPage: currentPage }));
 
-            // if (!HAS_VISITED_BEFORE || HAS_VISITED_BEFORE < new Date()) {
+            if (!HAS_VISITED_BEFORE || HAS_VISITED_BEFORE < new Date()) {
 
-            //     popUp();
-            // }
+                popUp();
+            }
         },
         []
     );
 
-    // const popUp = () => {
-    //     window.open("http://dallibocca.site/popup/initial", "_blank", "popup,width=520,height=860");
-    // }
+    const popUp = () => {
+        window.open("/popup/initial", "_blank", "popup,width=520,height=860");
+    }
 
     return (
         <>
