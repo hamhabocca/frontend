@@ -54,7 +54,7 @@ function ReviewBoard() {
                 </article>
 
                 <article className={style.list}>
-                    {Array.isArray(reviewList) && <ReviewList reviewList={reviewList} />}
+                    {Array.isArray(reviewList) && <ReviewList reviewList={reviewList.reverse()} />}
                 </article>
 
                 <article className={style.pagination}>
