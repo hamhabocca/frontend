@@ -89,7 +89,7 @@ export const callPostRallyAPI = ({ form }) => {
             .then(response => response.json());
 
         if (result.status === 500) {
-            alert(result.message);
+            alert('랠리 모집은 3개까지만 가능합니다\n기존 랠리를 완주 후 모집해주세요');
         }
     };
 }
